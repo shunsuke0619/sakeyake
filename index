@@ -1,80 +1,419 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>さけやけ</title><link rel="icon" href="icon.jpg"><link rel="apple-touch-icon" href="icon.jpg"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>さけやけ｜日本酒フォトログ</title>
+<link rel="icon" href="icon.jpg">
+<link rel="apple-touch-icon" href="icon.jpg">
 <style>
-*{box-sizing:border-box}body{margin:0;padding:0 0 75px;font-family:sans-serif;background:#f7f5f0;color:#2c2a29}
-header{background:#fff;border-bottom:1px solid #e5e0d8;padding:12px;position:sticky;top:0;display:flex;align-items:center;justify-content:center;gap:8px;z-index:10}
-header img{width:28px;height:28px;border-radius:6px;object-fit:cover}header h1{margin:0;font-size:1.2rem;letter-spacing:.1em}
-.wrap{max-width:480px;margin:0 auto;padding:14px}.note{font-size:.78rem;color:#666;background:#efeae1;padding:10px;border-radius:10px;margin-bottom:12px}
-.box{background:#fff;border-radius:14px;padding:14px;border:1px solid #e5e0d8;margin-bottom:14px}.fg{margin-bottom:10px}
-label{display:block;font-size:.82rem;font-weight:700;margin-bottom:4px}input,select,textarea{width:100%;padding:9px;border:1px solid #d5cfc7;border-radius:8px;font-size:1rem;background:#faf9f6}
-textarea{resize:none;height:80px}.up{display:block;text-align:center;padding:11px;border:1.5px dashed #b8b0a4;border-radius:10px;background:#faf8f5;font-weight:700;cursor:pointer}
-.ths{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.tb{border:2px solid transparent;border-radius:8px;padding:6px 2px;background:#f5f3ef;font-size:.72rem;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
-.tb.on{border-color:#3d5a73;background:#eef3f7}.sw{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
-#prev{width:100%;max-width:340px;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.12);display:block;margin:10px auto}
-.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}.btn{border:none;border-radius:10px;padding:12px;font-size:.88rem;font-weight:700;cursor:pointer}
-.b1{background:#2f4858;color:#fff}.b2{background:#e8e2d7;color:#2c2a29}.b3{width:100%;background:#7c5c43;color:#fff}
-.pg{background:#fff;border-radius:12px;border:1px solid #e5e0d8;margin-bottom:10px;overflow:hidden}.ph{padding:12px;background:#f2eee6;font-weight:700;display:flex;justify-content:space-between;cursor:pointer}
-.pgr{padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px}.si{border:1px solid #e5e0d8;border-radius:8px;overflow:hidden}.si img{width:100%;display:block}
-.sa{display:flex;justify-content:space-between;padding:5px 8px;font-size:.75rem;background:#fff}
-nav{position:fixed;bottom:0;left:0;right:0;height:60px;background:#fff;border-top:1px solid #e5e0d8;display:grid;grid-template-columns:1fr 1fr}
-.nb{border:none;background:none;font-weight:700;color:#8c867e;font-size:.8rem;cursor:pointer}.nb.on{color:#2f4858}.hide{display:none!important}
-.mod{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}.mod img{max-width:100%;max-height:75vh;border-radius:10px;margin-bottom:12px}
+  :root {
+    --bg: #faf8f5;
+    --card: #ffffff;
+    --text: #3e3a39;
+    --sub: #7d7773;
+    --accent: #b88b76;
+    --accent-dark: #9c725e;
+    --border: #e6e0d8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif; }
+  body { background: var(--bg); color: var(--text); padding-bottom: 85px; -webkit-font-smoothing: antialiased; }
+  header { background: var(--card); text-align: center; padding: 14px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+  header h1 { font-size: 1.2rem; letter-spacing: 0.18em; font-weight: 600; color: var(--text); }
+  header p { font-size: 0.72rem; color: var(--sub); font-family: sans-serif; margin-top: 2px; }
+  .container { max-width: 500px; margin: 0 auto; padding: 16px; }
+  .section { display: none; }
+  .section.active { display: block; }
+  .box { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+  .label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text); font-family: sans-serif; }
+  .file-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; background: #f3efe9; border: 1.5px dashed var(--accent); border-radius: 10px; color: var(--text); font-size: 0.95rem; font-family: sans-serif; font-weight: 600; cursor: pointer; text-align: center; }
+  input[type="file"] { display: none; }
+  .themes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
+  .theme-btn { padding: 8px 4px; border-radius: 8px; border: 2px solid transparent; font-size: 0.78rem; font-family: sans-serif; cursor: pointer; text-align: center; font-weight: 600; }
+  .theme-btn.active { border-color: var(--text); }
+  .t-beige { background: #f4eee6; color: #4a423b; }
+  .t-green { background: #e3ebe6; color: #35473d; }
+  .t-ai { background: #26394d; color: #f5f7f8; }
+  .t-sakura { background: #f9ecef; color: #5c3a41; }
+  input[type="text"], input[type="date"], select, textarea {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px;
+    font-size: 0.95rem; background: #fff; color: var(--text); font-family: sans-serif; margin-bottom: 12px;
+  }
+  textarea { resize: none; height: 86px; line-height: 1.5; }
+  .preview-wrap { text-align: center; }
+  .preview-note { font-size: 0.75rem; color: var(--sub); font-family: sans-serif; margin-bottom: 8px; }
+  #previewImg { width: 100%; max-width: 360px; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.1); display: inline-block; vertical-align: middle; }
+  .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+  .btn { width: 100%; padding: 13px; border-radius: 10px; border: none; font-size: 0.95rem; font-weight: 600; font-family: sans-serif; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-secondary { background: #efeae2; color: var(--text); }
+  .btn-save { background: #4c6457; color: #fff; }
+  .pref-group { margin-bottom: 18px; }
+  .pref-title { font-size: 0.95rem; font-weight: 600; padding: 6px 10px; background: #efeae2; border-radius: 6px; margin-bottom: 10px; display: flex; justify-content: space-between; font-family: sans-serif; }
+  .record-card { display: flex; gap: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 10px; align-items: center; }
+  .record-thumb { width: 72px; height: 90px; object-fit: cover; border-radius: 6px; flex-shrink: 0; background: #eee; }
+  .record-info { flex: 1; min-width: 0; font-family: sans-serif; }
+  .record-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .record-date { font-size: 0.75rem; color: var(--sub); margin-bottom: 4px; }
+  .record-memo { font-size: 0.8rem; color: var(--text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .del-btn { background: none; border: 1px solid #d9c8c0; color: #9e6b63; font-size: 0.72rem; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-family: sans-serif; }
+  .empty-msg { text-align: center; color: var(--sub); font-size: 0.88rem; padding: 40px 10px; font-family: sans-serif; }
+  nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--border); display: flex; height: 64px; z-index: 20; padding-bottom: env(safe-area-inset-bottom); }
+  .nav-btn { flex: 1; border: none; background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--sub); font-family: sans-serif; cursor: pointer; gap: 3px; }
+  .nav-btn.active { color: var(--accent-dark); font-weight: 700; }
+  .nav-icon { font-size: 1.25rem; }
 </style>
 </head>
 <body>
-<header><img src="icon.jpg" onerror="this.style.display='none'"><h1>さけやけ</h1></header>
-<main id="v1" class="wrap">
-<div class="note">写真と文字を入れるとカード画像ができます。写真はこの端末の中だけで処理されます。</div>
-<div class="box">
-<div class="fg"><label>1. 日本酒の写真</label><label for="ph" class="up">📷 写真を選ぶ・撮影する</label><input type="file" id="ph" accept="image/*" style="display:none"></div>
-<div class="fg"><label>2. 背景デザイン</label><div class="ths">
-<button type="button" class="tb on" data-t="bg"><span class="sw" style="background:#f5efe4"></span>ベージュ</button>
-<button type="button" class="tb" data-t="gr"><span class="sw" style="background:#e3ebe6"></span>くすみ緑</button>
-<button type="button" class="tb" data-t="in"><span class="sw" style="background:#233347"></span>藍</button>
-<button type="button" class="tb" data-t="sk"><span class="sw" style="background:#f8eaed"></span>さくら</button>
-</div></div>
-<div class="fg"><label>3. 銘柄名</label><input id="nm" placeholder="例：而今 / 獺祭 / 鍋島" maxlength="24"></div>
-<div class="fg"><label>4. 都道府県</label><select id="pf"><option value="">都道府県を選択</option><option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option><option>秋田県</option><option>山形県</option><option>福島県</option><option>茨城県</option><option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option><option>東京都</option><option>神奈川県</option><option>新潟県</option><option>富山県</option><option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option><option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option><option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option><option>奈良県</option><option>和歌山県</option><option>鳥取県</option><option>島根県</option><option>岡山県</option><option>広島県</option><option>山口県</option><option>徳島県</option><option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option><option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option><option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option></select></div>
-<div class="fg"><label>5. 日付</label><input type="date" id="dt"></div>
-<div class="fg"><label>6. メモ（120文字まで）</label><textarea id="mm" maxlength="120" placeholder="味わいや思い出など"></textarea></div>
+
+<header>
+  <h1>さけやけ</h1>
+  <p>一杯の記憶を、和のカードに</p>
+</header>
+
+<div class="container">
+  <!-- 1. カード作成画面 -->
+  <div id="tab-create" class="section active">
+    <div class="box">
+      <label class="label">1. 日本酒の写真を選ぶ</label>
+      <label for="photoInput" class="file-btn">📷 写真を選択 / カメラで撮影</label>
+      <input type="file" id="photoInput" accept="image/*">
+    </div>
+
+    <div class="box">
+      <label class="label">2. カードの背景色</label>
+      <div class="themes" id="themeSelector">
+        <button type="button" class="theme-btn t-beige active" data-theme="beige">ベージュ</button>
+        <button type="button" class="theme-btn t-green" data-theme="green">くすみ緑</button>
+        <button type="button" class="theme-btn t-ai" data-theme="ai">藍</button>
+        <button type="button" class="theme-btn t-sakura" data-theme="sakura">さくら</button>
+      </div>
+    </div>
+
+    <div class="box">
+      <label class="label">3. 銘柄名</label>
+      <input type="text" id="brandInput" placeholder="例：獺祭 純米大吟醸" maxlength="30">
+
+      <label class="label">4. 都道府県</label>
+      <select id="prefSelect"></select>
+
+      <label class="label">5. 飲んだ日</label>
+      <input type="date" id="dateInput">
+
+      <label class="label">6. ひとことメモ（120文字まで）</label>
+      <textarea id="memoInput" maxlength="120" placeholder="香りや味わい、一緒に食べた料理など"></textarea>
+    </div>
+
+    <div class="box preview-wrap">
+      <p class="preview-note">▼ 完成カード（長押しでも写真保存できます）</p>
+      <img id="previewImg" alt="カードプレビュー">
+      <canvas id="cardCanvas" width="900" height="1200" style="display:none;"></canvas>
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary" id="shareBtn">📤 写真に保存 / SNSシェア</button>
+        <button type="button" class="btn btn-secondary" id="downloadBtn">⬇️ 画像をダウンロード</button>
+        <button type="button" class="btn btn-save" id="saveListBtn">🍶 県別一覧に記録を残す</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 県別一覧画面 -->
+  <div id="tab-list" class="section">
+    <div id="listContainer"></div>
+  </div>
 </div>
-<canvas id="cv" width="900" height="1280" class="hide"></canvas><img id="prev" alt="プレビュー">
-<div class="btns"><button type="button" class="btn b1" id="shB">📤 写真に保存/シェア</button><button type="button" class="btn b2" id="dlB">⬇️ ダウンロード</button></div>
-<button type="button" class="btn b3" id="rcB">🍶 県別一覧に記録を残す</button>
-</main>
-<main id="v2" class="wrap hide"><div id="lb"></div></main>
-<nav><button type="button" class="nb on" data-v="v1">🍶 カードをつくる</button><button type="button" class="nb" data-v="v2">🗾 県別一覧 (<span id="cn">0</span>)</button></nav>
-<div id="md" class="mod hide"><img id="mi"><button type="button" class="btn b2" onclick="document.getElementById('md').classList.add('hide')">閉じる</button></div>
+
+<nav>
+  <button type="button" class="nav-btn active" data-target="tab-create">
+    <span class="nav-icon">🖋️</span>
+    <span>カードをつくる</span>
+  </button>
+  <button type="button" class="nav-btn" data-target="tab-list">
+    <span class="nav-icon">🗾</span>
+    <span>県別一覧 (<span id="totalCount">0</span>)</span>
+  </button>
+</nav>
+
 <script>
-const TH={bg:{b:"#f6f0e4",f:"#d4c8b4",t:"#2c2825",s:"#6e655c",g:"#e8decb",gt:"#4a4036",p:"#ebe3d3"},gr:{b:"#e5ede8",f:"#b4c7bc",t:"#23332b",s:"#556b60",g:"#d2e0d7",gt:"#2c4237",p:"#d7e3dc"},in:{b:"#1e2d40",f:"#bfa46f",t:"#f7f3eb",s:"#c9c2b5",g:"#2d4159",gt:"#e6cfa1",p:"#293b52"},sk:{b:"#faecef",f:"#e3c3ca",t:"#38282c",s:"#7a6066",g:"#f2dce1",gt:"#5e3d45",p:"#f2dfe3"}};
-let cT="bg",uI=null,dU="";const pS=document.getElementById("pf"),d=new Date();
-document.getElementById("dt").value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-document.querySelectorAll(".tb").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tb").forEach(x=>x.classList.remove("on"));b.classList.add("on");cT=b.dataset.t;drw()});
-document.getElementById("ph").onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=v=>{let i=new Image();i.onload=()=>{uI=i;drw()};i.src=v.target.result};r.readAsDataURL(f)};
-["nm","pf","dt","mm"].forEach(i=>document.getElementById(i).oninput=drw);
-function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
-function drw(){
-const c=document.getElementById("cv"),x=c.getContext("2d"),t=TH[cT],W=900,H=1280;x.fillStyle=t.b;x.fillRect(0,0,W,H);x.strokeStyle=t.f;x.lineWidth=3;x.strokeRect(36,36,W-72,H-72);
-const pX=76,pY=82,pW=W-152,pH=660;x.save();rr(x,pX,pY,pW,pH,16);x.clip();
-if(uI){let ir=uI.width/uI.height,br=pW/pH,dw,dh,ox,oy;if(ir>br){dh=pH;dw=pH*ir;ox=pX-(dw-pW)/2;oy=pY}else{dw=pW;dh=pW/ir;ox=pX;oy=pY-(dh-pH)/2}x.drawImage(uI,ox,oy,dw,dh)}
-else{x.fillStyle=t.p;x.fillRect(pX,pY,pW,pH);x.fillStyle=t.s;x.font="700 28px sans-serif";x.textAlign="center";x.fillText("ここに日本酒の写真が入ります",W/2,pY+pH/2)}x.restore();
-const pv=pS.value||"産地未選択",dv=document.getElementById("dt").value.replace(/-/g,".");x.font="700 26px sans-serif";const tw=x.measureText(pv).width+44;x.fillStyle=t.g;rr(x,pX,774,tw,48,24);x.fill();
-x.fillStyle=t.gt;x.textAlign="left";x.fillText(pv,pX+22,807);x.fillStyle=t.s;x.textAlign="right";x.fillText(dv,W-pX,807);
-x.fillStyle=t.t;x.font="700 46px serif";x.textAlign="left";x.fillText(document.getElementById("nm").value.trim()||"日本酒の銘柄名",pX,888,pW);
-x.strokeStyle=t.f;x.beginPath();x.moveTo(pX,916);x.lineTo(W-pX,916);x.stroke();
-const m=document.getElementById("mm").value||"ここに味わいや思い出メモが入ります。";x.fillStyle=t.t;x.font="400 28px sans-serif";
-let lc=0;for(const p of m.split("\n")){let l="";for(const ch of p){if(x.measureText(l+ch).width>pW&&l){x.fillText(l,pX,968+lc*44);l=ch;if(++lc>=5)break}else l+=ch}if(lc<5){x.fillText(l,pX,968+lc*44);lc++}}
-x.fillStyle=t.s;x.font="700 24px serif";x.textAlign="right";x.fillText("さけやけ",W-pX,H-64);dU=c.toDataURL("image/png");document.getElementById("prev").src=dU}
-document.getElementById("shB").onclick=async()=>{try{const b=await(await fetch(dU)).blob(),f=new File([b],"sakeyake.png",{type:"image/png"});if(navigator.canShare&&navigator.canShare({files:[f]}))await navigator.share({files:[f]});else alert("画像を長押しして保存してください")}catch{}};
-document.getElementById("dlB").onclick=()=>{let a=document.createElement("a");a.href=dU;a.download=`sakeyake_${Date.now()}.png`;a.click()};
-const K="sy_v1",gS=()=>{try{return JSON.parse(localStorage.getItem(K))||[]}catch{return[]}},sS=c=>{localStorage.setItem(K,JSON.stringify(c));document.getElementById("cn").textContent=c.length};
-document.getElementById("rcB").onclick=()=>{let p=pS.value||"未分類",c=gS();c.unshift({id:Date.now(),p,i:document.getElementById("cvs").toDataURL("image/jpeg",.8)});try{sS(c);alert(`${p}の一覧に保存しました！`)}catch{alert("容量がいっぱいです")}};
-function rL(){const b=document.getElementById("lb"),c=gS();b.innerHTML=c.length?"":"まだ記録がありません。";const g={};c.forEach(x=>(g[x.p]=g[x.p]||[]).push(x));Object.keys(g).forEach(p=>{let d=document.createElement("div");d.className="pg";d.innerHTML=<div class="ph"><span>${p}</span><span>${g[p].length}件</span></div><div class="pgr"></div>;let gr=d.querySelector(".pgr");g[p].forEach(it=>{let e=document.createElement("div");e.className="si";e.innerHTML=<img src="${it.i}"><div class="sa"><span style="color:#2f4858;font-weight:700;cursor:pointer">拡大</span><span style="color:#b54949;cursor:pointer">削除</span></div>;e.querySelector("img").onclick=e.querySelector("span").onclick=()=>{document.getElementById("mi").src=it.i;document.getElementById("md").classList.remove("hide")};e.querySelectorAll("span")[1].onclick=()=>{if(confirm("削除しますか？")){sS(gS().filter(x=>x.id!==it.id));rL()}};gr.appendChild(e)});b.appendChild(d)})}
-document.querySelectorAll(".nb").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nb").forEach(x=>x.classList.remove("on"));b.classList.add("on");let v=b.dataset.v;document.getElementById("v1").classList.toggle("hide",v!=="v1");document.getElementById("v2").classList.toggle("hide",v!=="v2");if(v==="v2")rL()});
-drw();document.getElementById("cn").textContent=gS().length;
+(function() {
+  const PREFS = [
+    "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
+    "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+    "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県",
+    "静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県",
+    "奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県",
+    "徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県",
+    "熊本県","大分県","宮崎県","鹿児島県","沖縄県"
+  ];
+
+  const THEMES = {
+    beige:  { bg: "#f4eee6", frame: "#dfd5c7", text: "#3e362e", sub: "#7a6f64", accent: "#b88b76" },
+    green:  { bg: "#e3ebe6", frame: "#c5d4cb", text: "#2c3d34", sub: "#5e7368", accent: "#6b8f7b" },
+    ai:     { bg: "#223344", frame: "#3b526b", text: "#f4f6f8", sub: "#b8c4d0", accent: "#c8a97e" },
+    sakura: { bg: "#f9ecef", frame: "#e6cdd3", text: "#4d3036", sub: "#8a626b", accent: "#c97b8b" }
+  };
+
+  let currentTheme = "beige";
+  let uploadedImage = null;
+
+  const photoInput = document.getElementById("photoInput");
+  const brandInput = document.getElementById("brandInput");
+  const prefSelect = document.getElementById("prefSelect");
+  const dateInput = document.getElementById("dateInput");
+  const memoInput = document.getElementById("memoInput");
+  const canvas = document.getElementById("cardCanvas");
+  const ctx = canvas.getContext("2d");
+  const previewImg = document.getElementById("previewImg");
+
+  // 初期化
+  PREFS.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p;
+    opt.textContent = p;
+    prefSelect.appendChild(opt);
+  });
+  prefSelect.value = "東京都";
+  dateInput.value = new Date().toISOString().split("T")[0];
+
+  // 写真選択処理（iPhoneの高解像度写真でも確実に読み込む）
+  photoInput.addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const img = new Image();
+      img.onload = function() {
+        uploadedImage = img;
+        drawCard();
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // テーマ切り替え
+  document.getElementById("themeSelector").addEventListener("click", function(e) {
+    const btn = e.target.closest(".theme-btn");
+    if (!btn) return;
+    document.querySelectorAll(".theme-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentTheme = btn.dataset.theme;
+    drawCard();
+});
+// 入力リアルタイム反映
+[brandInput, prefSelect, dateInput, memoInput].forEach(el => {
+el.addEventListener("input", drawCard);
+el.addEventListener("change", drawCard);
+});
+// Canvas描画
+function drawCard() {
+const t = THEMES[currentTheme];
+const W = canvas.width;
+const H = canvas.height;
+// 背景
+ctx.fillStyle = t.bg;
+ctx.fillRect(0, 0, W, H);
+// 外枠線
+ctx.strokeStyle = t.frame;
+ctx.lineWidth = 6;
+ctx.strokeRect(32, 32, W - 64, H - 64);
+// 写真エリア
+const px = 75, py = 75, pw = 750, ph = 600;
+ctx.fillStyle = t.frame;
+ctx.fillRect(px, py, pw, ph);
+if (uploadedImage) {
+const ir = uploadedImage.width / uploadedImage.height;
+const br = pw / ph;
+let sx = 0, sy = 0, sw = uploadedImage.width, sh = uploadedImage.height;
+if (ir > br) {
+sw = uploadedImage.height * br;
+sx = (uploadedImage.width - sw) / 2;
+} else {
+sh = uploadedImage.width / br;
+sy = (uploadedImage.height - sh) / 2;
+}
+ctx.drawImage(uploadedImage, sx, sy, sw, sh, px, py, pw, ph);
+} else {
+ctx.fillStyle = t.sub;
+ctx.font = "28px sans-serif";
+ctx.textAlign = "center";
+ctx.fillText("ここに日本酒の写真が入ります", W / 2, py + ph / 2);
+}
+// 都道府県バッジ & 日付
+ctx.textAlign = "left";
+ctx.fillStyle = t.accent;
+ctx.font = "bold 28px sans-serif";
+ctx.fillText("📍 " + prefSelect.value, 75, 735);
+ctx.textAlign = "right";
+ctx.fillStyle = t.sub;
+ctx.font = "26px sans-serif";
+ctx.fillText(dateInput.value.replace(/-/g, "."), W - 75, 735);
+// 銘柄名
+ctx.textAlign = "left";
+ctx.fillStyle = t.text;
+ctx.font = "bold 46px serif";
+const brand = brandInput.value.trim() || "銘柄名を入力";
+ctx.fillText(brand.slice(0, 16), 75, 805);
+// 区切り線
+ctx.strokeStyle = t.frame;
+ctx.lineWidth = 2;
+ctx.beginPath();
+ctx.moveTo(75, 835);
+ctx.lineTo(W - 75, 835);
+ctx.stroke();
+// メモ（最大5行折り返し）
+ctx.fillStyle = t.text;
+ctx.font = "28px sans-serif";
+const memo = memoInput.value || "ひとことメモがここに表示されます。";
+wrapText(ctx, memo, 75, 885, W - 150, 44, 5);
+// ウォーターマーク
+ctx.textAlign = "right";
+ctx.fillStyle = t.sub;
+ctx.font = "22px serif";
+ctx.fillText("さけやけ", W - 75, H - 55);
+// imgタグへ反映
+previewImg.src = canvas.toDataURL("image/jpeg", 0.92);
+}
+function wrapText(context, text, x, y, maxWidth, lineHeight, maxLines) {
+const paragraphs = text.split("\n");
+let lineCount = 0;
+for (let p = 0; p < paragraphs.length; p++) {
+const chars = paragraphs[p].split("");
+let line = "";
+for (let n = 0; n < chars.length; n++) {
+const testLine = line + chars[n];
+if (context.measureText(testLine).width > maxWidth && n > 0) {
+context.fillText(line, x, y + lineCount * lineHeight);
+line = chars[n];
+lineCount++;
+if (lineCount >= maxLines) return;
+} else {
+line = testLine;
+}
+}
+context.fillText(line, x, y + lineCount * lineHeight);
+lineCount++;
+if (lineCount >= maxLines) return;
+}
+}
+// Web Share API（写真に保存・SNSシェア）
+document.getElementById("shareBtn").addEventListener("click", async function() {
+canvas.toBlob(async function(blob) {
+const file = new File([blob], "sakeyake_card.jpg", { type: "image/jpeg" });
+if (navigator.canShare && navigator.canShare({ files: [file] })) {
+try {
+await navigator.share({
+files: [file],
+title: "さけやけ｜日本酒の記録"
+});
+} catch (err) {
+if (err.name !== "AbortError") alert("シェアに失敗しました。画像を長押しして保存してください。");
+}
+} else {
+alert("お使いのブラウザは直接シェアに対応していません。上のカード画像を長押しして『写真に保存』してください。");
+}
+}, "image/jpeg", 0.92);
+});
+// ダウンロード
+document.getElementById("downloadBtn").addEventListener("click", function() {
+const link = document.createElement("a");
+link.download = "sakeyake_" + dateInput.value + ".jpg";
+link.href = canvas.toDataURL("image/jpeg", 0.92);
+link.click();
+});
+// localStorage 保存
+function getRecords() {
+try { return JSON.parse(localStorage.getItem("sakeyake_records") || "[]"); }
+catch (e) { return []; }
+}
+document.getElementById("saveListBtn").addEventListener("click", function() {
+const brand = brandInput.value.trim();
+if (!brand) {
+alert("銘柄名を入力してください。");
+return;
+}
+// 一覧保存用の軽量サムネイル生成
+const thumbCanvas = document.createElement("canvas");
+thumbCanvas.width = 240;
+thumbCanvas.height = 320;
+thumbCanvas.getContext("2d").drawImage(canvas, 0, 0, 240, 320);
+const records = getRecords();
+records.unshift({
+id: Date.now(),
+brand: brand,
+pref: prefSelect.value,
+date: dateInput.value,
+memo: memoInput.value,
+thumb: thumbCanvas.toDataURL("image/jpeg", 0.75)
+});
+try {
+localStorage.setItem("sakeyake_records", JSON.stringify(records));
+updateCount();
+alert("「" + prefSelect.value + "」の記録に保存しました！");
+} catch (e) {
+alert("保存容量がいっぱいです。不要な記録を削除してください。");
+}
+});
+// 県別一覧描画
+function renderList() {
+const records = getRecords();
+const container = document.getElementById("listContainer");
+updateCount();
+if (records.length === 0) {
+container.innerHTML = 'まだ記録がありません。
+「カードをつくる」から最初の1杯を記録しましょう！';
+return;
+}
+const grouped = {};
+PREFS.forEach(p => { grouped[p] = []; });
+records.forEach(r => {
+if (!grouped[r.pref]) grouped[r.pref] = [];
+grouped[r.pref].push(r);
+});
+let html = "";
+PREFS.forEach(pref => {
+const items = grouped[pref];
+if (items.length === 0) return;
+html += <div class="pref-group"> <div class="pref-title"><span>📍 ${pref}</span><span>${items.length}件</span></div>;
+items.forEach(item => {
+html += <div class="record-card"> <img class="record-thumb" src="${item.thumb}" alt=""> <div class="record-info"> <div class="record-name">${escapeHtml(item.brand)}</div> <div class="record-date">${item.date}</div> <div class="record-memo">${escapeHtml(item.memo)}</div> </div> <button type="button" class="del-btn" data-id="${item.id}">削除</button> </div>;
+});
+html += </div>;
+});
+container.innerHTML = html;
+}
+document.getElementById("listContainer").addEventListener("click", function(e) {
+const btn = e.target.closest(".del-btn");
+if (!btn) return;
+if (!confirm("この記録を削除しますか？")) return;
+const id = Number(btn.dataset.id);
+const records = getRecords().filter(r => r.id !== id);
+localStorage.setItem("sakeyake_records", JSON.stringify(records));
+renderList();
+});
+function updateCount() {
+document.getElementById("totalCount").textContent = getRecords().length;
+}
+function escapeHtml(str) {
+return String(str).replace(/[&<>"']/g, s => ({
+"&": "&", "<": "<", ">": ">", '"': """, "'": "'"
+}[s]));
+}
+// 下部ナビ切り替え
+document.querySelectorAll(".nav-btn").forEach(btn => {
+btn.addEventListener("click", function() {
+document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+this.classList.add("active");
+const target = this.dataset.target;
+document.getElementById(target).classList.add("active");
+if (target === "tab-list") renderList();
+});
+});
+// 初回描画
+drawCard();
+updateCount();
+})();
  </script>
 </body>
 </html>
