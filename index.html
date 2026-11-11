@@ -72,7 +72,6 @@
 </header>
 
 <div class="container">
-  <!-- 1. カード作成画面 -->
   <div id="tab-create" class="section active">
     <div class="box">
       <label class="label">1. 日本酒の写真を選ぶ</label>
@@ -117,7 +116,6 @@
     </div>
   </div>
 
-  <!-- 2. 県別一覧画面 -->
   <div id="tab-list" class="section">
     <div id="listContainer"></div>
   </div>
@@ -165,20 +163,24 @@
   const ctx = canvas.getContext("2d");
   const previewImg = document.getElementById("previewImg");
 
-  // 初期化
-  PREFS.forEach(p => {
+  PREFS.forEach(function(p) {
     const opt = document.createElement("option");
     opt.value = p;
     opt.textContent = p;
     prefSelect.appendChild(opt);
   });
   prefSelect.value = "東京都";
-  dateInput.value = new Date().toISOString().split("T")[0];
 
-  // 写真選択処理（iPhoneの高解像度写真でも確実に読み込む）
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const dd = String(today.getDate()).padStart(2, "0");
+  dateInput.value = yyyy + "-" + mm + "-" + dd;
+
   photoInput.addEventListener("change", function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    const file = files.item(0);
     const reader = new FileReader();
     reader.onload = function(ev) {
       const img = new Image();
@@ -191,33 +193,29 @@
     reader.readAsDataURL(file);
   });
 
-  // テーマ切り替え
   document.getElementById("themeSelector").addEventListener("click", function(e) {
     const btn = e.target.closest(".theme-btn");
     if (!btn) return;
-    document.querySelectorAll(".theme-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    currentTheme = btn.dataset.theme;
-    drawCard();
+document.querySelectorAll(".theme-btn").forEach(function(b) {
+b.classList.remove("active");
 });
-// 入力リアルタイム反映
-[brandInput, prefSelect, dateInput, memoInput].forEach(el => {
+btn.classList.add("active");
+currentTheme = btn.dataset.theme;
+drawCard();
+});
+[brandInput, prefSelect, dateInput, memoInput].forEach(function(el) {
 el.addEventListener("input", drawCard);
 el.addEventListener("change", drawCard);
 });
-// Canvas描画
 function drawCard() {
 const t = THEMES[currentTheme];
 const W = canvas.width;
 const H = canvas.height;
-// 背景
 ctx.fillStyle = t.bg;
 ctx.fillRect(0, 0, W, H);
-// 外枠線
 ctx.strokeStyle = t.frame;
 ctx.lineWidth = 6;
 ctx.strokeRect(32, 32, W - 64, H - 64);
-// 写真エリア
 const px = 75, py = 75, pw = 750, ph = 600;
 ctx.fillStyle = t.frame;
 ctx.fillRect(px, py, pw, ph);
@@ -239,7 +237,6 @@ ctx.font = "28px sans-serif";
 ctx.textAlign = "center";
 ctx.fillText("ここに日本酒の写真が入ります", W / 2, py + ph / 2);
 }
-// 都道府県バッジ & 日付
 ctx.textAlign = "left";
 ctx.fillStyle = t.accent;
 ctx.font = "bold 28px sans-serif";
@@ -248,30 +245,25 @@ ctx.textAlign = "right";
 ctx.fillStyle = t.sub;
 ctx.font = "26px sans-serif";
 ctx.fillText(dateInput.value.replace(/-/g, "."), W - 75, 735);
-// 銘柄名
 ctx.textAlign = "left";
 ctx.fillStyle = t.text;
 ctx.font = "bold 46px serif";
 const brand = brandInput.value.trim() || "銘柄名を入力";
 ctx.fillText(brand.slice(0, 16), 75, 805);
-// 区切り線
 ctx.strokeStyle = t.frame;
 ctx.lineWidth = 2;
 ctx.beginPath();
 ctx.moveTo(75, 835);
 ctx.lineTo(W - 75, 835);
 ctx.stroke();
-// メモ（最大5行折り返し）
 ctx.fillStyle = t.text;
 ctx.font = "28px sans-serif";
 const memo = memoInput.value || "ひとことメモがここに表示されます。";
 wrapText(ctx, memo, 75, 885, W - 150, 44, 5);
-// ウォーターマーク
 ctx.textAlign = "right";
 ctx.fillStyle = t.sub;
 ctx.font = "22px serif";
 ctx.fillText("さけやけ", W - 75, H - 55);
-// imgタグへ反映
 previewImg.src = canvas.toDataURL("image/jpeg", 0.92);
 }
 function wrapText(context, text, x, y, maxWidth, lineHeight, maxLines) {
@@ -296,8 +288,7 @@ lineCount++;
 if (lineCount >= maxLines) return;
 }
 }
-// Web Share API（写真に保存・SNSシェア）
-document.getElementById("shareBtn").addEventListener("click", async function() {
+document.getElementById("shareBtn").addEventListener("click", function() {
 canvas.toBlob(async function(blob) {
 const file = new File([blob], "sakeyake_card.jpg", { type: "image/jpeg" });
 if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -314,14 +305,12 @@ alert("お使いのブラウザは直接シェアに対応していません。�
 }
 }, "image/jpeg", 0.92);
 });
-// ダウンロード
 document.getElementById("downloadBtn").addEventListener("click", function() {
 const link = document.createElement("a");
 link.download = "sakeyake_" + dateInput.value + ".jpg";
 link.href = canvas.toDataURL("image/jpeg", 0.92);
 link.click();
 });
-// localStorage 保存
 function getRecords() {
 try { return JSON.parse(localStorage.getItem("sakeyake_records") || "[]"); }
 catch (e) { return []; }
@@ -332,7 +321,6 @@ if (!brand) {
 alert("銘柄名を入力してください。");
 return;
 }
-// 一覧保存用の軽量サムネイル生成
 const thumbCanvas = document.createElement("canvas");
 thumbCanvas.width = 240;
 thumbCanvas.height = 320;
@@ -354,7 +342,6 @@ alert("「" + prefSelect.value + "」の記録に保存しました！");
 alert("保存容量がいっぱいです。不要な記録を削除してください。");
 }
 });
-// 県別一覧描画
 function renderList() {
 const records = getRecords();
 const container = document.getElementById("listContainer");
@@ -365,20 +352,20 @@ container.innerHTML = 'まだ記録がありません。
 return;
 }
 const grouped = {};
-PREFS.forEach(p => { grouped[p] = []; });
-records.forEach(r => {
+PREFS.forEach(function(p) { grouped[p] = []; });
+records.forEach(function(r) {
 if (!grouped[r.pref]) grouped[r.pref] = [];
 grouped[r.pref].push(r);
 });
 let html = "";
-PREFS.forEach(pref => {
+PREFS.forEach(function(pref) {
 const items = grouped[pref];
 if (items.length === 0) return;
-html += <div class="pref-group"> <div class="pref-title"><span>📍 ${pref}</span><span>${items.length}件</span></div>;
-items.forEach(item => {
-html += <div class="record-card"> <img class="record-thumb" src="${item.thumb}" alt=""> <div class="record-info"> <div class="record-name">${escapeHtml(item.brand)}</div> <div class="record-date">${item.date}</div> <div class="record-memo">${escapeHtml(item.memo)}</div> </div> <button type="button" class="del-btn" data-id="${item.id}">削除</button> </div>;
+html += '📍 ' + pref + '' + items.length + '件';
+items.forEach(function(item) {
+html += '' + escapeHtml(item.brand) + '' + item.date + '' + escapeHtml(item.memo) + '削除';
 });
-html += </div>;
+html += '';
 });
 container.innerHTML = html;
 }
@@ -387,7 +374,7 @@ const btn = e.target.closest(".del-btn");
 if (!btn) return;
 if (!confirm("この記録を削除しますか？")) return;
 const id = Number(btn.dataset.id);
-const records = getRecords().filter(r => r.id !== id);
+const records = getRecords().filter(function(r) { return r.id !== id; });
 localStorage.setItem("sakeyake_records", JSON.stringify(records));
 renderList();
 });
@@ -395,25 +382,22 @@ function updateCount() {
 document.getElementById("totalCount").textContent = getRecords().length;
 }
 function escapeHtml(str) {
-return String(str).replace(/[&<>"']/g, s => ({
-"&": "&", "<": "<", ">": ">", '"': """, "'": "'"
-}[s]));
+const map = { "&": "&", "<": "<", ">": ">", '"': """, "'": "'" };
+return String(str).replace(/[&<>"']/g, function(s) { return map[s]; });
 }
-// 下部ナビ切り替え
-document.querySelectorAll(".nav-btn").forEach(btn => {
+document.querySelectorAll(".nav-btn").forEach(function(btn) {
 btn.addEventListener("click", function() {
-document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+document.querySelectorAll(".nav-btn").forEach(function(b) { b.classList.remove("active"); });
+document.querySelectorAll(".section").forEach(function(s) { s.classList.remove("active"); });
 this.classList.add("active");
 const target = this.dataset.target;
 document.getElementById(target).classList.add("active");
 if (target === "tab-list") renderList();
 });
 });
-// 初回描画
 drawCard();
 updateCount();
 })();
- </script>
+</script>
 </body>
 </html>
