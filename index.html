@@ -1,403 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>さけやけ｜日本酒フォトログ</title>
-<link rel="icon" href="icon.jpg">
-<link rel="apple-touch-icon" href="icon.jpg">
-<style>
-  :root {
-    --bg: #faf8f5;
-    --card: #ffffff;
-    --text: #3e3a39;
-    --sub: #7d7773;
-    --accent: #b88b76;
-    --accent-dark: #9c725e;
-    --border: #e6e0d8;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif; }
-  body { background: var(--bg); color: var(--text); padding-bottom: 85px; -webkit-font-smoothing: antialiased; }
-  header { background: var(--card); text-align: center; padding: 14px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
-  header h1 { font-size: 1.2rem; letter-spacing: 0.18em; font-weight: 600; color: var(--text); }
-  header p { font-size: 0.72rem; color: var(--sub); font-family: sans-serif; margin-top: 2px; }
-  .container { max-width: 500px; margin: 0 auto; padding: 16px; }
-  .section { display: none; }
-  .section.active { display: block; }
-  .box { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-  .label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text); font-family: sans-serif; }
-  .file-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; background: #f3efe9; border: 1.5px dashed var(--accent); border-radius: 10px; color: var(--text); font-size: 0.95rem; font-family: sans-serif; font-weight: 600; cursor: pointer; text-align: center; }
-  input[type="file"] { display: none; }
-  .themes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
-  .theme-btn { padding: 8px 4px; border-radius: 8px; border: 2px solid transparent; font-size: 0.78rem; font-family: sans-serif; cursor: pointer; text-align: center; font-weight: 600; }
-  .theme-btn.active { border-color: var(--text); }
-  .t-beige { background: #f4eee6; color: #4a423b; }
-  .t-green { background: #e3ebe6; color: #35473d; }
-  .t-ai { background: #26394d; color: #f5f7f8; }
-  .t-sakura { background: #f9ecef; color: #5c3a41; }
-  input[type="text"], input[type="date"], select, textarea {
-    width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px;
-    font-size: 0.95rem; background: #fff; color: var(--text); font-family: sans-serif; margin-bottom: 12px;
-  }
-  textarea { resize: none; height: 86px; line-height: 1.5; }
-  .preview-wrap { text-align: center; }
-  .preview-note { font-size: 0.75rem; color: var(--sub); font-family: sans-serif; margin-bottom: 8px; }
-  #previewImg { width: 100%; max-width: 360px; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.1); display: inline-block; vertical-align: middle; }
-  .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
-  .btn { width: 100%; padding: 13px; border-radius: 10px; border: none; font-size: 0.95rem; font-weight: 600; font-family: sans-serif; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-secondary { background: #efeae2; color: var(--text); }
-  .btn-save { background: #4c6457; color: #fff; }
-  .pref-group { margin-bottom: 18px; }
-  .pref-title { font-size: 0.95rem; font-weight: 600; padding: 6px 10px; background: #efeae2; border-radius: 6px; margin-bottom: 10px; display: flex; justify-content: space-between; font-family: sans-serif; }
-  .record-card { display: flex; gap: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 10px; align-items: center; }
-  .record-thumb { width: 72px; height: 90px; object-fit: cover; border-radius: 6px; flex-shrink: 0; background: #eee; }
-  .record-info { flex: 1; min-width: 0; font-family: sans-serif; }
-  .record-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .record-date { font-size: 0.75rem; color: var(--sub); margin-bottom: 4px; }
-  .record-memo { font-size: 0.8rem; color: var(--text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .del-btn { background: none; border: 1px solid #d9c8c0; color: #9e6b63; font-size: 0.72rem; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-family: sans-serif; }
-  .empty-msg { text-align: center; color: var(--sub); font-size: 0.88rem; padding: 40px 10px; font-family: sans-serif; }
-  nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--border); display: flex; height: 64px; z-index: 20; padding-bottom: env(safe-area-inset-bottom); }
-  .nav-btn { flex: 1; border: none; background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--sub); font-family: sans-serif; cursor: pointer; gap: 3px; }
-  .nav-btn.active { color: var(--accent-dark); font-weight: 700; }
-  .nav-icon { font-size: 1.25rem; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f3eb">
+  <meta name="description" content="日本酒の一杯と、その日の思い出をカードに残すフォトログ。">
+  <title>さけやけ｜日本酒フォトログ</title>
+  <link rel="icon" href="icon.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="icon.jpg">
+  <style>
+    :root{color-scheme:light;--ink:#302d27;--muted:#777267;--paper:#f7f3eb;--card:#fffdf8;--line:#e9e2d6;--accent:#a34f3f;--accent-dark:#823d32;--sage:#75816b;--shadow:0 10px 30px #493b2510}
+    *{box-sizing:border-box}html{min-height:100%;background:var(--paper)}body{margin:0;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.6;padding-bottom:calc(88px + env(safe-area-inset-bottom));-webkit-text-size-adjust:100%}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #bf8b60;outline-offset:2px}.topbar{padding:calc(18px + env(safe-area-inset-top)) 20px 16px;max-width:720px;margin:auto;display:flex;justify-content:space-between;align-items:center}.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:42px;height:42px;border-radius:50%;background:#efe4d1;color:var(--accent);display:grid;place-items:center;font-family:serif;font-size:22px}.brand h1{font-family:"Yu Mincho",YuMincho,serif;font-size:22px;letter-spacing:.12em;margin:0}.brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:.1em;margin-top:-3px}.eyebrow{font-size:11px;color:var(--muted);letter-spacing:.08em}.container{max-width:720px;margin:auto;padding:0 16px 28px}.intro{padding:4px 4px 18px}.intro h2{font-family:"Yu Mincho",YuMincho,serif;font-size:21px;font-weight:500;margin:0 0 3px}.intro p{font-size:13px;color:var(--muted);margin:0}.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}.section-title{font-size:14px;margin:0 0 13px;font-weight:650}.section-title span{color:var(--muted);font-size:11px;font-weight:400;margin-left:5px}.field{margin:0 0 16px}.field:last-child{margin-bottom:0}.field label,.field-label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}.required{color:var(--accent);font-size:10px;margin-left:5px}.field input[type=text],.field input[type=date],.field select,.field textarea{width:100%;min-height:48px;border:1px solid #ded7cb;border-radius:12px;background:#fffefa;padding:11px 13px;color:var(--ink);font-size:16px}.field textarea{resize:vertical;min-height:92px;line-height:1.55}.helper{font-size:11px;color:var(--muted);margin:5px 1px 0}.filebox{border:1px dashed #c9bba7;border-radius:14px;background:#fcfaf5;padding:14px}.filebox input{width:100%;font-size:14px}.file-preview{width:100%;max-height:230px;object-fit:cover;border-radius:10px;margin-top:12px;display:none}.themes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.theme{border:1px solid var(--line);border-radius:13px;background:#fffefa;min-height:55px;padding:8px 4px;color:var(--ink);font-size:12px}.theme::before{content:"";display:block;width:20px;height:20px;border-radius:50%;margin:0 auto 4px;background:var(--swatch)}.theme[aria-pressed=true]{border:2px solid var(--accent);box-shadow:0 0 0 2px #a34f3f16}.preview-wrap{padding:10px;background:#f1ece3;border-radius:15px}.card-image{display:block;width:100%;height:auto;border-radius:9px;touch-action:manipulation;-webkit-touch-callout:default}.actions{display:grid;gap:9px;margin-top:14px}.btn{border:0;border-radius:13px;min-height:50px;padding:12px 14px;font-weight:650;font-size:14px;transition:transform .12s,background .12s}.btn:active{transform:scale(.99)}.btn-primary{background:var(--accent);color:white}.btn-primary:hover{background:var(--accent-dark)}.btn-secondary{background:#eee8dd;color:var(--ink)}.btn-outline{background:transparent;border:1px solid #cfc4b3;color:var(--ink)}.hint-box{font-size:11px;color:var(--muted);margin:10px 2px 0}.screen[hidden]{display:none}.archive-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:15px}.archive-head h2{font-family:"Yu Mincho",YuMincho,serif;font-size:21px;font-weight:500;margin:0}.total{font-size:12px;color:var(--muted)}.pref-block{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:12px;overflow:hidden}.pref-heading{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;background:#f2ede3}.pref-heading h3{font-size:14px;margin:0}.pref-count{font-size:11px;color:var(--muted)}.entry{display:grid;grid-template-columns:82px minmax(0,1fr) auto;gap:12px;padding:13px;border-top:1px solid var(--line);align-items:start}.entry img{width:82px;height:100px;object-fit:cover;border-radius:9px;background:#eee}.entry-title{font-weight:650;font-size:14px;overflow-wrap:anywhere}.entry-date{font-size:11px;color:var(--muted)}.entry-memo{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:5px;color:#514e47}.delete-btn{border:0;background:transparent;color:#9a5548;padding:5px;font-size:11px;min-height:36px}.empty{border:1px dashed #d6cbbb;border-radius:18px;text-align:center;padding:32px 18px;color:var(--muted);font-size:13px;background:#fbf9f4}.bottom-nav{position:fixed;z-index:5;bottom:0;left:0;right:0;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#fffdf8ed;border-top:1px solid var(--line);backdrop-filter:blur(12px)}.nav-inner{max-width:720px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:7px}.nav-btn{border:0;background:transparent;border-radius:13px;min-height:53px;color:var(--muted);font-size:12px}.nav-btn[aria-current=page]{background:#f1e9dd;color:var(--accent-dark);font-weight:700}.nav-icon{display:block;font-size:17px;line-height:1.1;margin-bottom:3px}.toast{position:fixed;z-index:9;bottom:calc(82px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#302d27;color:white;border-radius:12px;padding:11px 15px;font-size:13px;max-width:calc(100vw - 32px);box-shadow:var(--shadow);transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}footer{text-align:center;color:#938c80;font-size:10px;padding:6px 0 20px}
+    @media(min-width:600px){.container{padding-left:24px;padding-right:24px}.actions{grid-template-columns:1fr 1fr}.actions .btn:last-child{grid-column:1/-1}}
+  </style>
 </head>
 <body>
-
-<header>
-  <h1>さけやけ</h1>
-  <p>一杯の記憶を、和のカードに</p>
-</header>
-
-<div class="container">
-  <div id="tab-create" class="section active">
-    <div class="box">
-      <label class="label">1. 日本酒の写真を選ぶ</label>
-      <label for="photoInput" class="file-btn">📷 写真を選択 / カメラで撮影</label>
-      <input type="file" id="photoInput" accept="image/*">
-    </div>
-
-    <div class="box">
-      <label class="label">2. カードの背景色</label>
-      <div class="themes" id="themeSelector">
-        <button type="button" class="theme-btn t-beige active" data-theme="beige">ベージュ</button>
-        <button type="button" class="theme-btn t-green" data-theme="green">くすみ緑</button>
-        <button type="button" class="theme-btn t-ai" data-theme="ai">藍</button>
-        <button type="button" class="theme-btn t-sakura" data-theme="sakura">さくら</button>
+  <header class="topbar"><div class="brand"><div class="brand-mark" aria-hidden="true">酒</div><div><h1>さけやけ</h1><small>SAKE PHOTO LOG</small></div></div><span class="eyebrow">一杯の、いい記憶。</span></header>
+  <main class="container">
+    <section id="createScreen" class="screen" aria-labelledby="createTitle">
+      <div class="intro"><h2 id="createTitle">今日の一杯を、カードに。</h2><p>写真と小さなメモで、旅のような一杯を残しましょう。</p></div>
+      <div class="panel">
+        <h3 class="section-title">思い出の写真 <span>選ぶとカードに反映されます</span></h3>
+        <div class="field filebox"><label for="photoInput">日本酒の写真</label><input id="photoInput" type="file" accept="image/*" aria-describedby="photoHelp"><p class="helper" id="photoHelp">写真ライブラリから選択できます。カメラで撮影する場合は、写真アプリから撮影した画像を選んでください。</p><img id="sourcePreview" class="file-preview" alt="選択した写真のプレビュー"></div>
+        <div class="field"><span class="field-label">カードの色</span><div class="themes" role="group" aria-label="カードの背景色"><button class="theme" type="button" data-theme="beige" aria-pressed="true" style="--swatch:#eadcc4">ベージュ</button><button class="theme" type="button" data-theme="green" aria-pressed="false" style="--swatch:#d5ddcf">くすみグリーン</button><button class="theme" type="button" data-theme="indigo" aria-pressed="false" style="--swatch:#34445c">藍</button><button class="theme" type="button" data-theme="sakura" aria-pressed="false" style="--swatch:#efd5d6">さくら</button></div></div>
+        <div class="field"><label for="brandInput">銘柄名<span class="required">必須</span></label><input id="brandInput" type="text" maxlength="60" autocomplete="off" placeholder="例：純米吟醸 〇〇" required></div>
+        <div class="field"><label for="prefInput">都道府県<span class="required">必須</span></label><select id="prefInput" required><option value="">選択してください</option></select></div>
+        <div class="field"><label for="dateInput">飲んだ日</label><input id="dateInput" type="date"></div>
+        <div class="field"><label for="memoInput">ひとことメモ <span class="eyebrow">120文字まで</span></label><textarea id="memoInput" maxlength="120" placeholder="香りや味わい、一緒に飲んだ人のことなど"></textarea><p class="helper"><span id="memoCount">0</span> / 120文字</p></div>
       </div>
-    </div>
-
-    <div class="box">
-      <label class="label">3. 銘柄名</label>
-      <input type="text" id="brandInput" placeholder="例：獺祭 純米大吟醸" maxlength="30">
-
-      <label class="label">4. 都道府県</label>
-      <select id="prefSelect"></select>
-
-      <label class="label">5. 飲んだ日</label>
-      <input type="date" id="dateInput">
-
-      <label class="label">6. ひとことメモ（120文字まで）</label>
-      <textarea id="memoInput" maxlength="120" placeholder="香りや味わい、一緒に食べた料理など"></textarea>
-    </div>
-
-    <div class="box preview-wrap">
-      <p class="preview-note">▼ 完成カード（長押しでも写真保存できます）</p>
-      <img id="previewImg" alt="カードプレビュー">
-      <canvas id="cardCanvas" width="900" height="1200" style="display:none;"></canvas>
-
-      <div class="btn-group">
-        <button type="button" class="btn btn-primary" id="shareBtn">📤 写真に保存 / SNSシェア</button>
-        <button type="button" class="btn btn-secondary" id="downloadBtn">⬇️ 画像をダウンロード</button>
-        <button type="button" class="btn btn-save" id="saveListBtn">🍶 県別一覧に記録を残す</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="tab-list" class="section">
-    <div id="listContainer"></div>
-  </div>
-</div>
-
-<nav>
-  <button type="button" class="nav-btn active" data-target="tab-create">
-    <span class="nav-icon">🖋️</span>
-    <span>カードをつくる</span>
-  </button>
-  <button type="button" class="nav-btn" data-target="tab-list">
-    <span class="nav-icon">🗾</span>
-    <span>県別一覧 (<span id="totalCount">0</span>)</span>
-  </button>
-</nav>
-
-<script>
-(function() {
-  const PREFS = [
-    "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
-    "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
-    "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県",
-    "静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県",
-    "奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県",
-    "徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県",
-    "熊本県","大分県","宮崎県","鹿児島県","沖縄県"
-  ];
-
-  const THEMES = {
-    beige:  { bg: "#f4eee6", frame: "#dfd5c7", text: "#3e362e", sub: "#7a6f64", accent: "#b88b76" },
-    green:  { bg: "#e3ebe6", frame: "#c5d4cb", text: "#2c3d34", sub: "#5e7368", accent: "#6b8f7b" },
-    ai:     { bg: "#223344", frame: "#3b526b", text: "#f4f6f8", sub: "#b8c4d0", accent: "#c8a97e" },
-    sakura: { bg: "#f9ecef", frame: "#e6cdd3", text: "#4d3036", sub: "#8a626b", accent: "#c97b8b" }
-  };
-
-  let currentTheme = "beige";
-  let uploadedImage = null;
-
-  const photoInput = document.getElementById("photoInput");
-  const brandInput = document.getElementById("brandInput");
-  const prefSelect = document.getElementById("prefSelect");
-  const dateInput = document.getElementById("dateInput");
-  const memoInput = document.getElementById("memoInput");
-  const canvas = document.getElementById("cardCanvas");
-  const ctx = canvas.getContext("2d");
-  const previewImg = document.getElementById("previewImg");
-
-  PREFS.forEach(function(p) {
-    const opt = document.createElement("option");
-    opt.value = p;
-    opt.textContent = p;
-    prefSelect.appendChild(opt);
-  });
-  prefSelect.value = "東京都";
-
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, "0");
-  const dd = String(today.getDate()).padStart(2, "0");
-  dateInput.value = yyyy + "-" + mm + "-" + dd;
-
-  photoInput.addEventListener("change", function(e) {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-    const file = files.item(0);
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-      const img = new Image();
-      img.onload = function() {
-        uploadedImage = img;
-        drawCard();
-      };
-      img.src = ev.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-
-  document.getElementById("themeSelector").addEventListener("click", function(e) {
-    const btn = e.target.closest(".theme-btn");
-    if (!btn) return;
-document.querySelectorAll(".theme-btn").forEach(function(b) {
-b.classList.remove("active");
-});
-btn.classList.add("active");
-currentTheme = btn.dataset.theme;
-drawCard();
-});
-[brandInput, prefSelect, dateInput, memoInput].forEach(function(el) {
-el.addEventListener("input", drawCard);
-el.addEventListener("change", drawCard);
-});
-function drawCard() {
-const t = THEMES[currentTheme];
-const W = canvas.width;
-const H = canvas.height;
-ctx.fillStyle = t.bg;
-ctx.fillRect(0, 0, W, H);
-ctx.strokeStyle = t.frame;
-ctx.lineWidth = 6;
-ctx.strokeRect(32, 32, W - 64, H - 64);
-const px = 75, py = 75, pw = 750, ph = 600;
-ctx.fillStyle = t.frame;
-ctx.fillRect(px, py, pw, ph);
-if (uploadedImage) {
-const ir = uploadedImage.width / uploadedImage.height;
-const br = pw / ph;
-let sx = 0, sy = 0, sw = uploadedImage.width, sh = uploadedImage.height;
-if (ir > br) {
-sw = uploadedImage.height * br;
-sx = (uploadedImage.width - sw) / 2;
-} else {
-sh = uploadedImage.width / br;
-sy = (uploadedImage.height - sh) / 2;
-}
-ctx.drawImage(uploadedImage, sx, sy, sw, sh, px, py, pw, ph);
-} else {
-ctx.fillStyle = t.sub;
-ctx.font = "28px sans-serif";
-ctx.textAlign = "center";
-ctx.fillText("ここに日本酒の写真が入ります", W / 2, py + ph / 2);
-}
-ctx.textAlign = "left";
-ctx.fillStyle = t.accent;
-ctx.font = "bold 28px sans-serif";
-ctx.fillText("📍 " + prefSelect.value, 75, 735);
-ctx.textAlign = "right";
-ctx.fillStyle = t.sub;
-ctx.font = "26px sans-serif";
-ctx.fillText(dateInput.value.replace(/-/g, "."), W - 75, 735);
-ctx.textAlign = "left";
-ctx.fillStyle = t.text;
-ctx.font = "bold 46px serif";
-const brand = brandInput.value.trim() || "銘柄名を入力";
-ctx.fillText(brand.slice(0, 16), 75, 805);
-ctx.strokeStyle = t.frame;
-ctx.lineWidth = 2;
-ctx.beginPath();
-ctx.moveTo(75, 835);
-ctx.lineTo(W - 75, 835);
-ctx.stroke();
-ctx.fillStyle = t.text;
-ctx.font = "28px sans-serif";
-const memo = memoInput.value || "ひとことメモがここに表示されます。";
-wrapText(ctx, memo, 75, 885, W - 150, 44, 5);
-ctx.textAlign = "right";
-ctx.fillStyle = t.sub;
-ctx.font = "22px serif";
-ctx.fillText("さけやけ", W - 75, H - 55);
-previewImg.src = canvas.toDataURL("image/jpeg", 0.92);
-}
-function wrapText(context, text, x, y, maxWidth, lineHeight, maxLines) {
-const paragraphs = text.split("\n");
-let lineCount = 0;
-for (let p = 0; p < paragraphs.length; p++) {
-const chars = paragraphs[p].split("");
-let line = "";
-for (let n = 0; n < chars.length; n++) {
-const testLine = line + chars[n];
-if (context.measureText(testLine).width > maxWidth && n > 0) {
-context.fillText(line, x, y + lineCount * lineHeight);
-line = chars[n];
-lineCount++;
-if (lineCount >= maxLines) return;
-} else {
-line = testLine;
-}
-}
-context.fillText(line, x, y + lineCount * lineHeight);
-lineCount++;
-if (lineCount >= maxLines) return;
-}
-}
-document.getElementById("shareBtn").addEventListener("click", function() {
-canvas.toBlob(async function(blob) {
-const file = new File([blob], "sakeyake_card.jpg", { type: "image/jpeg" });
-if (navigator.canShare && navigator.canShare({ files: [file] })) {
-try {
-await navigator.share({
-files: [file],
-title: "さけやけ｜日本酒の記録"
-});
-} catch (err) {
-if (err.name !== "AbortError") alert("シェアに失敗しました。画像を長押しして保存してください。");
-}
-} else {
-alert("お使いのブラウザは直接シェアに対応していません。上のカード画像を長押しして『写真に保存』してください。");
-}
-}, "image/jpeg", 0.92);
-});
-document.getElementById("downloadBtn").addEventListener("click", function() {
-const link = document.createElement("a");
-link.download = "sakeyake_" + dateInput.value + ".jpg";
-link.href = canvas.toDataURL("image/jpeg", 0.92);
-link.click();
-});
-function getRecords() {
-try { return JSON.parse(localStorage.getItem("sakeyake_records") || "[]"); }
-catch (e) { return []; }
-}
-document.getElementById("saveListBtn").addEventListener("click", function() {
-const brand = brandInput.value.trim();
-if (!brand) {
-alert("銘柄名を入力してください。");
-return;
-}
-const thumbCanvas = document.createElement("canvas");
-thumbCanvas.width = 240;
-thumbCanvas.height = 320;
-thumbCanvas.getContext("2d").drawImage(canvas, 0, 0, 240, 320);
-const records = getRecords();
-records.unshift({
-id: Date.now(),
-brand: brand,
-pref: prefSelect.value,
-date: dateInput.value,
-memo: memoInput.value,
-thumb: thumbCanvas.toDataURL("image/jpeg", 0.75)
-});
-try {
-localStorage.setItem("sakeyake_records", JSON.stringify(records));
-updateCount();
-alert("「" + prefSelect.value + "」の記録に保存しました！");
-} catch (e) {
-alert("保存容量がいっぱいです。不要な記録を削除してください。");
-}
-});
-function renderList() {
-const records = getRecords();
-const container = document.getElementById("listContainer");
-updateCount();
-if (records.length === 0) {
-container.innerHTML = 'まだ記録がありません。
-「カードをつくる」から最初の1杯を記録しましょう！';
-return;
-}
-const grouped = {};
-PREFS.forEach(function(p) { grouped[p] = []; });
-records.forEach(function(r) {
-if (!grouped[r.pref]) grouped[r.pref] = [];
-grouped[r.pref].push(r);
-});
-let html = "";
-PREFS.forEach(function(pref) {
-const items = grouped[pref];
-if (items.length === 0) return;
-html += '📍 ' + pref + '' + items.length + '件';
-items.forEach(function(item) {
-html += '' + escapeHtml(item.brand) + '' + item.date + '' + escapeHtml(item.memo) + '削除';
-});
-html += '';
-});
-container.innerHTML = html;
-}
-document.getElementById("listContainer").addEventListener("click", function(e) {
-const btn = e.target.closest(".del-btn");
-if (!btn) return;
-if (!confirm("この記録を削除しますか？")) return;
-const id = Number(btn.dataset.id);
-const records = getRecords().filter(function(r) { return r.id !== id; });
-localStorage.setItem("sakeyake_records", JSON.stringify(records));
-renderList();
-});
-function updateCount() {
-document.getElementById("totalCount").textContent = getRecords().length;
-}
-function escapeHtml(str) {
-const map = { "&": "&", "<": "<", ">": ">", '"': """, "'": "'" };
-return String(str).replace(/[&<>"']/g, function(s) { return map[s]; });
-}
-document.querySelectorAll(".nav-btn").forEach(function(btn) {
-btn.addEventListener("click", function() {
-document.querySelectorAll(".nav-btn").forEach(function(b) { b.classList.remove("active"); });
-document.querySelectorAll(".section").forEach(function(s) { s.classList.remove("active"); });
-this.classList.add("active");
-const target = this.dataset.target;
-document.getElementById(target).classList.add("active");
-if (target === "tab-list") renderList();
-});
-});
-drawCard();
-updateCount();
-})();
-</script>
+      <div class="panel"><h3 class="section-title">できあがり</h3><div class="preview-wrap"><img id="cardImage" class="card-image" alt="生成された日本酒の思い出カード。画像を長押しして保存できます" draggable="false"></div><div class="actions"><button id="shareBtn" class="btn btn-primary" type="button">写真に保存 / SNSシェア</button><button id="downloadBtn" class="btn btn-secondary" type="button">画像をダウンロード</button><button id="saveBtn" class="btn btn-outline" type="button">県別一覧に記録を残す</button></div><p class="hint-box">iPhoneではカード画像を長押しして「写真に保存」もできます。共有機能が使えない場合は、ダウンロードまたは長押しをご利用ください。</p></div>
+      <footer>思い出は、この端末のブラウザ内に保存されます。</footer>
+    </section>
+    <section id="archiveScreen" class="screen" aria-labelledby="archiveTitle" hidden><div class="archive-head"><div><h2 id="archiveTitle">県別の酒旅</h2><p class="eyebrow" style="margin:3px 0 0">出会った一杯の記録</p></div><div id="totalCount" class="total">全 0 件</div></div><div id="archiveList" aria-live="polite"></div></section>
+  </main>
+  <nav class="bottom-nav" aria-label="メインナビゲーション"><div class="nav-inner"><button class="nav-btn" type="button" data-screen="create" aria-current="page"><span class="nav-icon" aria-hidden="true">✎</span>カードをつくる</button><button class="nav-btn" type="button" data-screen="archive" aria-current="false"><span class="nav-icon" aria-hidden="true">⌂</span>県別一覧 <span id="navCount">(0)</span></button></div></nav>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>
+  (()=>{
+    'use strict';
+    const PREFECTURES=['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'];
+    const THEMES={beige:{bg:'#eadcc4',ink:'#3d352b',accent:'#a34f3f',label:'ベージュ'},green:{bg:'#d5ddcf',ink:'#344036',accent:'#66765e',label:'くすみグリーン'},indigo:{bg:'#34445c',ink:'#fff8e9',accent:'#e5bd85',label:'藍'},sakura:{bg:'#efd5d6',ink:'#493438',accent:'#a34f3f',label:'さくら'}};
+    const $=id=>document.getElementById(id), form={photo:$('photoInput'),preview:$('sourcePreview'),brand:$('brandInput'),pref:$('prefInput'),date:$('dateInput'),memo:$('memoInput'),count:$('memoCount'),image:$('cardImage'),canvas:document.createElement('canvas')};
+    form.canvas.width=900;form.canvas.height=1200;
+    const ctx=form.canvas.getContext('2d',{alpha:false});let theme='beige',photo=null,toastTimer=null;
+    const STORE_KEY='sakeyake.records.v1',MAX_PHOTO_SIDE=1800,THUMB_W=240,THUMB_H=320,MAX_RECORDS=300;
+    PREFECTURES.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;form.pref.append(o)});
+    function todayLocal(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+    form.date.value=todayLocal();
+    function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3000)}
+    function readRecords(){try{const raw=localStorage.getItem(STORE_KEY);if(!raw)return [];const parsed=JSON.parse(raw);return Array.isArray(parsed)?parsed.filter(r=>r&&typeof r.id==='string'&&PREFECTURES.includes(r.pref)):[]}catch(e){toast('保存データを読み込めませんでした。');return []}}
+    function updateCounts(){const n=readRecords().length;$('totalCount').textContent=`全 ${n} 件`;$('navCount').textContent=`(${n})`}
+    function fitText(text,maxWidth,font){ctx.font=font;let s=String(text||'');while(s.length>1&&ctx.measureText(s).width>maxWidth)s=s.slice(0,-1);return s===text?s:s+'…'}
+    function drawWrapped(text,x,y,maxWidth,lineHeight,maxLines,font,color){ctx.font=font;ctx.fillStyle=color;const chars=Array.from(String(text||''));let line='',lines=[];for(const ch of chars){const next=line+ch;if(ctx.measureText(next).width>maxWidth&&line){lines.push(line);line=ch;if(lines.length===maxLines)break}else line=next}if(lines.length<maxLines&&line)lines.push(line);const overflow=lines.join('').length<chars.length;if(overflow&&lines.length){let last=lines.length-1;while(lines[last]&&ctx.measureText(lines[last]+'…').width>maxWidth)lines[last]=lines[last].slice(0,-1);lines[last]+='…'}lines.slice(0,maxLines).forEach((v,i)=>ctx.fillText(v,x,y+i*lineHeight));return lines.length}
+    function imageCover(img,x,y,w,h){const scale=Math.max(w/img.width,h/img.height),sw=w/scale,sh=h/scale,sx=(img.width-sw)/2,sy=(img.height-sh)/2;ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h)}
+    function drawCard(){const t=THEMES[theme],w=900,h=1200;ctx.fillStyle=t.bg;ctx.fillRect(0,0,w,h);
+      // Quiet washi-like border and corner motif.
+      ctx.strokeStyle=t.ink+'35';ctx.lineWidth=2;ctx.strokeRect(30,30,w-60,h-60);ctx.strokeStyle=t.accent;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(58,90);ctx.lineTo(58,58);ctx.lineTo(90,58);ctx.moveTo(w-90,58);ctx.lineTo(w-58,58);ctx.lineTo(w-58,90);ctx.stroke();
+      ctx.textAlign='center';ctx.fillStyle=t.accent;ctx.font='600 22px sans-serif';ctx.fillText('SAKE PHOTO LOG',w/2,94);ctx.fillStyle=t.ink;ctx.font='500 35px "Yu Mincho",serif';ctx.fillText('さけやけ',w/2,140);
+      const ix=85,iy=180,iw=730,ih=550;ctx.fillStyle='#fffdf8';ctx.fillRect(ix-8,iy-8,iw+16,ih+16);if(photo){imageCover(photo,ix,iy,iw,ih)}else{ctx.fillStyle='#f7f2e8';ctx.fillRect(ix,iy,iw,ih);ctx.textAlign='center';ctx.fillStyle='#b3a997';ctx.font='70px serif';ctx.fillText('✿',w/2,iy+245);ctx.font='24px sans-serif';ctx.fillText('写真を選ぶと、ここに表示されます',w/2,iy+305)}
+      ctx.textAlign='center';const brand=(form.brand.value.trim()||'今日の一杯');ctx.fillStyle=t.ink;ctx.font='600 43px "Yu Gothic",sans-serif';ctx.fillText(fitText(brand,770,'600 43px "Yu Gothic",sans-serif'),w/2,800);
+      ctx.fillStyle=t.accent;ctx.font='600 24px sans-serif';ctx.fillText(`${form.pref.value||'都道府県'}　・　${form.date.value||todayLocal()}`,w/2,850);
+      const memo=form.memo.value.trim();if(memo){ctx.textAlign='center';drawWrapped(memo,w/2,925,700,43,5,'27px sans-serif',t.ink)}
+      ctx.strokeStyle=t.ink+'45';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(340,1100);ctx.lineTo(560,1100);ctx.stroke();ctx.fillStyle=t.ink+'bb';ctx.font='20px sans-serif';ctx.textAlign='center';ctx.fillText('おいしい記憶を、またひとつ。',w/2,1140);
+      try{form.image.src=form.canvas.toDataURL('image/jpeg',.9)}catch(e){toast('カード画像を作成できませんでした。写真を小さくしてお試しください。')}
+    }
+    function loadPhoto(file){if(!file)return;if(!file.type.startsWith('image/')){toast('画像ファイルを選んでください。');return}const url=URL.createObjectURL(file),img=new Image();img.onload=()=>{try{const ratio=Math.min(1,MAX_PHOTO_SIDE/Math.max(img.naturalWidth,img.naturalHeight)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*ratio));c.height=Math.max(1,Math.round(img.naturalHeight*ratio));c.getContext('2d').drawImage(img,0,0,c.width,c.height);const compressed=new Image();compressed.onload=()=>{photo=compressed;form.preview.src=c.toDataURL('image/jpeg',.78);form.preview.style.display='block';drawCard();URL.revokeObjectURL(url)};compressed.onerror=()=>{photo=img;form.preview.src=url;form.preview.style.display='block';drawCard()};compressed.src=c.toDataURL('image/jpeg',.78)}catch(e){photo=img;form.preview.src=url;form.preview.style.display='block';drawCard()}};img.onerror=()=>{URL.revokeObjectURL(url);toast('写真を読み込めませんでした。別の画像をお試しください。')};img.src=url}
+    function fileFromCanvas(canvas,name){return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(new File([blob],name,{type:'image/jpeg'})):reject(new Error('画像を準備できませんでした。')),'image/jpeg',.9))}
+    function recordData(){const brand=form.brand.value.trim(),pref=form.pref.value;if(!brand){form.brand.focus();toast('銘柄名を入力してください。');return null}if(!pref){form.pref.focus();toast('都道府県を選んでください。');return null}return {id:`${Date.now()}-${Math.random().toString(36).slice(2,8)}`,brand,pref,date:form.date.value||todayLocal(),memo:form.memo.value.trim(),theme}}
+    function makeThumbnail(){const c=document.createElement('canvas');c.width=THUMB_W;c.height=THUMB_H;const cctx=c.getContext('2d');cctx.drawImage(form.canvas,0,0,THUMB_W,THUMB_H);return c.toDataURL('image/jpeg',.58)}
+    async function saveRecord(){const data=recordData();if(!data)return;const records=readRecords();if(records.length>=MAX_RECORDS){toast(`この端末には最大${MAX_RECORDS}件まで保存できます。古い記録を削除してください。`);return}try{data.thumb=makeThumbnail();const next=[data,...records];localStorage.setItem(STORE_KEY,JSON.stringify(next));renderArchive();toast('県別一覧に記録しました。')}catch(e){if(e&&e.name==='QuotaExceededError')toast('端末の保存容量がいっぱいです。古い記録を削除してください。');else toast('記録を保存できませんでした。ブラウザの保存設定をご確認ください。')}}
+    function safeText(tag,text,className){const el=document.createElement(tag);if(className)el.className=className;el.textContent=text||'';return el}
+    function renderArchive(){const records=readRecords(),root=$('archiveList');root.replaceChildren();updateCounts();if(!records.length){const empty=safeText('div','まだ記録はありません。最初の一杯をカードに残してみましょう。','empty');root.append(empty);return}
+      for(const pref of PREFECTURES){const list=records.filter(r=>r.pref===pref);if(!list.length)continue;const section=document.createElement('section');section.className='pref-block';const head=document.createElement('div');head.className='pref-heading';head.append(safeText('h3',pref));head.append(safeText('span',`${list.length}件`,'pref-count'));section.append(head);
+        for(const r of list){const row=document.createElement('article');row.className='entry';const img=document.createElement('img');img.alt=`${r.brand}のカードサムネイル`;img.loading='lazy';img.src=r.thumb||'';const details=document.createElement('div');details.append(safeText('div',r.brand,'entry-title'));details.append(safeText('div',r.date,'entry-date'));if(r.memo)details.append(safeText('div',r.memo,'entry-memo'));const del=document.createElement('button');del.type='button';del.className='delete-btn';del.textContent='削除';del.setAttribute('aria-label',`${r.brand}の記録を削除`);del.addEventListener('click',()=>deleteRecord(r.id));row.append(img,details,del);section.append(row)}root.append(section)}
+    }
+    function deleteRecord(id){const records=readRecords();try{localStorage.setItem(STORE_KEY,JSON.stringify(records.filter(r=>r.id!==id)));renderArchive();toast('記録を削除しました。')}catch(e){toast('記録を削除できませんでした。')}}
+    function setScreen(which){const archive=which==='archive';$('createScreen').hidden=archive;$('archiveScreen').hidden=!archive;document.querySelectorAll('.nav-btn').forEach(b=>b.setAttribute('aria-current',String(b.dataset.screen===which)));if(archive)renderArchive();window.scrollTo({top:0,behavior:'smooth'})}
+    document.querySelectorAll('.theme').forEach(b=>b.addEventListener('click',()=>{theme=b.dataset.theme;document.querySelectorAll('.theme').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));drawCard()}));
+    document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>setScreen(b.dataset.screen)));
+    form.photo.addEventListener('change',e=>loadPhoto(e.target.files&&e.target.files[0]));
+    [form.brand,form.pref,form.date,form.memo].forEach(el=>el.addEventListener('input',()=>{if(el===form.memo)form.count.textContent=String(Array.from(form.memo.value).length);drawCard()}));form.pref.addEventListener('change',drawCard);
+    $('saveBtn').addEventListener('click',saveRecord);
+    $('downloadBtn').addEventListener('click',()=>{const a=document.createElement('a');a.href=form.canvas.toDataURL('image/jpeg',.92);a.download=`sakeyake-${form.date.value||todayLocal()}.jpg`;document.body.append(a);a.click();a.remove();toast('画像をダウンロードしました。')});
+    $('shareBtn').addEventListener('click',async()=>{try{const file=await fileFromCanvas(form.canvas,`sakeyake-${form.date.value||todayLocal()}.jpg`);if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){await navigator.share({files:[file],title:'さけやけ｜日本酒の思い出',text:'今日の一杯の思い出カード'});return}toast('このブラウザでは画像共有に対応していません。画像をダウンロードするか、長押しして保存してください。')}catch(e){if(e&&e.name==='AbortError')return;toast('共有できませんでした。画像をダウンロードするか、長押しして保存してください。')}});
+    window.addEventListener('storage',e=>{if(e.key===STORE_KEY)updateCounts()});drawCard();updateCounts();
+  })();
+  </script>
 </body>
 </html>
