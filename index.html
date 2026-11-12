@@ -142,11 +142,12 @@
         <h3 class="section-title">できあがり</h3>
         <div class="preview-wrap"><img id="cardImage" class="card-image" alt="生成された日本酒の思い出カード" draggable="false"></div>
         <div class="actions">
-          <button id="saveBtn" class="btn btn-primary btn-wide" type="button">記録して、カードも保存</button>
-          <button id="shareBtn" class="btn btn-secondary btn-wide" type="button">カードだけ保存・シェア</button>
+          <button id="saveBtn" class="btn btn-primary btn-wide" type="button">記録する</button>
+          <button id="savePhotoBtn" class="btn btn-secondary btn-wide" type="button">記録して写真に保存</button>
+          <button id="shareBtn" class="btn btn-outline btn-wide" type="button">記録してシェア</button>
           <button id="resetBtn" class="btn btn-ghost btn-wide" type="button">入力内容をリセット</button>
         </div>
-        <p id="hintBox" class="hint-box">「記録して、カードも保存」を押すと一覧に記録され、共有画面が開きます。「画像を保存」を選ぶと写真アプリに入ります。入力途中の内容は自動で残ります。</p>
+        <p id="hintBox" class="hint-box">「記録する」は一覧に保存して完了です。「記録して写真に保存」「記録してシェア」は、記録したあと共有画面が開きます。写真に保存する場合は、共有画面で「画像を保存」を選んでください。入力途中の内容は自動で残ります。</p>
       </div>
       <footer>思い出は、この端末のブラウザ内に保存されます。</footer>
     </section>
@@ -235,7 +236,7 @@
     const STORE_KEY='sakeyake.records.v1',DRAFT_KEY='sakeyake.draft.v1',PREF_KEY='sakeyake.lastPref',HINT_KEY='sakeyake.installHint',BACKUP_KEY='sakeyake.lastBackupCount';
     const MAX_PHOTO_SIDE=1800,THUMB_W=240,THUMB_H=320,MAX_RECORDS=300;
     const STORE_MAIN_SIDE=1200,STORE_SUB_SIDE=600,STORE_QUALITY=.75;
-    const SAVE_LABEL='記録して、カードも保存',UPDATE_LABEL='変更を保存する';
+    const SAVE_LABEL='記録する',UPDATE_LABEL='変更を保存する';
 
     function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
     function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -503,6 +504,8 @@
       const editing=!!editingId;
       $('editBanner').hidden=!editing;
       $('saveBtn').textContent=editing?UPDATE_LABEL:SAVE_LABEL;
+      $('savePhotoBtn').hidden=editing;
+      $('shareBtn').hidden=editing;
       if(editing)$('editBannerText').textContent=`✎ 「${form.brand.value.trim()||'無題'}」を編集中`;
     }
 
@@ -549,7 +552,7 @@
       }catch(e){return false}
     }
 
-    async function saveRecord(){
+    async function saveRecord(action='record'){
       if(busy)return;
       const data=recordData();
       if(!data)return;
@@ -567,7 +570,7 @@
       busy=true;$('saveBtn').disabled=true;
       try{
         let shareResult='none';
-        if(!isUpdate){
+        if(!isUpdate&&action!=='record'){
           try{shareResult=await shareCard()}catch(e){shareResult='error'}
         }
         let keepOldThumb=false;
@@ -586,9 +589,11 @@
           toast(keepOldThumb?'記録を更新しました（写真は変更していないため、一覧の画像はそのままです）。':'記録を更新しました。');
         }else{
           window.scrollTo({top:0,behavior:'smooth'});
-          let msg='県別一覧に記録しました。';
-          if(shareResult==='cancel')msg='記録しました。カードは保存していません（「カードだけ保存・シェア」でいつでも保存できます）。';
-          else if(shareResult==='error')msg='記録しました。カードの保存は、次回「カードだけ保存・シェア」からお試しください。';
+          let msg='記録しました。';
+          if(action!=='record'&&shareResult==='cancel')msg='記録しました。共有はキャンセルされました。カードはいつでも共有できます。';
+          else if(action!=='record'&&shareResult==='error')msg='記録しましたが、カードを共有できませんでした。県別一覧からカードを開いて再度お試しください。';
+          else if(action==='photo'&&shareResult==='shared')msg='記録しました。共有画面で「画像を保存」を選ぶと写真アプリに保存できます。';
+          else if(action==='share'&&shareResult==='shared')msg='記録しました。共有画面から送信先を選んでください。';
           if(!photoOk)msg+=' ※写真の保存に失敗したため、編集しても写真は戻りません。';
           toast(msg);
         }
@@ -910,14 +915,9 @@
 
     [form.brand,form.pref,form.date,form.place,form.memo].forEach(el=>el.addEventListener('input',()=>{if(el===form.memo)form.count.textContent=String(Array.from(form.memo.value).length);if(el===form.brand&&editingId)updateEditUI();drawCard()}));
     form.pref.addEventListener('change',drawCard);
-    $('saveBtn').addEventListener('click',saveRecord);
-
-    $('shareBtn').addEventListener('click',async()=>{
-      try{
-        const r=await shareCard();
-        if(r==='download')toast('カード画像を保存しました。');
-      }catch(e){toast('共有できませんでした。時間をおいてもう一度お試しください。')}
-    });
+    $('saveBtn').addEventListener('click',()=>saveRecord('record'));
+    $('savePhotoBtn').addEventListener('click',()=>saveRecord('photo'));
+    $('shareBtn').addEventListener('click',()=>saveRecord('share'));
 
     $('resetBtn').addEventListener('click',()=>{resetForm();window.scrollTo({top:0,behavior:'smooth'});toast('入力内容をリセットしました。')});
     $('editCancelBtn').addEventListener('click',()=>{resetForm();window.scrollTo({top:0,behavior:'smooth'});toast('編集をやめました。')});
