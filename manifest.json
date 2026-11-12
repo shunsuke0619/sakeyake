@@ -1,0 +1,20 @@
+{
+  "id": "./",
+  "name": "さけやけ｜日本酒フォトログ",
+  "short_name": "さけやけ",
+  "description": "日本酒の一杯と、その日の思い出を残すフォトログ。",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f3eb",
+  "theme_color": "#f7f3eb",
+  "icons": [
+    {
+      "src": "icon.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
