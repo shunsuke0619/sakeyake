@@ -23,31 +23,54 @@
     .edit-banner span{overflow-wrap:anywhere}
     .edit-cancel{flex:none;border:1px solid #d98b7c;background:#fffefa;color:var(--accent-dark);border-radius:8px;padding:6px 10px;font-size:12px}
 
+    .nudge{display:flex;align-items:center;gap:8px;background:#f2ede3;border:1px solid #ddd0bb;border-radius:14px;padding:10px 10px 10px 13px;margin:0 0 14px;font-size:12px;color:#5c564c}
+    .nudge[hidden]{display:none}
+    .nudge-text{flex:1;min-width:0;overflow-wrap:anywhere}
+    .nudge-act{flex:none;border:0;background:var(--accent);color:#fff;border-radius:9px;padding:8px 12px;font-size:12px;font-weight:650}
+    .nudge-x{flex:none;border:0;background:transparent;color:var(--muted);font-size:16px;padding:6px 8px;line-height:1}
+
     .stats-bar{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;box-shadow:var(--shadow)}
     .stat-item{background:#fcfaf5;border-radius:11px;padding:9px 12px;text-align:center}
     .stat-label{font-size:10px;color:var(--muted);display:block;margin-bottom:2px}
     .stat-value{font-family:"Yu Mincho",YuMincho,serif;font-size:17px;font-weight:650;color:var(--ink)}
     .stat-value span{font-size:11px;font-weight:400;color:var(--muted);margin-left:2px}
 
-    .search-panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:15px;display:grid;gap:10px}
-    .search-row{display:grid;grid-template-columns:1fr;gap:8px}
-    .filter-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
-    .filter-chip{border:1px solid var(--line);background:#fffefa;border-radius:8px;padding:4px 10px;font-size:11px;white-space:nowrap;color:var(--muted)}
+    .search-panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:15px;display:grid;grid-template-columns:minmax(0,1fr);gap:10px;overflow:hidden}
+    .search-panel>*{min-width:0}
+    .search-input{display:block;width:100%;min-width:0;max-width:100%;height:44px;border:1px solid #ded7cb;border-radius:10px;background:#fffefa;padding:0 13px;color:var(--ink);font-size:16px;appearance:none;-webkit-appearance:none}
+    .filter-label{font-size:11px;color:var(--muted);margin-bottom:4px}
+    .filter-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+    .filter-chip{flex:none;border:1px solid var(--line);background:#fffefa;border-radius:8px;padding:5px 11px;font-size:12px;white-space:nowrap;color:var(--muted)}
     .filter-chip[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-    .backup-panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:18px}
-    .backup-panel h3{font-size:14px;margin:0 0 4px}
+    .backup-panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-top:18px}
+    .backup-panel summary{font-size:12px;color:var(--muted);cursor:pointer;list-style:none}
+    .backup-panel summary::-webkit-details-marker{display:none}
+    .backup-panel[open] summary{margin-bottom:8px}
     .backup-panel p{font-size:11px;color:var(--muted);margin:0 0 10px}
     .backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
     .backup-actions .btn{min-height:44px;font-size:13px}
 
-    .preview-wrap{padding:10px;background:#f1ece3;border-radius:15px}.card-image{display:block;width:100%;height:auto;border-radius:9px;touch-action:manipulation;-webkit-touch-callout:default}.actions{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}.btn{border:0;border-radius:13px;min-height:50px;padding:12px 14px;font-weight:650;font-size:14px;transition:transform .12s,background .12s}.btn:active{transform:scale(.99)}.btn-primary{background:var(--accent);color:white}.btn-primary:hover{background:var(--accent-dark)}.btn-secondary{background:#eee8dd;color:var(--ink)}.btn-outline{background:transparent;border:1px solid #cfc4b3;color:var(--ink)}.btn-ghost{background:transparent;color:var(--muted);font-size:12px;min-height:40px;padding:8px;font-weight:500}.hint-box{font-size:11px;color:var(--muted);margin:10px 2px 0}.screen[hidden]:not(.preserve-screen){display:none}.archive-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:12px}.archive-head h2{font-family:"Yu Mincho",YuMincho,serif;font-size:21px;font-weight:500;margin:0}.total{font-size:12px;color:var(--muted)}.pref-block{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:12px;overflow:hidden}.pref-heading{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;background:#f2ede3}.pref-heading h3{font-size:14px;margin:0}.pref-count{font-size:11px;color:var(--muted)}.entry{display:grid;grid-template-columns:82px minmax(0,1fr) auto;gap:12px;padding:13px;border-top:1px solid var(--line);align-items:start}.entry img{width:82px;height:100px;object-fit:cover;border-radius:9px;background:#eee}.entry-title-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.entry-title{font-weight:650;font-size:14px;overflow-wrap:anywhere}.entry-fav{color:var(--accent);font-size:12px}.entry-date{font-size:11px;color:var(--muted)}.entry-place{font-size:11px;color:#5c564c;margin-top:2px}.entry-meta-row{font-size:11px;color:var(--accent);margin-top:2px;font-weight:600}.entry-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.entry-tag{font-size:10px;background:#f2ede3;color:var(--muted);padding:1px 6px;border-radius:4px}.entry-memo{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:5px;color:#514e47}.entry-actions{display:flex;flex-direction:column;gap:2px}.delete-btn,.edit-btn{border:0;background:transparent;padding:5px 8px;font-size:12px;min-height:36px}.delete-btn{color:#9a5548}.edit-btn{color:var(--accent-dark);font-weight:700}.empty{border:1px dashed #d6cbbb;border-radius:18px;text-align:center;padding:32px 18px;color:var(--muted);font-size:13px;background:#fbf9f4}.bottom-nav{position:fixed;z-index:5;bottom:0;left:0;right:0;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#fffdf8ed;border-top:1px solid var(--line);backdrop-filter:blur(12px)}.nav-inner{max-width:720px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:7px}.nav-btn{border:0;background:transparent;border-radius:13px;min-height:53px;color:var(--muted);font-size:12px}.nav-btn[aria-current=page]{background:#f1e9dd;color:var(--accent-dark);font-weight:700}.nav-icon{display:block;font-size:17px;line-height:1.1;margin-bottom:3px}.toast{position:fixed;z-index:9;bottom:calc(82px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#302d27;color:white;border-radius:12px;padding:11px 15px;font-size:13px;max-width:calc(100vw - 32px);box-shadow:var(--shadow);transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}footer{text-align:center;color:#938c80;font-size:10px;padding:6px 0 20px}
+    .preview-wrap{padding:10px;background:#f1ece3;border-radius:15px}.card-image{display:block;width:100%;height:auto;border-radius:9px;touch-action:manipulation;-webkit-touch-callout:default}.actions{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}.btn{border:0;border-radius:13px;min-height:50px;padding:12px 14px;font-weight:650;font-size:14px;transition:transform .12s,background .12s}.btn:active{transform:scale(.99)}.btn:disabled{opacity:.6}.btn-primary{background:var(--accent);color:white}.btn-primary:hover{background:var(--accent-dark)}.btn-secondary{background:#eee8dd;color:var(--ink)}.btn-outline{background:transparent;border:1px solid #cfc4b3;color:var(--ink)}.btn-ghost{background:transparent;color:var(--muted);font-size:12px;min-height:40px;padding:8px;font-weight:500}.hint-box{font-size:11px;color:var(--muted);margin:10px 2px 0}.screen[hidden]:not(.preserve-screen){display:none}.archive-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:12px}.archive-head h2{font-family:"Yu Mincho",YuMincho,serif;font-size:21px;font-weight:500;margin:0}.total{font-size:12px;color:var(--muted)}.pref-block{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:12px;overflow:hidden}.pref-heading{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;background:#f2ede3}.pref-heading h3{font-size:14px;margin:0}.pref-count{font-size:11px;color:var(--muted)}.entry{display:grid;grid-template-columns:82px minmax(0,1fr) auto;gap:12px;padding:13px;border-top:1px solid var(--line);align-items:start}.entry img{width:82px;height:100px;object-fit:cover;border-radius:9px;background:#eee}.entry-title-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.entry-title{font-weight:650;font-size:14px;overflow-wrap:anywhere}.entry-fav{color:var(--accent);font-size:12px}.entry-date{font-size:11px;color:var(--muted)}.entry-place{font-size:11px;color:#5c564c;margin-top:2px}.entry-meta-row{font-size:11px;color:var(--accent);margin-top:2px;font-weight:600}.entry-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.entry-tag{font-size:10px;background:#f2ede3;color:var(--muted);padding:1px 6px;border-radius:4px}.entry-memo{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:5px;color:#514e47}.entry-actions{display:flex;flex-direction:column;gap:2px}.delete-btn,.edit-btn{border:0;background:transparent;padding:5px 8px;font-size:12px;min-height:36px}.delete-btn{color:#9a5548}.edit-btn{color:var(--accent-dark);font-weight:700}.empty{border:1px dashed #d6cbbb;border-radius:18px;text-align:center;padding:32px 18px;color:var(--muted);font-size:13px;background:#fbf9f4}.bottom-nav{position:fixed;z-index:5;bottom:0;left:0;right:0;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#fffdf8ed;border-top:1px solid var(--line);backdrop-filter:blur(12px)}.nav-inner{max-width:720px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:7px}.nav-btn{border:0;background:transparent;border-radius:13px;min-height:53px;color:var(--muted);font-size:12px}.nav-btn[aria-current=page]{background:#f1e9dd;color:var(--accent-dark);font-weight:700}.nav-icon{display:block;font-size:17px;line-height:1.1;margin-bottom:3px}.toast{position:fixed;z-index:30;bottom:calc(82px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#302d27;color:white;border-radius:12px;padding:11px 15px;font-size:13px;max-width:calc(100vw - 32px);box-shadow:var(--shadow);transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}footer{text-align:center;color:#938c80;font-size:10px;padding:6px 0 20px}
+    .entry{cursor:pointer}
+    .detail{position:fixed;inset:0;z-index:20;background:rgba(30,26,20,.8);overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;padding:calc(12px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom))}
+    .detail[hidden]{display:none}
+    .detail-sheet{margin:auto;width:100%;max-width:480px;background:var(--card);border-radius:20px;padding:12px 12px 14px;box-shadow:0 20px 50px #0006}
+    .detail-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+    .detail-title{font-weight:650;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+    .detail-close{flex:none;border:0;background:#eee8dd;color:var(--ink);border-radius:50%;width:36px;height:36px;font-size:15px;line-height:1}
+    .detail-imgwrap{background:#f1ece3;border-radius:12px;padding:8px;text-align:center}
+    .detail-img{display:block;margin:0 auto;max-width:100%;width:auto;height:auto;max-height:calc(100vh - 250px);max-height:calc(100dvh - 250px);border-radius:8px;-webkit-touch-callout:default}
+    .detail-note{font-size:11px;color:var(--muted);margin:8px 0 0}
+    .detail-actions{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-top:10px}
     @media(min-width:600px){.container{padding-left:24px;padding-right:24px}.actions{grid-template-columns:1fr 1fr}.actions .btn-wide{grid-column:1/-1}}
   </style>
 </head>
 <body>
   <header class="topbar"><div class="brand"><div class="brand-mark" aria-hidden="true">酒</div><div><h1>さけやけ</h1><small>SAKE PHOTO LOG</small></div></div><span class="eyebrow">一杯の、いい記憶。</span></header>
   <main class="container">
+    <div id="nudge" class="nudge" hidden><span id="nudgeText" class="nudge-text"></span><button id="nudgeAct" type="button" class="nudge-act"></button><button id="nudgeX" type="button" class="nudge-x" aria-label="閉じる">✕</button></div>
+
     <section id="createScreen" class="screen" aria-labelledby="createTitle">
       <div class="intro"><h2 id="createTitle">今日の一杯を、カードに。</h2><p>写真と小さなメモで、旅のような一杯を残しましょう。</p></div>
       <div class="panel">
@@ -117,20 +140,19 @@
       </div>
       <div class="panel">
         <h3 class="section-title">できあがり</h3>
-        <div class="preview-wrap"><img id="cardImage" class="card-image" alt="生成された日本酒の思い出カード。画像を長押しして保存できます" draggable="false"></div>
+        <div class="preview-wrap"><img id="cardImage" class="card-image" alt="生成された日本酒の思い出カード" draggable="false"></div>
         <div class="actions">
-          <button id="shareBtn" class="btn btn-primary" type="button">SNSにシェア</button>
-          <button id="photoSaveBtn" class="btn btn-secondary" type="button">写真に保存</button>
-          <button id="saveBtn" class="btn btn-outline btn-wide" type="button">県別一覧に記録を残す（自動リセット）</button>
+          <button id="saveBtn" class="btn btn-primary btn-wide" type="button">記録して、カードも保存</button>
+          <button id="shareBtn" class="btn btn-secondary btn-wide" type="button">カードだけ保存・シェア</button>
           <button id="resetBtn" class="btn btn-ghost btn-wide" type="button">入力内容をリセット</button>
         </div>
-        <p class="hint-box">「写真に保存」を押すとカード画像が開きます。iPhoneでは画像を長押しして「写真に保存」を選んでください。</p>
+        <p id="hintBox" class="hint-box">「記録して、カードも保存」を押すと一覧に記録され、共有画面が開きます。「画像を保存」を選ぶと写真アプリに入ります。入力途中の内容は自動で残ります。</p>
       </div>
       <footer>思い出は、この端末のブラウザ内に保存されます。</footer>
     </section>
 
     <section id="archiveScreen" class="screen" aria-labelledby="archiveTitle" hidden>
-      <div class="archive-head"><div><h2 id="archiveTitle">県別の酒旅</h2><p class="eyebrow" style="margin:3px 0 0">出会った一杯の記録</p></div><div id="totalCount" class="total">全 0 件</div></div>
+      <div class="archive-head"><div><h2 id="archiveTitle">県別の酒旅</h2><p class="eyebrow" style="margin:3px 0 0">記録をタップすると、カードを大きく見られます</p></div><div id="totalCount" class="total">全 0 件</div></div>
 
       <div class="stats-bar" aria-label="記録の集計">
         <div class="stat-item">
@@ -144,11 +166,9 @@
       </div>
 
       <div class="search-panel">
-        <div class="search-row">
-          <input id="searchInput" type="text" placeholder="銘柄名・都道府県・お店・メモで検索..." style="height:42px;min-height:42px;font-size:14px;border-radius:10px;">
-        </div>
+        <input id="searchInput" class="search-input" type="text" placeholder="銘柄・都道府県・お店・メモで検索" autocomplete="off">
         <div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">お気に入り・星評価で絞り込み</div>
+          <div class="filter-label">お気に入り・星評価で絞り込み</div>
           <div class="filter-row" id="starFilterRow">
             <button type="button" class="filter-chip" data-filter-star="" aria-pressed="true">すべて</button>
             <button type="button" class="filter-chip" id="favFilterBtn" aria-pressed="false">♥ また飲みたい</button>
@@ -158,7 +178,7 @@
           </div>
         </div>
         <div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">飲み口で絞り込み</div>
+          <div class="filter-label">飲み口で絞り込み</div>
           <div class="filter-row" id="tasteFilterRow">
             <button type="button" class="filter-chip" data-filter-taste="" aria-pressed="true">すべて</button>
             <button type="button" class="filter-chip" data-filter-taste="甘口" aria-pressed="false">甘口</button>
@@ -172,18 +192,28 @@
 
       <div id="archiveList" aria-live="polite"></div>
 
-      <div class="backup-panel">
-        <h3>バックアップ</h3>
-        <p>記録を写真つきで1つのファイルに書き出せます。機種変更やSafariのデータ消去に備えて、ときどき保存しておくと安心です。</p>
+      <details class="backup-panel">
+        <summary>バックアップ・データの引っ越し</summary>
+        <p>記録を写真つきで1つのファイルに書き出せます。共有画面で「"ファイル"に保存」を選んでください。機種変更のときは、新しい端末で「読み込み」を押します。</p>
         <div class="backup-actions">
           <button id="exportBtn" type="button" class="btn btn-secondary">書き出し</button>
           <button id="importBtn" type="button" class="btn btn-outline">読み込み</button>
         </div>
         <input id="importInput" type="file" accept="application/json,.json" hidden>
-      </div>
+      </details>
     </section>
   </main>
   <nav class="bottom-nav" aria-label="メインナビゲーション"><div class="nav-inner"><button class="nav-btn" type="button" data-screen="create" aria-current="page"><span class="nav-icon" aria-hidden="true">✎</span>カードをつくる</button><button class="nav-btn" type="button" data-screen="archive" aria-current="false"><span class="nav-icon" aria-hidden="true">⌂</span>県別一覧 <span id="navCount">(0)</span></button></div></nav>
+  <div id="detail" class="detail" role="dialog" aria-modal="true" aria-label="カードの詳細" hidden>
+    <div class="detail-sheet">
+      <div class="detail-top"><span id="detailTitle" class="detail-title"></span><button id="detailClose" type="button" class="detail-close" aria-label="閉じる">✕</button></div>
+      <div class="detail-imgwrap"><img id="detailImg" class="detail-img" alt="" draggable="false"><p id="detailNote" class="detail-note" hidden></p></div>
+      <div class="detail-actions">
+        <button id="detailShare" type="button" class="btn btn-primary" disabled>画像を保存・シェア</button>
+        <button id="detailEdit" type="button" class="btn btn-secondary">編集</button>
+      </div>
+    </div>
+  </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script>
   (()=>{
@@ -193,26 +223,30 @@
     const THEMES={beige:{bg:'#eadcc4',ink:'#3d352b',accent:'#a34f3f',label:'ベージュ'},green:{bg:'#d5ddcf',ink:'#344036',accent:'#66765e',label:'くすみグリーン'},indigo:{bg:'#34445c',ink:'#fff8e9',accent:'#e5bd85',label:'藍'},sakura:{bg:'#efd5d6',ink:'#493438',accent:'#a34f3f',label:'さくら'}};
     const $=id=>document.getElementById(id), form={photo:$('photoInput'),preview:$('sourcePreview'),subPhoto:$('subPhotoInput'),subPreview:$('subPreview'),subWrap:$('subPreviewWrap'),brand:$('brandInput'),pref:$('prefInput'),date:$('dateInput'),place:$('placeInput'),memo:$('memoInput'),count:$('memoCount'),image:$('cardImage'),canvas:document.createElement('canvas')};
     form.canvas.width=900;form.canvas.height=1200;
-    const ctx=form.canvas.getContext('2d',{alpha:false});
+    const mainCtx=form.canvas.getContext('2d',{alpha:false});
+    let ctx=mainCtx;
 
     let theme='beige',photo=null,subPhoto=null,toastTimer=null;
-    let currentRating=0;
-    let isFav=false;
-    let currentTaste='中口';
-    let selectedTags=new Set();
-    let editingId=null;
+    let currentRating=0,isFav=false,currentTaste='中口',selectedTags=new Set();
+    let editingId=null,busy=false,nudgeMode=null;
+    let searchQuery='',filterFav=false,filterTaste='',filterStar='';
+    let draftTimer=null,photoTimer=null;
 
-    let searchQuery='';
-    let filterFav=false;
-    let filterTaste='';
-    let filterStar='';
-
-    const STORE_KEY='sakeyake.records.v1',MAX_PHOTO_SIDE=1800,THUMB_W=240,THUMB_H=320,MAX_RECORDS=300;
+    const STORE_KEY='sakeyake.records.v1',DRAFT_KEY='sakeyake.draft.v1',PREF_KEY='sakeyake.lastPref',HINT_KEY='sakeyake.installHint',BACKUP_KEY='sakeyake.lastBackupCount';
+    const MAX_PHOTO_SIDE=1800,THUMB_W=240,THUMB_H=320,MAX_RECORDS=300;
     const STORE_MAIN_SIDE=1200,STORE_SUB_SIDE=600,STORE_QUALITY=.75;
+    const SAVE_LABEL='記録して、カードも保存',UPDATE_LABEL='変更を保存する';
+
+    function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+    function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+    function lsDel(k){try{localStorage.removeItem(k)}catch(e){}}
+    function defaultPref(){const p=lsGet(PREF_KEY);return PREFECTURES.includes(p)?p:''}
+
     PREFECTURES.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;form.pref.append(o)});
     function todayLocal(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
     form.date.value=todayLocal();
-    function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3200)}
+    form.pref.value=defaultPref();
+    function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3400)}
     function readRecords(){try{const raw=localStorage.getItem(STORE_KEY);if(!raw)return [];const parsed=JSON.parse(raw);return Array.isArray(parsed)?parsed.filter(r=>r&&typeof r.id==='string'&&PREFECTURES.includes(r.pref)):[]}catch(e){toast('保存データを読み込めませんでした。');return []}}
 
     /* ===== 写真保存用 IndexedDB ===== */
@@ -254,26 +288,96 @@
     }
     function imageFromDataUrl(u){return new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=()=>reject(new Error('画像を読み込めません'));i.src=u})}
 
+    /* ===== 下書きの自動保存 ===== */
+    function scheduleDraft(){if(editingId)return;clearTimeout(draftTimer);draftTimer=setTimeout(saveDraft,400)}
+    function saveDraft(){
+      if(editingId)return;
+      const d={brand:form.brand.value,pref:form.pref.value,date:form.date.value,place:form.place.value,memo:form.memo.value,theme,rating:currentRating,fav:isFav,taste:currentTaste,tags:Array.from(selectedTags)};
+      const empty=!d.brand&&!d.place&&!d.memo&&!photo&&!subPhoto&&!d.rating&&!d.fav&&!d.tags.length;
+      if(empty)lsDel(DRAFT_KEY);else lsSet(DRAFT_KEY,JSON.stringify(d));
+    }
+    function saveDraftPhotos(){
+      if(editingId)return;
+      clearTimeout(photoTimer);
+      photoTimer=setTimeout(async()=>{
+        try{
+          if(!photo){await idbDelete('draft');return}
+          await idbPut('draft',{main:shrinkToDataUrl(photo,STORE_MAIN_SIDE),sub:subPhoto?shrinkToDataUrl(subPhoto,STORE_SUB_SIDE):null});
+        }catch(e){}
+      },200);
+    }
+    function clearDraft(){clearTimeout(draftTimer);clearTimeout(photoTimer);lsDel(DRAFT_KEY);idbDelete('draft').catch(()=>{})}
+    async function restoreDraft(){
+      let d=null;
+      try{const raw=lsGet(DRAFT_KEY);d=raw?JSON.parse(raw):null}catch(e){}
+      let restored=false;
+      if(d&&typeof d==='object'){
+        form.brand.value=String(d.brand||'').slice(0,60);
+        if(PREFECTURES.includes(d.pref))form.pref.value=d.pref;
+        if(typeof d.date==='string'&&d.date)form.date.value=d.date;
+        form.place.value=String(d.place||'').slice(0,40);
+        form.memo.value=String(d.memo||'').slice(0,120);
+        form.count.textContent=String(Array.from(form.memo.value).length);
+        setTheme(d.theme);
+        setRating(Number(d.rating)||0);
+        setFav(!!d.fav);
+        setTaste(TASTES.includes(d.taste)?d.taste:'中口');
+        setTags(Array.isArray(d.tags)?d.tags:[]);
+        restored=!!(form.brand.value||form.place.value||form.memo.value);
+      }
+      try{
+        const p=await idbGet('draft');
+        if(p&&p.main&&!editingId&&!photo){
+          photo=await imageFromDataUrl(p.main);
+          form.preview.src=p.main;form.preview.style.display='block';
+          if(p.sub){subPhoto=await imageFromDataUrl(p.sub);form.subPreview.src=p.sub;form.subWrap.style.display='flex'}
+          restored=true;
+        }
+      }catch(e){}
+      drawCard();
+      if(restored)toast('入力途中の内容を復元しました。');
+    }
+
+    /* ===== 案内バー（ホーム画面追加・バックアップ） ===== */
+    function isStandalone(){return window.navigator.standalone===true||(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)}
+    function refreshNudge(){
+      const n=readRecords().length,last=Number(lsGet(BACKUP_KEY)||0),el=$('nudge');
+      nudgeMode=null;
+      if(n>=1&&!isStandalone()&&!lsGet(HINT_KEY)){
+        nudgeMode='install';
+        $('nudgeText').textContent='Safariの共有ボタン →「ホーム画面に追加」で、記録が消えにくくなります。';
+        $('nudgeAct').textContent='わかった';
+      }else if(n>=10&&n-last>=10){
+        nudgeMode='backup';
+        $('nudgeText').textContent=`記録が${n}件になりました。バックアップしておくと安心です。`;
+        $('nudgeAct').textContent='バックアップ';
+      }
+      el.hidden=!nudgeMode;
+    }
+
     function updateCounts(){
       const records=readRecords();
       const n=records.length;
       $('totalCount').textContent=`全 ${n} 件`;
       $('navCount').textContent=`(${n})`;
-
       const ym=todayLocal().slice(0,7);
       const monthCount=records.filter(r=>r.date&&r.date.startsWith(ym)).length;
       $('monthStat').innerHTML=`${monthCount}<span>杯</span>`;
-
       const uniquePrefs=new Set(records.map(r=>r.pref));
       $('prefStat').innerHTML=`${uniquePrefs.size}<span>/ 47県</span>`;
+      refreshNudge();
     }
 
     function fitText(text,maxWidth,font){ctx.font=font;let s=String(text||'');while(s.length>1&&ctx.measureText(s).width>maxWidth)s=s.slice(0,-1);return s===text?s:s+'…'}
     function drawWrapped(text,x,y,maxWidth,lineHeight,maxLines,font,color){ctx.font=font;ctx.fillStyle=color;const chars=Array.from(String(text||''));let line='',lines=[];for(const ch of chars){const next=line+ch;if(ctx.measureText(next).width>maxWidth&&line){lines.push(line);line=ch;if(lines.length===maxLines)break}else line=next}if(lines.length<maxLines&&line)lines.push(line);const overflow=lines.join('').length<chars.length;if(overflow&&lines.length){let last=lines.length-1;while(lines[last]&&ctx.measureText(lines[last]+'…').width>maxWidth)lines[last]=lines[last].slice(0,-1);lines[last]+='…'}lines.slice(0,maxLines).forEach((v,i)=>ctx.fillText(v,x,y+i*lineHeight));return lines.length}
     function imageCover(img,x,y,w,h){const scale=Math.max(w/img.width,h/img.height),sw=w/scale,sh=h/scale,sx=(img.width-sw)/2,sy=(img.height-sh)/2;ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h)}
 
-    function drawCard(){
-      const t=THEMES[theme],w=900,h=1200;
+    function renderCard(c,s,ph,sub){
+      const prev=ctx;ctx=c;
+      try{drawCardBody(s,ph,sub)}finally{ctx=prev}
+    }
+    function drawCardBody(s,photo,subPhoto){
+      const t=THEMES[s.theme]||THEMES.beige,w=900,h=1200;
       ctx.fillStyle=t.bg;ctx.fillRect(0,0,w,h);
       ctx.strokeStyle=t.ink+'35';ctx.lineWidth=2;ctx.strokeRect(30,30,w-60,h-60);ctx.strokeStyle=t.accent;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(58,90);ctx.lineTo(58,58);ctx.lineTo(90,58);ctx.moveTo(w-90,58);ctx.lineTo(w-58,58);ctx.lineTo(w-58,90);ctx.stroke();
 
@@ -285,49 +389,44 @@
       if(subPhoto){
         const sw=170,sh=200,sx=ix+iw-sw-18,sy=iy+ih-sh-18;
         ctx.save();
-        ctx.shadowColor='rgba(0,0,0,0.28)';
-        ctx.shadowBlur=16;
-        ctx.shadowOffsetY=6;
-        ctx.fillStyle='#fffdf8';
-        ctx.fillRect(sx-8,sy-8,sw+16,sh+26);
+        ctx.shadowColor='rgba(0,0,0,0.28)';ctx.shadowBlur=16;ctx.shadowOffsetY=6;
+        ctx.fillStyle='#fffdf8';ctx.fillRect(sx-8,sy-8,sw+16,sh+26);
         ctx.restore();
         imageCover(subPhoto,sx,sy,sw,sh);
       }
 
       ctx.textAlign='center';
-      const brand=(form.brand.value.trim()||'今日の一杯')+(isFav?' ♥':'');
+      const brand=(s.brand||'今日の一杯')+(s.fav?' ♥':'');
       ctx.fillStyle=t.ink;ctx.font='600 42px "Yu Gothic",sans-serif';ctx.fillText(fitText(brand,770,'600 42px "Yu Gothic",sans-serif'),w/2,775);
 
-      const place=form.place.value.trim();
-      const subLine=`${form.pref.value||'都道府県'} ・ ${form.date.value||todayLocal()}`+(place?` ・ ${place}`:'');
+      const place=s.place||'';
+      const subLine=`${s.pref||'都道府県'} ・ ${s.date||todayLocal()}`+(place?` ・ ${place}`:'');
       ctx.fillStyle=t.accent;ctx.font='600 21px sans-serif';ctx.fillText(fitText(subLine,780,'600 21px sans-serif'),w/2,818);
 
       let cursorY=858;
       let evalText='';
-      if(currentRating>0) evalText+='★'.repeat(currentRating)+' ';
-      if(currentTaste) evalText+=`[ ${currentTaste} ]`;
-      if(evalText){
-        ctx.fillStyle=t.ink;ctx.font='600 20px sans-serif';ctx.fillText(evalText,w/2,cursorY);
-        cursorY+=36;
-      }
+      if(s.rating>0) evalText+='★'.repeat(s.rating)+' ';
+      if(s.taste) evalText+=`[ ${s.taste} ]`;
+      if(evalText){ctx.fillStyle=t.ink;ctx.font='600 20px sans-serif';ctx.fillText(evalText,w/2,cursorY);cursorY+=36}
 
-      if(selectedTags.size>0){
+      const tagList=Array.isArray(s.tags)?s.tags:[];
+      if(tagList.length>0){
         ctx.fillStyle=t.ink+'aa';ctx.font='18px sans-serif';
-        const tagString=Array.from(selectedTags).map(tag=>`#${tag}`).join('  ');
+        const tagString=tagList.map(tag=>`#${tag}`).join('  ');
         ctx.fillText(fitText(tagString,760,'18px sans-serif'),w/2,cursorY);
         cursorY+=42;
-      }else{
-        cursorY+=10;
-      }
+      }else{cursorY+=10}
 
-      const memo=form.memo.value.trim();
-      if(memo){
-        ctx.textAlign='center';
-        drawWrapped(memo,w/2,cursorY,700,36,3,'23px sans-serif',t.ink);
-      }
+      const memo=s.memo||'';
+      if(memo){ctx.textAlign='center';drawWrapped(memo,w/2,cursorY,700,36,3,'23px sans-serif',t.ink)}
 
       ctx.strokeStyle=t.ink+'45';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(340,1105);ctx.lineTo(560,1105);ctx.stroke();ctx.fillStyle=t.ink+'bb';ctx.font='20px sans-serif';ctx.textAlign='center';ctx.fillText('おいしい記憶を、またひとつ。',w/2,1145);
+    }
+    function currentState(){return{theme,brand:form.brand.value.trim(),pref:form.pref.value,date:form.date.value,place:form.place.value.trim(),memo:form.memo.value.trim(),rating:currentRating,fav:isFav,taste:currentTaste,tags:Array.from(selectedTags)}}
+    function drawCard(){
+      renderCard(mainCtx,currentState(),photo,subPhoto);
       try{form.image.src=form.canvas.toDataURL('image/jpeg',.9)}catch(e){toast('カード画像を作成できませんでした。写真を小さくしてお試しください。')}
+      scheduleDraft();
     }
 
     function compressAndLoad(file,onDone){
@@ -356,28 +455,42 @@
         photo=loadedImg;
         form.preview.src=srcUrl;
         form.preview.style.display='block';
-        drawCard();
+        drawCard();saveDraftPhotos();
       });
     }
-
     function loadSubPhoto(file){
       compressAndLoad(file,(loadedImg,srcUrl)=>{
         subPhoto=loadedImg;
         form.subPreview.src=srcUrl;
         form.subWrap.style.display='flex';
-        drawCard();
+        drawCard();saveDraftPhotos();
       });
     }
-
-    function clearSubPhoto(){
+    function clearSubPhoto(skipDraft){
       subPhoto=null;
       form.subPhoto.value='';
       form.subPreview.src='';
       form.subWrap.style.display='none';
       drawCard();
+      if(skipDraft!==true)saveDraftPhotos();
     }
 
     function fileFromCanvas(canvas,name){return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(new File([blob],name,{type:'image/jpeg'})):reject(new Error('画像を準備できませんでした。')),'image/jpeg',.9))}
+
+    /* 共有画面を開く。戻り値：'shared' | 'cancel' | 'download' */
+    async function shareCard(){
+      return shareFile(await fileFromCanvas(form.canvas,`sakeyake-${form.date.value||todayLocal()}.jpg`));
+    }
+    async function shareFile(file){
+      if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){
+        try{await navigator.share({files:[file],title:'さけやけ｜日本酒の思い出'});return 'shared'}
+        catch(e){if(e&&e.name==='AbortError')return 'cancel';throw e}
+      }
+      const url=URL.createObjectURL(file),a=document.createElement('a');
+      a.href=url;a.download=file.name;document.body.append(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),10000);
+      return 'download';
+    }
 
     /* ===== 入力欄の見た目を状態に合わせる部品 ===== */
     function setTheme(name){theme=THEMES[name]?name:'beige';document.querySelectorAll('.theme').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.theme===theme)))}
@@ -389,29 +502,27 @@
     function updateEditUI(){
       const editing=!!editingId;
       $('editBanner').hidden=!editing;
-      $('saveBtn').textContent=editing?'変更を保存する':'県別一覧に記録を残す（自動リセット）';
+      $('saveBtn').textContent=editing?UPDATE_LABEL:SAVE_LABEL;
       if(editing)$('editBannerText').textContent=`✎ 「${form.brand.value.trim()||'無題'}」を編集中`;
     }
 
-    function resetForm(){
-      editingId=null;
+    function resetForm(keepDraft){
+      if(!keepDraft)editingId=null;
       photo=null;
       form.photo.value='';
       form.preview.src='';
       form.preview.style.display='none';
-      clearSubPhoto();
+      clearSubPhoto(true);
       form.brand.value='';
-      form.pref.value='';
+      form.pref.value=defaultPref();
       form.date.value=todayLocal();
       form.place.value='';
       form.memo.value='';
       form.count.textContent='0';
-      setRating(0);
-      setFav(false);
-      setTaste('中口');
-      setTags([]);
+      setRating(0);setFav(false);setTaste('中口');setTags([]);
       updateEditUI();
       drawCard();
+      if(!keepDraft)clearDraft();
     }
 
     function recordData(){
@@ -420,15 +531,11 @@
       if(!pref){form.pref.focus();toast('都道府県を選んでください。');return null}
       return {
         id:`${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
-        brand,
-        pref,
+        brand,pref,
         date:form.date.value||todayLocal(),
         place:form.place.value.trim(),
         memo:form.memo.value.trim(),
-        theme,
-        rating:currentRating,
-        fav:isFav,
-        taste:currentTaste,
+        theme,rating:currentRating,fav:isFav,taste:currentTaste,
         tags:Array.from(selectedTags)
       }
     }
@@ -437,15 +544,13 @@
     async function savePhotosFor(id){
       if(!photo)return true;
       try{
-        await idbPut(id,{
-          main:shrinkToDataUrl(photo,STORE_MAIN_SIDE),
-          sub:subPhoto?shrinkToDataUrl(subPhoto,STORE_SUB_SIDE):null
-        });
+        await idbPut(id,{main:shrinkToDataUrl(photo,STORE_MAIN_SIDE),sub:subPhoto?shrinkToDataUrl(subPhoto,STORE_SUB_SIDE):null});
         return true;
       }catch(e){return false}
     }
 
     async function saveRecord(){
+      if(busy)return;
       const data=recordData();
       if(!data)return;
       const records=readRecords();
@@ -459,13 +564,19 @@
         toast(`この端末には最大${MAX_RECORDS}件まで保存できます。古い記録を削除してください。`);
         return;
       }
+      busy=true;$('saveBtn').disabled=true;
       try{
+        let shareResult='none';
+        if(!isUpdate){
+          try{shareResult=await shareCard()}catch(e){shareResult='error'}
+        }
         let keepOldThumb=false;
         if(isUpdate&&!photo&&old&&old.thumb){data.thumb=old.thumb;keepOldThumb=true}
         else data.thumb=makeThumbnail();
 
         const next=isUpdate?records.map((r,i)=>i===idx?data:r):[data,...records];
         localStorage.setItem(STORE_KEY,JSON.stringify(next));
+        lsSet(PREF_KEY,data.pref);
         const photoOk=await savePhotosFor(data.id);
 
         renderArchive();
@@ -475,19 +586,25 @@
           toast(keepOldThumb?'記録を更新しました（写真は変更していないため、一覧の画像はそのままです）。':'記録を更新しました。');
         }else{
           window.scrollTo({top:0,behavior:'smooth'});
-          toast(photoOk?'県別一覧に記録し、入力欄をリセットしました。':'記録しましたが、写真の保存に失敗しました（後から編集しても写真は戻りません）。');
+          let msg='県別一覧に記録しました。';
+          if(shareResult==='cancel')msg='記録しました。カードは保存していません（「カードだけ保存・シェア」でいつでも保存できます）。';
+          else if(shareResult==='error')msg='記録しました。カードの保存は、次回「カードだけ保存・シェア」からお試しください。';
+          if(!photoOk)msg+=' ※写真の保存に失敗したため、編集しても写真は戻りません。';
+          toast(msg);
         }
       }catch(e){
         if(e&&e.name==='QuotaExceededError')toast('端末の保存容量がいっぱいです。古い記録を削除してください。');
         else toast('記録を保存できませんでした。ブラウザの保存設定をご確認ください。');
+      }finally{
+        busy=false;$('saveBtn').disabled=false;
       }
     }
 
     async function startEdit(id){
       const r=readRecords().find(x=>x.id===id);
       if(!r){toast('記録が見つかりませんでした。');return}
-      resetForm();
       editingId=id;
+      resetForm(true);
       form.brand.value=r.brand||'';
       form.pref.value=r.pref||'';
       form.date.value=r.date||todayLocal();
@@ -539,18 +656,14 @@
           const matchText=(r.brand+r.pref+(r.place||'')+r.memo+(r.tags?r.tags.join(''):'')).toLowerCase();
           if(!matchText.includes(q))return false;
         }
-        if(filterFav && !r.fav)return false;
-        if(filterTaste && r.taste!==filterTaste)return false;
-        if(filterStar){
-          const minStar=Number(filterStar);
-          if(!r.rating || r.rating<minStar)return false;
-        }
+        if(filterFav&&!r.fav)return false;
+        if(filterTaste&&r.taste!==filterTaste)return false;
+        if(filterStar){const minStar=Number(filterStar);if(!r.rating||r.rating<minStar)return false}
         return true;
       });
 
       if(!records.length){
-        const empty=safeText('div',allRecords.length===0?'まだ記録はありません。最初の一杯をカードに残してみましょう。':'条件に一致する記録はありません。','empty');
-        root.append(empty);
+        root.append(safeText('div',allRecords.length===0?'まだ記録はありません。最初の一杯をカードに残してみましょう。':'条件に一致する記録はありません。','empty'));
         return;
       }
 
@@ -577,18 +690,16 @@
           const titleRow=document.createElement('div');
           titleRow.className='entry-title-row';
           titleRow.append(safeText('span',r.brand,'entry-title'));
-          if(r.fav) titleRow.append(safeText('span','♥ また飲みたい','entry-fav'));
+          if(r.fav)titleRow.append(safeText('span','♥ また飲みたい','entry-fav'));
           details.append(titleRow);
 
           details.append(safeText('div',r.date,'entry-date'));
-          if(r.place) details.append(safeText('div',`📍 ${r.place}`,'entry-place'));
+          if(r.place)details.append(safeText('div',`📍 ${r.place}`,'entry-place'));
 
           let metaText='';
-          if(r.rating) metaText+='★'.repeat(r.rating)+' ';
-          if(r.taste) metaText+=`[${r.taste}]`;
-          if(metaText){
-            details.append(safeText('div',metaText,'entry-meta-row'));
-          }
+          if(r.rating)metaText+='★'.repeat(r.rating)+' ';
+          if(r.taste)metaText+=`[${r.taste}]`;
+          if(metaText)details.append(safeText('div',metaText,'entry-meta-row'));
 
           if(r.tags&&r.tags.length>0){
             const tagWrap=document.createElement('div');
@@ -596,24 +707,20 @@
             r.tags.forEach(tag=>tagWrap.append(safeText('span',`#${tag}`,'entry-tag')));
             details.append(tagWrap);
           }
-
-          if(r.memo) details.append(safeText('div',r.memo,'entry-memo'));
+          if(r.memo)details.append(safeText('div',r.memo,'entry-memo'));
 
           const actions=document.createElement('div');
           actions.className='entry-actions';
           const edit=document.createElement('button');
-          edit.type='button';
-          edit.className='edit-btn';
-          edit.textContent='編集';
+          edit.type='button';edit.className='edit-btn';edit.textContent='編集';
           edit.setAttribute('aria-label',`${r.brand}の記録を編集`);
           edit.addEventListener('click',()=>startEdit(r.id));
           const del=document.createElement('button');
-          del.type='button';
-          del.className='delete-btn';
-          del.textContent='削除';
+          del.type='button';del.className='delete-btn';del.textContent='削除';
           del.setAttribute('aria-label',`${r.brand}の記録を削除`);
           del.addEventListener('click',()=>deleteRecord(r.id));
           actions.append(edit,del);
+          row.addEventListener('click',e=>{if(e.target.closest('button'))return;openDetail(r.id)});
           row.append(img,details,actions);
           section.append(row);
         }
@@ -633,6 +740,52 @@
     }
     function setScreen(which){const archive=which==='archive';$('createScreen').hidden=archive;$('archiveScreen').hidden=!archive;document.querySelectorAll('.nav-btn').forEach(b=>b.setAttribute('aria-current',String(b.dataset.screen===which)));if(archive)renderArchive();window.scrollTo({top:0,behavior:'smooth'})}
 
+    /* ===== カードの拡大表示 ===== */
+    let detailId=null,detailFile=null,detailCanvas=null,detailCtx=null;
+    function dataUrlToFile(u,name){
+      const parts=u.split(','),mime=(parts[0].match(/:(.*?);/)||[])[1]||'image/jpeg',bin=atob(parts[1]),arr=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);
+      return new File([arr],name,{type:mime});
+    }
+    async function openDetail(id){
+      const r=readRecords().find(x=>x.id===id);
+      if(!r){toast('記録が見つかりませんでした。');return}
+      detailId=id;detailFile=null;
+      const note=$('detailNote'),img=$('detailImg'),fname=`sakeyake-${r.date||todayLocal()}.jpg`;
+      $('detailTitle').textContent=r.brand;
+      img.alt=`${r.brand}の思い出カード`;
+      img.src=r.thumb||'';
+      note.hidden=true;
+      $('detailShare').disabled=true;
+      $('detail').hidden=false;
+      document.body.style.overflow='hidden';
+      try{
+        const p=await idbGet(id);
+        if(detailId!==id)return;
+        if(p&&p.main){
+          const m=await imageFromDataUrl(p.main);
+          const sub=p.sub?await imageFromDataUrl(p.sub):null;
+          if(detailId!==id)return;
+          if(!detailCanvas){detailCanvas=document.createElement('canvas');detailCanvas.width=900;detailCanvas.height=1200;detailCtx=detailCanvas.getContext('2d',{alpha:false})}
+          renderCard(detailCtx,r,m,sub);
+          img.src=detailCanvas.toDataURL('image/jpeg',.9);
+          detailFile=await fileFromCanvas(detailCanvas,fname);
+        }
+      }catch(e){detailFile=null}
+      if(detailId!==id)return;
+      if(!detailFile&&r.thumb){
+        try{detailFile=dataUrlToFile(r.thumb,fname)}catch(e){}
+        note.textContent='この記録は写真が保存されていないため、小さめの画像です。編集で写真を選び直すと、きれいなカードにできます。';
+        note.hidden=false;
+      }
+      $('detailShare').disabled=!detailFile;
+    }
+    function closeDetail(){
+      detailId=null;detailFile=null;
+      $('detail').hidden=true;
+      document.body.style.overflow='';
+    }
+
     /* ===== バックアップ ===== */
     async function exportBackup(){
       const records=readRecords();
@@ -647,12 +800,12 @@
       const json=JSON.stringify({app:'sakeyake',version:2,exportedAt:new Date().toISOString(),records:out});
       const name=`sakeyake-backup-${todayLocal()}.json`;
       const blob=new Blob([json],{type:'application/json'});
+      const done=()=>{lsSet(BACKUP_KEY,String(records.length));refreshNudge();toast('バックアップを書き出しました。')};
       try{
         const file=new File([blob],name,{type:'application/json'});
         if(navigator.canShare&&navigator.canShare({files:[file]})){
           await navigator.share({files:[file],title:'さけやけ バックアップ'});
-          toast('バックアップを書き出しました。');
-          return;
+          done();return;
         }
       }catch(e){
         if(e&&e.name==='AbortError')return;
@@ -663,7 +816,7 @@
         a.href=url;a.download=name;
         document.body.append(a);a.click();a.remove();
         setTimeout(()=>URL.revokeObjectURL(url),10000);
-        toast('バックアップを書き出しました。');
+        done();
       }catch(e){toast('書き出しに失敗しました。')}
     }
 
@@ -714,45 +867,26 @@
       }
     }
 
+    /* ===== イベント ===== */
     document.querySelectorAll('.theme').forEach(b=>b.addEventListener('click',()=>{setTheme(b.dataset.theme);drawCard()}));
     document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>setScreen(b.dataset.screen)));
 
     document.querySelectorAll('.star-btn').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        const val=Number(btn.dataset.val);
-        setRating(currentRating===val?0:val);
-        drawCard();
-      });
+      btn.addEventListener('click',()=>{const val=Number(btn.dataset.val);setRating(currentRating===val?0:val);drawCard()});
     });
-
     $('favBtn').addEventListener('click',()=>{setFav(!isFav);drawCard()});
-
-    document.querySelectorAll('.taste-btn').forEach(btn=>{
-      btn.addEventListener('click',()=>{setTaste(btn.dataset.taste);drawCard()});
-    });
-
+    document.querySelectorAll('.taste-btn').forEach(btn=>btn.addEventListener('click',()=>{setTaste(btn.dataset.taste);drawCard()}));
     document.querySelectorAll('.tag-chip').forEach(btn=>{
       btn.addEventListener('click',()=>{
         const tag=btn.dataset.tag;
-        if(selectedTags.has(tag)){
-          selectedTags.delete(tag);
-          btn.setAttribute('aria-pressed','false');
-        }else{
-          selectedTags.add(tag);
-          btn.setAttribute('aria-pressed','true');
-        }
+        if(selectedTags.has(tag)){selectedTags.delete(tag);btn.setAttribute('aria-pressed','false')}
+        else{selectedTags.add(tag);btn.setAttribute('aria-pressed','true')}
         drawCard();
       });
     });
 
-    $('searchInput').addEventListener('input',e=>{searchQuery=e.target.value.trim();renderArchive();});
-
-    $('favFilterBtn').addEventListener('click',()=>{
-      filterFav=!filterFav;
-      $('favFilterBtn').setAttribute('aria-pressed',String(filterFav));
-      renderArchive();
-    });
-
+    $('searchInput').addEventListener('input',e=>{searchQuery=e.target.value.trim();renderArchive()});
+    $('favFilterBtn').addEventListener('click',()=>{filterFav=!filterFav;$('favFilterBtn').setAttribute('aria-pressed',String(filterFav));renderArchive()});
     document.querySelectorAll('#tasteFilterRow .filter-chip').forEach(btn=>{
       btn.addEventListener('click',()=>{
         document.querySelectorAll('#tasteFilterRow .filter-chip').forEach(b=>b.setAttribute('aria-pressed','false'));
@@ -761,7 +895,6 @@
         renderArchive();
       });
     });
-
     document.querySelectorAll('#starFilterRow .filter-chip[data-filter-star]').forEach(btn=>{
       btn.addEventListener('click',()=>{
         document.querySelectorAll('#starFilterRow .filter-chip[data-filter-star]').forEach(b=>b.setAttribute('aria-pressed','false'));
@@ -773,65 +906,51 @@
 
     form.photo.addEventListener('change',e=>loadPhoto(e.target.files&&e.target.files[0]));
     form.subPhoto.addEventListener('change',e=>loadSubPhoto(e.target.files&&e.target.files[0]));
-    $('subClearBtn').addEventListener('click',clearSubPhoto);
+    $('subClearBtn').addEventListener('click',()=>clearSubPhoto());
 
     [form.brand,form.pref,form.date,form.place,form.memo].forEach(el=>el.addEventListener('input',()=>{if(el===form.memo)form.count.textContent=String(Array.from(form.memo.value).length);if(el===form.brand&&editingId)updateEditUI();drawCard()}));
     form.pref.addEventListener('change',drawCard);
     $('saveBtn').addEventListener('click',saveRecord);
 
-    $('resetBtn').addEventListener('click',()=>{
-      resetForm();
-      window.scrollTo({top:0,behavior:'smooth'});
-      toast('入力内容をリセットしました。');
+    $('shareBtn').addEventListener('click',async()=>{
+      try{
+        const r=await shareCard();
+        if(r==='download')toast('カード画像を保存しました。');
+      }catch(e){toast('共有できませんでした。時間をおいてもう一度お試しください。')}
     });
 
-    $('editCancelBtn').addEventListener('click',()=>{
-      resetForm();
-      window.scrollTo({top:0,behavior:'smooth'});
-      toast('編集をやめました。');
-    });
+    $('resetBtn').addEventListener('click',()=>{resetForm();window.scrollTo({top:0,behavior:'smooth'});toast('入力内容をリセットしました。')});
+    $('editCancelBtn').addEventListener('click',()=>{resetForm();window.scrollTo({top:0,behavior:'smooth'});toast('編集をやめました。')});
 
     $('exportBtn').addEventListener('click',exportBackup);
     $('importBtn').addEventListener('click',()=>$('importInput').click());
-    $('importInput').addEventListener('change',e=>{
-      const f=e.target.files&&e.target.files[0];
-      importBackup(f).finally(()=>{e.target.value=''});
+    $('importInput').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];importBackup(f).finally(()=>{e.target.value=''})});
+
+    $('nudgeAct').addEventListener('click',()=>{
+      if(nudgeMode==='install'){lsSet(HINT_KEY,'1');refreshNudge()}
+      else if(nudgeMode==='backup'){exportBackup()}
+    });
+    $('nudgeX').addEventListener('click',()=>{
+      if(nudgeMode==='install')lsSet(HINT_KEY,'1');
+      else if(nudgeMode==='backup')lsSet(BACKUP_KEY,String(readRecords().length));
+      refreshNudge();
     });
 
-    $('photoSaveBtn').addEventListener('click',()=>{
+    $('detailClose').addEventListener('click',closeDetail);
+    $('detail').addEventListener('click',e=>{if(e.target===$('detail'))closeDetail()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('detail').hidden)closeDetail()});
+    $('detailEdit').addEventListener('click',()=>{const id=detailId;closeDetail();if(id)startEdit(id)});
+    $('detailShare').addEventListener('click',async()=>{
+      if(!detailFile)return;
       try{
-        const dataUrl=form.canvas.toDataURL('image/jpeg',.95),win=window.open();
-        if(!win){toast('ポップアップを許可してから、カード画像を開いてください。');return}
-        win.document.title='さけやけ｜写真に保存';
-        win.document.body.style='margin:0;background:#222;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;padding:20px 10px;box-sizing:border-box;font-family:sans-serif;';
-
-        const wrap=win.document.createElement('div');
-        wrap.style='max-width:100%;text-align:center;';
-
-        const img=win.document.createElement('img');
-        img.src=dataUrl;
-        img.alt='さけやけの思い出カード';
-        img.style='display:block;max-width:100%;height:auto;border-radius:8px;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,0.5);';
-
-        const backBtn=win.document.createElement('button');
-        backBtn.textContent='← アプリの画面に戻る';
-        backBtn.style='background:#a34f3f;color:#fff;border:0;border-radius:12px;padding:14px 24px;font-size:15px;font-weight:650;cursor:pointer;width:100%;max-width:300px;margin:0 auto 20px;display:block;box-shadow:0 4px 12px rgba(0,0,0,0.3);';
-        backBtn.onclick=()=>win.close();
-
-        const hint=win.document.createElement('p');
-        hint.textContent='※画像を長押しして「写真に保存」を選んでください';
-        hint.style='color:#aaa;font-size:12px;margin:0;text-align:center;';
-
-        wrap.append(img,backBtn,hint);
-        win.document.body.append(wrap);
-        toast('画像を長押しして「写真に保存」を選んでください。');
-      }catch(e){
-        toast('画像を開けませんでした。カード画像を長押しして保存してください。');
-      }
+        const r=await shareFile(detailFile);
+        if(r==='download')toast('画像を保存しました。');
+      }catch(e){toast('共有できませんでした。時間をおいてもう一度お試しください。')}
     });
 
-    $('shareBtn').addEventListener('click',async()=>{try{const file=await fileFromCanvas(form.canvas,`sakeyake-${form.date.value||todayLocal()}.jpg`);if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){await navigator.share({files:[file],title:'さけやけ｜日本酒の思い出',text:'今日の一杯の思い出カード'});return}toast('このブラウザでは画像共有に対応していません。カード画像を長押しして保存してください。')}catch(e){if(e&&e.name==='AbortError')return;toast('共有できませんでした。カード画像を長押しして保存してください。');}});
-    window.addEventListener('storage',e=>{if(e.key===STORE_KEY)updateCounts()});drawCard();updateCounts();
+    window.addEventListener('pagehide',()=>{saveDraft()});
+    window.addEventListener('storage',e=>{if(e.key===STORE_KEY)updateCounts()});
+    drawCard();updateCounts();restoreDraft();
   })();
   </script>
 </body>
