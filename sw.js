@@ -1,9 +1,10 @@
 /* さけやけのアプリ画面を端末に保存し、通信がないときに表示します。 */
-const CACHE_NAME = 'sakeyake-shell-v1';
+const CACHE_NAME = 'sakeyake-shell-v2';
 const BASE_URL = self.registration.scope;
 const APP_FILES = [
   new URL('./', BASE_URL).href,
   new URL('./index.html', BASE_URL).href,
+  new URL('./about.html', BASE_URL).href,
   new URL('./manifest.json', BASE_URL).href,
   new URL('./icon.jpg', BASE_URL).href
 ];
@@ -36,7 +37,7 @@ self.addEventListener('fetch', event => {
       const cache = await caches.open(CACHE_NAME);
       try {
         const response = await fetch(request);
-        if (response.ok) await cache.put(new URL('./index.html', BASE_URL), response.clone());
+        if (response.ok) await cache.put(request, response.clone());
         return response;
       } catch (error) {
         return (await cache.match(request))
