@@ -18,6 +18,11 @@
     .taste-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}.taste-btn{border:1px solid var(--line);background:#fffefa;border-radius:10px;padding:8px 2px;font-size:12px;text-align:center;color:var(--ink);min-height:42px}.taste-btn[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:650}
     .tag-chips{display:flex;flex-wrap:wrap;gap:6px}.tag-chip{border:1px solid var(--line);background:#fffefa;border-radius:20px;padding:6px 12px;font-size:12px;color:var(--muted);min-height:auto}.tag-chip[aria-pressed=true]{background:#f2ede3;border-color:#bfae99;color:var(--ink);font-weight:650}
 
+    .edit-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fdf0ed;border:1px solid #e7b9ae;border-radius:12px;padding:10px 12px;margin-bottom:16px;font-size:13px;color:var(--accent-dark);font-weight:600}
+    .edit-banner[hidden]{display:none}
+    .edit-banner span{overflow-wrap:anywhere}
+    .edit-cancel{flex:none;border:1px solid #d98b7c;background:#fffefa;color:var(--accent-dark);border-radius:8px;padding:6px 10px;font-size:12px}
+
     .stats-bar{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;box-shadow:var(--shadow)}
     .stat-item{background:#fcfaf5;border-radius:11px;padding:9px 12px;text-align:center}
     .stat-label{font-size:10px;color:var(--muted);display:block;margin-bottom:2px}
@@ -30,7 +35,13 @@
     .filter-chip{border:1px solid var(--line);background:#fffefa;border-radius:8px;padding:4px 10px;font-size:11px;white-space:nowrap;color:var(--muted)}
     .filter-chip[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-    .preview-wrap{padding:10px;background:#f1ece3;border-radius:15px}.card-image{display:block;width:100%;height:auto;border-radius:9px;touch-action:manipulation;-webkit-touch-callout:default}.actions{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}.btn{border:0;border-radius:13px;min-height:50px;padding:12px 14px;font-weight:650;font-size:14px;transition:transform .12s,background .12s}.btn:active{transform:scale(.99)}.btn-primary{background:var(--accent);color:white}.btn-primary:hover{background:var(--accent-dark)}.btn-secondary{background:#eee8dd;color:var(--ink)}.btn-outline{background:transparent;border:1px solid #cfc4b3;color:var(--ink)}.btn-ghost{background:transparent;color:var(--muted);font-size:12px;min-height:40px;padding:8px;font-weight:500}.hint-box{font-size:11px;color:var(--muted);margin:10px 2px 0}.screen[hidden]:not(.preserve-screen){display:none}.archive-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:12px}.archive-head h2{font-family:"Yu Mincho",YuMincho,serif;font-size:21px;font-weight:500;margin:0}.total{font-size:12px;color:var(--muted)}.pref-block{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:12px;overflow:hidden}.pref-heading{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;background:#f2ede3}.pref-heading h3{font-size:14px;margin:0}.pref-count{font-size:11px;color:var(--muted)}.entry{display:grid;grid-template-columns:82px minmax(0,1fr) auto;gap:12px;padding:13px;border-top:1px solid var(--line);align-items:start}.entry img{width:82px;height:100px;object-fit:cover;border-radius:9px;background:#eee}.entry-title-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.entry-title{font-weight:650;font-size:14px;overflow-wrap:anywhere}.entry-fav{color:var(--accent);font-size:12px}.entry-date{font-size:11px;color:var(--muted)}.entry-place{font-size:11px;color:#5c564c;margin-top:2px}.entry-meta-row{font-size:11px;color:var(--accent);margin-top:2px;font-weight:600}.entry-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.entry-tag{font-size:10px;background:#f2ede3;color:var(--muted);padding:1px 6px;border-radius:4px}.entry-memo{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:5px;color:#514e47}.delete-btn{border:0;background:transparent;color:#9a5548;padding:5px;font-size:11px;min-height:36px}.empty{border:1px dashed #d6cbbb;border-radius:18px;text-align:center;padding:32px 18px;color:var(--muted);font-size:13px;background:#fbf9f4}.bottom-nav{position:fixed;z-index:5;bottom:0;left:0;right:0;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#fffdf8ed;border-top:1px solid var(--line);backdrop-filter:blur(12px)}.nav-inner{max-width:720px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:7px}.nav-btn{border:0;background:transparent;border-radius:13px;min-height:53px;color:var(--muted);font-size:12px}.nav-btn[aria-current=page]{background:#f1e9dd;color:var(--accent-dark);font-weight:700}.nav-icon{display:block;font-size:17px;line-height:1.1;margin-bottom:3px}.toast{position:fixed;z-index:9;bottom:calc(82px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#302d27;color:white;border-radius:12px;padding:11px 15px;font-size:13px;max-width:calc(100vw - 32px);box-shadow:var(--shadow);transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}footer{text-align:center;color:#938c80;font-size:10px;padding:6px 0 20px}
+    .backup-panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:18px}
+    .backup-panel h3{font-size:14px;margin:0 0 4px}
+    .backup-panel p{font-size:11px;color:var(--muted);margin:0 0 10px}
+    .backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .backup-actions .btn{min-height:44px;font-size:13px}
+
+    .preview-wrap{padding:10px;background:#f1ece3;border-radius:15px}.card-image{display:block;width:100%;height:auto;border-radius:9px;touch-action:manipulation;-webkit-touch-callout:default}.actions{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}.btn{border:0;border-radius:13px;min-height:50px;padding:12px 14px;font-weight:650;font-size:14px;transition:transform .12s,background .12s}.btn:active{transform:scale(.99)}.btn-primary{background:var(--accent);color:white}.btn-primary:hover{background:var(--accent-dark)}.btn-secondary{background:#eee8dd;color:var(--ink)}.btn-outline{background:transparent;border:1px solid #cfc4b3;color:var(--ink)}.btn-ghost{background:transparent;color:var(--muted);font-size:12px;min-height:40px;padding:8px;font-weight:500}.hint-box{font-size:11px;color:var(--muted);margin:10px 2px 0}.screen[hidden]:not(.preserve-screen){display:none}.archive-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:12px}.archive-head h2{font-family:"Yu Mincho",YuMincho,serif;font-size:21px;font-weight:500;margin:0}.total{font-size:12px;color:var(--muted)}.pref-block{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:12px;overflow:hidden}.pref-heading{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;background:#f2ede3}.pref-heading h3{font-size:14px;margin:0}.pref-count{font-size:11px;color:var(--muted)}.entry{display:grid;grid-template-columns:82px minmax(0,1fr) auto;gap:12px;padding:13px;border-top:1px solid var(--line);align-items:start}.entry img{width:82px;height:100px;object-fit:cover;border-radius:9px;background:#eee}.entry-title-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.entry-title{font-weight:650;font-size:14px;overflow-wrap:anywhere}.entry-fav{color:var(--accent);font-size:12px}.entry-date{font-size:11px;color:var(--muted)}.entry-place{font-size:11px;color:#5c564c;margin-top:2px}.entry-meta-row{font-size:11px;color:var(--accent);margin-top:2px;font-weight:600}.entry-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.entry-tag{font-size:10px;background:#f2ede3;color:var(--muted);padding:1px 6px;border-radius:4px}.entry-memo{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:5px;color:#514e47}.entry-actions{display:flex;flex-direction:column;gap:2px}.delete-btn,.edit-btn{border:0;background:transparent;padding:5px 8px;font-size:12px;min-height:36px}.delete-btn{color:#9a5548}.edit-btn{color:var(--accent-dark);font-weight:700}.empty{border:1px dashed #d6cbbb;border-radius:18px;text-align:center;padding:32px 18px;color:var(--muted);font-size:13px;background:#fbf9f4}.bottom-nav{position:fixed;z-index:5;bottom:0;left:0;right:0;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#fffdf8ed;border-top:1px solid var(--line);backdrop-filter:blur(12px)}.nav-inner{max-width:720px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:7px}.nav-btn{border:0;background:transparent;border-radius:13px;min-height:53px;color:var(--muted);font-size:12px}.nav-btn[aria-current=page]{background:#f1e9dd;color:var(--accent-dark);font-weight:700}.nav-icon{display:block;font-size:17px;line-height:1.1;margin-bottom:3px}.toast{position:fixed;z-index:9;bottom:calc(82px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#302d27;color:white;border-radius:12px;padding:11px 15px;font-size:13px;max-width:calc(100vw - 32px);box-shadow:var(--shadow);transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}footer{text-align:center;color:#938c80;font-size:10px;padding:6px 0 20px}
     @media(min-width:600px){.container{padding-left:24px;padding-right:24px}.actions{grid-template-columns:1fr 1fr}.actions .btn-wide{grid-column:1/-1}}
   </style>
 </head>
@@ -40,6 +51,7 @@
     <section id="createScreen" class="screen" aria-labelledby="createTitle">
       <div class="intro"><h2 id="createTitle">今日の一杯を、カードに。</h2><p>写真と小さなメモで、旅のような一杯を残しましょう。</p></div>
       <div class="panel">
+        <div id="editBanner" class="edit-banner" hidden><span id="editBannerText">編集中</span><button id="editCancelBtn" type="button" class="edit-cancel">編集をやめる</button></div>
         <h3 class="section-title">思い出の写真 <span>選ぶとカードに反映されます</span></h3>
         <div class="field filebox">
           <label for="photoInput">メインの写真（ボトルや酒器など）</label>
@@ -119,7 +131,7 @@
 
     <section id="archiveScreen" class="screen" aria-labelledby="archiveTitle" hidden>
       <div class="archive-head"><div><h2 id="archiveTitle">県別の酒旅</h2><p class="eyebrow" style="margin:3px 0 0">出会った一杯の記録</p></div><div id="totalCount" class="total">全 0 件</div></div>
-      
+
       <div class="stats-bar" aria-label="記録の集計">
         <div class="stat-item">
           <span class="stat-label">今月の記録</span>
@@ -159,6 +171,16 @@
       </div>
 
       <div id="archiveList" aria-live="polite"></div>
+
+      <div class="backup-panel">
+        <h3>バックアップ</h3>
+        <p>記録を写真つきで1つのファイルに書き出せます。機種変更やSafariのデータ消去に備えて、ときどき保存しておくと安心です。</p>
+        <div class="backup-actions">
+          <button id="exportBtn" type="button" class="btn btn-secondary">書き出し</button>
+          <button id="importBtn" type="button" class="btn btn-outline">読み込み</button>
+        </div>
+        <input id="importInput" type="file" accept="application/json,.json" hidden>
+      </div>
     </section>
   </main>
   <nav class="bottom-nav" aria-label="メインナビゲーション"><div class="nav-inner"><button class="nav-btn" type="button" data-screen="create" aria-current="page"><span class="nav-icon" aria-hidden="true">✎</span>カードをつくる</button><button class="nav-btn" type="button" data-screen="archive" aria-current="false"><span class="nav-icon" aria-hidden="true">⌂</span>県別一覧 <span id="navCount">(0)</span></button></div></nav>
@@ -167,16 +189,18 @@
   (()=>{
     'use strict';
     const PREFECTURES=['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'];
+    const TASTES=['甘口','やや甘','中口','やや辛','辛口'];
     const THEMES={beige:{bg:'#eadcc4',ink:'#3d352b',accent:'#a34f3f',label:'ベージュ'},green:{bg:'#d5ddcf',ink:'#344036',accent:'#66765e',label:'くすみグリーン'},indigo:{bg:'#34445c',ink:'#fff8e9',accent:'#e5bd85',label:'藍'},sakura:{bg:'#efd5d6',ink:'#493438',accent:'#a34f3f',label:'さくら'}};
     const $=id=>document.getElementById(id), form={photo:$('photoInput'),preview:$('sourcePreview'),subPhoto:$('subPhotoInput'),subPreview:$('subPreview'),subWrap:$('subPreviewWrap'),brand:$('brandInput'),pref:$('prefInput'),date:$('dateInput'),place:$('placeInput'),memo:$('memoInput'),count:$('memoCount'),image:$('cardImage'),canvas:document.createElement('canvas')};
     form.canvas.width=900;form.canvas.height=1200;
     const ctx=form.canvas.getContext('2d',{alpha:false});
-    
+
     let theme='beige',photo=null,subPhoto=null,toastTimer=null;
     let currentRating=0;
     let isFav=false;
     let currentTaste='中口';
     let selectedTags=new Set();
+    let editingId=null;
 
     let searchQuery='';
     let filterFav=false;
@@ -184,12 +208,52 @@
     let filterStar='';
 
     const STORE_KEY='sakeyake.records.v1',MAX_PHOTO_SIDE=1800,THUMB_W=240,THUMB_H=320,MAX_RECORDS=300;
+    const STORE_MAIN_SIDE=1200,STORE_SUB_SIDE=600,STORE_QUALITY=.75;
     PREFECTURES.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;form.pref.append(o)});
     function todayLocal(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
     form.date.value=todayLocal();
-    function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3000)}
+    function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3200)}
     function readRecords(){try{const raw=localStorage.getItem(STORE_KEY);if(!raw)return [];const parsed=JSON.parse(raw);return Array.isArray(parsed)?parsed.filter(r=>r&&typeof r.id==='string'&&PREFECTURES.includes(r.pref)):[]}catch(e){toast('保存データを読み込めませんでした。');return []}}
-    
+
+    /* ===== 写真保存用 IndexedDB ===== */
+    let dbPromise=null;
+    function openDB(){
+      if(dbPromise)return dbPromise;
+      dbPromise=new Promise((resolve,reject)=>{
+        if(!window.indexedDB){reject(new Error('IndexedDB非対応'));return}
+        const q=indexedDB.open('sakeyake-db',1);
+        q.onupgradeneeded=()=>{if(!q.result.objectStoreNames.contains('photos'))q.result.createObjectStore('photos')};
+        q.onsuccess=()=>resolve(q.result);
+        q.onerror=()=>reject(q.error||new Error('IndexedDBを開けません'));
+      });
+      dbPromise.catch(()=>{dbPromise=null});
+      return dbPromise;
+    }
+    function idbRun(mode,fn){
+      return openDB().then(db=>new Promise((resolve,reject)=>{
+        const tx=db.transaction('photos',mode);
+        const req=fn(tx.objectStore('photos'));
+        tx.oncomplete=()=>resolve(req&&req.result);
+        tx.onerror=()=>reject(tx.error);
+        tx.onabort=()=>reject(tx.error);
+      }));
+    }
+    const idbPut=(key,val)=>idbRun('readwrite',s=>s.put(val,key));
+    const idbGet=key=>idbRun('readonly',s=>s.get(key));
+    const idbDelete=key=>idbRun('readwrite',s=>s.delete(key));
+    if(navigator.storage&&navigator.storage.persist){navigator.storage.persist().catch(()=>{})}
+
+    function shrinkToDataUrl(img,maxSide){
+      const w=img.naturalWidth||img.width,h=img.naturalHeight||img.height;
+      const ratio=Math.min(1,maxSide/Math.max(w,h));
+      const c=document.createElement('canvas');
+      c.width=Math.max(1,Math.round(w*ratio));
+      c.height=Math.max(1,Math.round(h*ratio));
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      return c.toDataURL('image/jpeg',STORE_QUALITY);
+    }
+    function imageFromDataUrl(u){return new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=()=>reject(new Error('画像を読み込めません'));i.src=u})}
+
     function updateCounts(){
       const records=readRecords();
       const n=records.length;
@@ -207,18 +271,17 @@
     function fitText(text,maxWidth,font){ctx.font=font;let s=String(text||'');while(s.length>1&&ctx.measureText(s).width>maxWidth)s=s.slice(0,-1);return s===text?s:s+'…'}
     function drawWrapped(text,x,y,maxWidth,lineHeight,maxLines,font,color){ctx.font=font;ctx.fillStyle=color;const chars=Array.from(String(text||''));let line='',lines=[];for(const ch of chars){const next=line+ch;if(ctx.measureText(next).width>maxWidth&&line){lines.push(line);line=ch;if(lines.length===maxLines)break}else line=next}if(lines.length<maxLines&&line)lines.push(line);const overflow=lines.join('').length<chars.length;if(overflow&&lines.length){let last=lines.length-1;while(lines[last]&&ctx.measureText(lines[last]+'…').width>maxWidth)lines[last]=lines[last].slice(0,-1);lines[last]+='…'}lines.slice(0,maxLines).forEach((v,i)=>ctx.fillText(v,x,y+i*lineHeight));return lines.length}
     function imageCover(img,x,y,w,h){const scale=Math.max(w/img.width,h/img.height),sw=w/scale,sh=h/scale,sx=(img.width-sw)/2,sy=(img.height-sh)/2;ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h)}
-    
+
     function drawCard(){
       const t=THEMES[theme],w=900,h=1200;
       ctx.fillStyle=t.bg;ctx.fillRect(0,0,w,h);
       ctx.strokeStyle=t.ink+'35';ctx.lineWidth=2;ctx.strokeRect(30,30,w-60,h-60);ctx.strokeStyle=t.accent;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(58,90);ctx.lineTo(58,58);ctx.lineTo(90,58);ctx.moveTo(w-90,58);ctx.lineTo(w-58,58);ctx.lineTo(w-58,90);ctx.stroke();
-      
+
       ctx.textAlign='center';ctx.fillStyle=t.accent;ctx.font='600 22px sans-serif';ctx.fillText('SAKE PHOTO LOG',w/2,94);ctx.fillStyle=t.ink;ctx.font='500 35px "Yu Mincho",serif';ctx.fillText('さけやけ',w/2,140);
-      
+
       const ix=85,iy=180,iw=730,ih=540;ctx.fillStyle='#fffdf8';ctx.fillRect(ix-8,iy-8,iw+16,ih+16);
       if(photo){imageCover(photo,ix,iy,iw,ih)}else{ctx.fillStyle='#f7f2e8';ctx.fillRect(ix,iy,iw,ih);ctx.textAlign='center';ctx.fillStyle='#b3a997';ctx.font='70px serif';ctx.fillText('✿',w/2,iy+240);ctx.font='24px sans-serif';ctx.fillText('写真を選ぶと、ここに表示されます',w/2,iy+300)}
-      
-      // サブ写真（チェキ風小窓）の描画
+
       if(subPhoto){
         const sw=170,sh=200,sx=ix+iw-sw-18,sy=iy+ih-sh-18;
         ctx.save();
@@ -234,7 +297,7 @@
       ctx.textAlign='center';
       const brand=(form.brand.value.trim()||'今日の一杯')+(isFav?' ♥':'');
       ctx.fillStyle=t.ink;ctx.font='600 42px "Yu Gothic",sans-serif';ctx.fillText(fitText(brand,770,'600 42px "Yu Gothic",sans-serif'),w/2,775);
-      
+
       const place=form.place.value.trim();
       const subLine=`${form.pref.value||'都道府県'} ・ ${form.date.value||todayLocal()}`+(place?` ・ ${place}`:'');
       ctx.fillStyle=t.accent;ctx.font='600 21px sans-serif';ctx.fillText(fitText(subLine,780,'600 21px sans-serif'),w/2,818);
@@ -315,8 +378,23 @@
     }
 
     function fileFromCanvas(canvas,name){return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(new File([blob],name,{type:'image/jpeg'})):reject(new Error('画像を準備できませんでした。')),'image/jpeg',.9))}
-    
+
+    /* ===== 入力欄の見た目を状態に合わせる部品 ===== */
+    function setTheme(name){theme=THEMES[name]?name:'beige';document.querySelectorAll('.theme').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.theme===theme)))}
+    function setRating(n){currentRating=n;document.querySelectorAll('.star-btn').forEach(b=>b.classList.toggle('active',Number(b.dataset.val)<=currentRating))}
+    function setFav(v){isFav=!!v;const el=$('favBtn');el.setAttribute('aria-pressed',String(isFav));el.textContent=isFav?'♥ また飲みたい！':'♡ また飲みたい！'}
+    function setTaste(t){currentTaste=t;document.querySelectorAll('.taste-btn').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.taste===t)))}
+    function setTags(arr){selectedTags=new Set(arr);document.querySelectorAll('.tag-chip').forEach(b=>b.setAttribute('aria-pressed',String(selectedTags.has(b.dataset.tag))))}
+
+    function updateEditUI(){
+      const editing=!!editingId;
+      $('editBanner').hidden=!editing;
+      $('saveBtn').textContent=editing?'変更を保存する':'県別一覧に記録を残す（自動リセット）';
+      if(editing)$('editBannerText').textContent=`✎ 「${form.brand.value.trim()||'無題'}」を編集中`;
+    }
+
     function resetForm(){
+      editingId=null;
       photo=null;
       form.photo.value='';
       form.preview.src='';
@@ -328,23 +406,11 @@
       form.place.value='';
       form.memo.value='';
       form.count.textContent='0';
-
-      currentRating=0;
-      document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('active'));
-
-      isFav=false;
-      const favEl=$('favBtn');
-      favEl.setAttribute('aria-pressed','false');
-      favEl.textContent='♡ また飲みたい！';
-
-      currentTaste='中口';
-      document.querySelectorAll('.taste-btn').forEach(b=>{
-        b.setAttribute('aria-pressed',String(b.dataset.taste==='中口'));
-      });
-
-      selectedTags.clear();
-      document.querySelectorAll('.tag-chip').forEach(b=>b.setAttribute('aria-pressed','false'));
-
+      setRating(0);
+      setFav(false);
+      setTaste('中口');
+      setTags([]);
+      updateEditUI();
       drawCard();
     }
 
@@ -367,31 +433,100 @@
       }
     }
     function makeThumbnail(){const c=document.createElement('canvas');c.width=THUMB_W;c.height=THUMB_H;const cctx=c.getContext('2d');cctx.drawImage(form.canvas,0,0,THUMB_W,THUMB_H);return c.toDataURL('image/jpeg',.58)}
-    
+
+    async function savePhotosFor(id){
+      if(!photo)return true;
+      try{
+        await idbPut(id,{
+          main:shrinkToDataUrl(photo,STORE_MAIN_SIDE),
+          sub:subPhoto?shrinkToDataUrl(subPhoto,STORE_SUB_SIDE):null
+        });
+        return true;
+      }catch(e){return false}
+    }
+
     async function saveRecord(){
       const data=recordData();
       if(!data)return;
       const records=readRecords();
-      if(records.length>=MAX_RECORDS){
+      let idx=-1,old=null;
+      if(editingId){
+        idx=records.findIndex(r=>r.id===editingId);
+        if(idx>=0){old=records[idx];data.id=old.id}
+      }
+      const isUpdate=idx>=0;
+      if(!isUpdate&&records.length>=MAX_RECORDS){
         toast(`この端末には最大${MAX_RECORDS}件まで保存できます。古い記録を削除してください。`);
         return;
       }
       try{
-        data.thumb=makeThumbnail();
-        const next=[data,...records];
+        let keepOldThumb=false;
+        if(isUpdate&&!photo&&old&&old.thumb){data.thumb=old.thumb;keepOldThumb=true}
+        else data.thumb=makeThumbnail();
+
+        const next=isUpdate?records.map((r,i)=>i===idx?data:r):[data,...records];
         localStorage.setItem(STORE_KEY,JSON.stringify(next));
+        const photoOk=await savePhotosFor(data.id);
+
         renderArchive();
         resetForm();
-        window.scrollTo({top:0,behavior:'smooth'});
-        toast('県別一覧に記録し、入力欄をリセットしました。');
+        if(isUpdate){
+          setScreen('archive');
+          toast(keepOldThumb?'記録を更新しました（写真は変更していないため、一覧の画像はそのままです）。':'記録を更新しました。');
+        }else{
+          window.scrollTo({top:0,behavior:'smooth'});
+          toast(photoOk?'県別一覧に記録し、入力欄をリセットしました。':'記録しましたが、写真の保存に失敗しました（後から編集しても写真は戻りません）。');
+        }
       }catch(e){
         if(e&&e.name==='QuotaExceededError')toast('端末の保存容量がいっぱいです。古い記録を削除してください。');
         else toast('記録を保存できませんでした。ブラウザの保存設定をご確認ください。');
       }
     }
 
+    async function startEdit(id){
+      const r=readRecords().find(x=>x.id===id);
+      if(!r){toast('記録が見つかりませんでした。');return}
+      resetForm();
+      editingId=id;
+      form.brand.value=r.brand||'';
+      form.pref.value=r.pref||'';
+      form.date.value=r.date||todayLocal();
+      form.place.value=r.place||'';
+      form.memo.value=r.memo||'';
+      form.count.textContent=String(Array.from(form.memo.value).length);
+      setTheme(r.theme);
+      setRating(Number(r.rating)||0);
+      setFav(!!r.fav);
+      setTaste(TASTES.includes(r.taste)?r.taste:'中口');
+      setTags(Array.isArray(r.tags)?r.tags:[]);
+      updateEditUI();
+      drawCard();
+      setScreen('create');
+
+      try{
+        const p=await idbGet(id);
+        if(editingId!==id)return;
+        if(p&&p.main){
+          photo=await imageFromDataUrl(p.main);
+          form.preview.src=p.main;
+          form.preview.style.display='block';
+          if(p.sub){
+            subPhoto=await imageFromDataUrl(p.sub);
+            form.subPreview.src=p.sub;
+            form.subWrap.style.display='flex';
+          }
+          drawCard();
+          toast('保存済みの写真を読み込みました。内容を直して保存できます。');
+        }else{
+          toast('この記録には写真が保存されていません。写真を選び直すと、カードを作り直せます。');
+        }
+      }catch(e){
+        toast('写真を読み込めませんでした。写真を選び直してください。');
+      }
+    }
+
     function safeText(tag,text,className){const el=document.createElement(tag);if(className)el.className=className;el.textContent=text||'';return el}
-    
+
     function renderArchive(){
       const allRecords=readRecords();
       const root=$('archiveList');
@@ -429,7 +564,7 @@
         head.append(safeText('h3',pref));
         head.append(safeText('span',`${list.length}件`,'pref-count'));
         section.append(head);
-        
+
         for(const r of list){
           const row=document.createElement('article');
           row.className='entry';
@@ -437,7 +572,7 @@
           img.alt=`${r.brand}のカードサムネイル`;
           img.loading='lazy';
           img.src=r.thumb||'';
-          
+
           const details=document.createElement('div');
           const titleRow=document.createElement('div');
           titleRow.className='entry-title-row';
@@ -447,7 +582,7 @@
 
           details.append(safeText('div',r.date,'entry-date'));
           if(r.place) details.append(safeText('div',`📍 ${r.place}`,'entry-place'));
-          
+
           let metaText='';
           if(r.rating) metaText+='★'.repeat(r.rating)+' ';
           if(r.taste) metaText+=`[${r.taste}]`;
@@ -463,53 +598,137 @@
           }
 
           if(r.memo) details.append(safeText('div',r.memo,'entry-memo'));
-          
+
+          const actions=document.createElement('div');
+          actions.className='entry-actions';
+          const edit=document.createElement('button');
+          edit.type='button';
+          edit.className='edit-btn';
+          edit.textContent='編集';
+          edit.setAttribute('aria-label',`${r.brand}の記録を編集`);
+          edit.addEventListener('click',()=>startEdit(r.id));
           const del=document.createElement('button');
           del.type='button';
           del.className='delete-btn';
           del.textContent='削除';
           del.setAttribute('aria-label',`${r.brand}の記録を削除`);
           del.addEventListener('click',()=>deleteRecord(r.id));
-          row.append(img,details,del);
+          actions.append(edit,del);
+          row.append(img,details,actions);
           section.append(row);
         }
         root.append(section);
       }
     }
 
-    function deleteRecord(id){const records=readRecords();try{localStorage.setItem(STORE_KEY,JSON.stringify(records.filter(r=>r.id!==id)));renderArchive();toast('記録を削除しました。')}catch(e){toast('記録を削除できませんでした。')}}
+    function deleteRecord(id){
+      const records=readRecords();
+      try{
+        localStorage.setItem(STORE_KEY,JSON.stringify(records.filter(r=>r.id!==id)));
+        idbDelete(id).catch(()=>{});
+        if(editingId===id)resetForm();
+        renderArchive();
+        toast('記録を削除しました。');
+      }catch(e){toast('記録を削除できませんでした。')}
+    }
     function setScreen(which){const archive=which==='archive';$('createScreen').hidden=archive;$('archiveScreen').hidden=!archive;document.querySelectorAll('.nav-btn').forEach(b=>b.setAttribute('aria-current',String(b.dataset.screen===which)));if(archive)renderArchive();window.scrollTo({top:0,behavior:'smooth'})}
-    
-    document.querySelectorAll('.theme').forEach(b=>b.addEventListener('click',()=>{theme=b.dataset.theme;document.querySelectorAll('.theme').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));drawCard()}));
+
+    /* ===== バックアップ ===== */
+    async function exportBackup(){
+      const records=readRecords();
+      if(!records.length){toast('バックアップする記録がありません。');return}
+      toast('バックアップを作成しています…');
+      const out=[];
+      for(const r of records){
+        const o=Object.assign({},r);
+        try{const p=await idbGet(r.id);if(p){o.photoData=p.main||null;o.subData=p.sub||null}}catch(e){}
+        out.push(o);
+      }
+      const json=JSON.stringify({app:'sakeyake',version:2,exportedAt:new Date().toISOString(),records:out});
+      const name=`sakeyake-backup-${todayLocal()}.json`;
+      const blob=new Blob([json],{type:'application/json'});
+      try{
+        const file=new File([blob],name,{type:'application/json'});
+        if(navigator.canShare&&navigator.canShare({files:[file]})){
+          await navigator.share({files:[file],title:'さけやけ バックアップ'});
+          toast('バックアップを書き出しました。');
+          return;
+        }
+      }catch(e){
+        if(e&&e.name==='AbortError')return;
+      }
+      try{
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;a.download=name;
+        document.body.append(a);a.click();a.remove();
+        setTimeout(()=>URL.revokeObjectURL(url),10000);
+        toast('バックアップを書き出しました。');
+      }catch(e){toast('書き出しに失敗しました。')}
+    }
+
+    async function importBackup(file){
+      if(!file)return;
+      try{
+        const data=JSON.parse(await file.text());
+        const list=Array.isArray(data)?data:(data&&Array.isArray(data.records)?data.records:null);
+        if(!list){toast('さけやけのバックアップファイルではありません。');return}
+        const records=readRecords();
+        const ids=new Set(records.map(r=>r.id));
+        const next=records.slice();
+        let added=0,skipped=0,full=false;
+        const isImg=v=>typeof v==='string'&&v.startsWith('data:image/');
+        for(const r of list){
+          if(!r||typeof r.id!=='string'||typeof r.brand!=='string'||!PREFECTURES.includes(r.pref))continue;
+          if(ids.has(r.id)){skipped++;continue}
+          if(next.length>=MAX_RECORDS){full=true;break}
+          const rating=Number(r.rating);
+          next.push({
+            id:r.id,
+            brand:String(r.brand).slice(0,60),
+            pref:r.pref,
+            date:typeof r.date==='string'&&r.date?r.date:todayLocal(),
+            place:String(r.place||'').slice(0,40),
+            memo:String(r.memo||'').slice(0,120),
+            theme:THEMES[r.theme]?r.theme:'beige',
+            rating:rating>=1&&rating<=5?Math.round(rating):0,
+            fav:!!r.fav,
+            taste:TASTES.includes(r.taste)?r.taste:'中口',
+            tags:Array.isArray(r.tags)?r.tags.filter(t=>typeof t==='string').slice(0,10):[],
+            thumb:isImg(r.thumb)?r.thumb:''
+          });
+          if(isImg(r.photoData)){
+            try{await idbPut(r.id,{main:r.photoData,sub:isImg(r.subData)?r.subData:null})}catch(e){}
+          }
+          ids.add(r.id);added++;
+        }
+        localStorage.setItem(STORE_KEY,JSON.stringify(next));
+        renderArchive();
+        let msg=`${added}件を読み込みました。`;
+        if(skipped)msg+=`（${skipped}件は登録済みのため省略）`;
+        if(full)msg+=`上限${MAX_RECORDS}件に達したため、残りは読み込めませんでした。`;
+        toast(msg);
+      }catch(e){
+        if(e&&e.name==='QuotaExceededError')toast('端末の保存容量が足りず、読み込めませんでした。');
+        else toast('ファイルを読み込めませんでした。バックアップファイルをご確認ください。');
+      }
+    }
+
+    document.querySelectorAll('.theme').forEach(b=>b.addEventListener('click',()=>{setTheme(b.dataset.theme);drawCard()}));
     document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>setScreen(b.dataset.screen)));
-    
+
     document.querySelectorAll('.star-btn').forEach(btn=>{
       btn.addEventListener('click',()=>{
         const val=Number(btn.dataset.val);
-        currentRating=(currentRating===val)?0:val;
-        document.querySelectorAll('.star-btn').forEach(b=>{
-          const bVal=Number(b.dataset.val);
-          b.classList.toggle('active',bVal<=currentRating);
-        });
+        setRating(currentRating===val?0:val);
         drawCard();
       });
     });
 
-    $('favBtn').addEventListener('click',()=>{
-      isFav=!isFav;
-      const el=$('favBtn');
-      el.setAttribute('aria-pressed',String(isFav));
-      el.textContent=isFav?'♥ また飲みたい！':'♡ また飲みたい！';
-      drawCard();
-    });
+    $('favBtn').addEventListener('click',()=>{setFav(!isFav);drawCard()});
 
     document.querySelectorAll('.taste-btn').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('.taste-btn').forEach(b=>b.setAttribute('aria-pressed','false'));
-        btn.setAttribute('aria-pressed','true');
-        currentTaste=btn.dataset.taste;
-        drawCard();
-      });
+      btn.addEventListener('click',()=>{setTaste(btn.dataset.taste);drawCard()});
     });
 
     document.querySelectorAll('.tag-chip').forEach(btn=>{
@@ -527,7 +746,7 @@
     });
 
     $('searchInput').addEventListener('input',e=>{searchQuery=e.target.value.trim();renderArchive();});
-    
+
     $('favFilterBtn').addEventListener('click',()=>{
       filterFav=!filterFav;
       $('favFilterBtn').setAttribute('aria-pressed',String(filterFav));
@@ -556,31 +775,44 @@
     form.subPhoto.addEventListener('change',e=>loadSubPhoto(e.target.files&&e.target.files[0]));
     $('subClearBtn').addEventListener('click',clearSubPhoto);
 
-    [form.brand,form.pref,form.date,form.place,form.memo].forEach(el=>el.addEventListener('input',()=>{if(el===form.memo)form.count.textContent=String(Array.from(form.memo.value).length);drawCard()}));
+    [form.brand,form.pref,form.date,form.place,form.memo].forEach(el=>el.addEventListener('input',()=>{if(el===form.memo)form.count.textContent=String(Array.from(form.memo.value).length);if(el===form.brand&&editingId)updateEditUI();drawCard()}));
     form.pref.addEventListener('change',drawCard);
     $('saveBtn').addEventListener('click',saveRecord);
-    
+
     $('resetBtn').addEventListener('click',()=>{
       resetForm();
       window.scrollTo({top:0,behavior:'smooth'});
       toast('入力内容をリセットしました。');
     });
-    
+
+    $('editCancelBtn').addEventListener('click',()=>{
+      resetForm();
+      window.scrollTo({top:0,behavior:'smooth'});
+      toast('編集をやめました。');
+    });
+
+    $('exportBtn').addEventListener('click',exportBackup);
+    $('importBtn').addEventListener('click',()=>$('importInput').click());
+    $('importInput').addEventListener('change',e=>{
+      const f=e.target.files&&e.target.files[0];
+      importBackup(f).finally(()=>{e.target.value=''});
+    });
+
     $('photoSaveBtn').addEventListener('click',()=>{
       try{
         const dataUrl=form.canvas.toDataURL('image/jpeg',.95),win=window.open();
         if(!win){toast('ポップアップを許可してから、カード画像を開いてください。');return}
         win.document.title='さけやけ｜写真に保存';
         win.document.body.style='margin:0;background:#222;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;padding:20px 10px;box-sizing:border-box;font-family:sans-serif;';
-        
+
         const wrap=win.document.createElement('div');
         wrap.style='max-width:100%;text-align:center;';
-        
+
         const img=win.document.createElement('img');
         img.src=dataUrl;
         img.alt='さけやけの思い出カード';
         img.style='display:block;max-width:100%;height:auto;border-radius:8px;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,0.5);';
-        
+
         const backBtn=win.document.createElement('button');
         backBtn.textContent='← アプリの画面に戻る';
         backBtn.style='background:#a34f3f;color:#fff;border:0;border-radius:12px;padding:14px 24px;font-size:15px;font-weight:650;cursor:pointer;width:100%;max-width:300px;margin:0 auto 20px;display:block;box-shadow:0 4px 12px rgba(0,0,0,0.3);';
