@@ -68,6 +68,26 @@
     .detail-img{display:block;margin:0 auto;max-width:100%;width:auto;height:auto;max-height:calc(100vh - 250px);max-height:calc(100dvh - 250px);border-radius:8px;-webkit-touch-callout:default}
     .detail-note{font-size:11px;color:var(--muted);margin:8px 0 0}
     .detail-actions{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-top:10px}
+    .completion-sheet{max-width:440px;padding:22px 18px 18px}
+    .completion-top{display:flex;justify-content:flex-end;margin-bottom:2px}
+    .completion-close{border:0;background:#eee8dd;color:var(--ink);border-radius:50%;width:38px;height:38px;font-size:16px}
+    .completion-done{text-align:center;padding:0 8px 17px}
+    .completion-mark{width:38px;height:38px;margin:0 auto 8px;border-radius:50%;display:grid;place-items:center;background:#e7ede2;color:#53644c;font-size:20px}
+    .completion-done h2{font-family:"Yu Mincho",YuMincho,serif;font-size:21px;font-weight:500;margin:0 0 4px}
+    .completion-done p{font-size:12px;color:var(--muted);margin:0;line-height:1.65}
+    .completion-offers{background:#fbf9f4;border:1px solid var(--line);border-radius:17px;padding:15px 13px 12px}
+    .completion-kicker{text-align:center;color:var(--sage);font-size:10px;letter-spacing:.1em;margin:0 0 3px}
+    .completion-offers h3{text-align:center;font-family:"Yu Mincho",YuMincho,serif;font-size:17px;line-height:1.5;font-weight:500;margin:0 0 11px}
+    .completion-links{display:grid;gap:8px}
+    .completion-link{display:flex;align-items:center;gap:11px;min-height:58px;padding:9px 12px;border:1px solid #e5ded2;border-radius:12px;background:var(--card);color:var(--ink);text-decoration:none}
+    .completion-link:focus-visible{outline:3px solid #bf8b60;outline-offset:2px}
+    .completion-icon{width:36px;height:36px;border-radius:50%;background:#f0e8dc;display:grid;place-items:center;font-size:17px;flex:none}
+    .completion-link-copy{min-width:0;flex:1}
+    .completion-link-copy strong{display:block;font-size:12px;font-weight:650}
+    .completion-link-copy small{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+    .completion-arrow{font-size:20px;color:var(--accent);flex:none}
+    .completion-context{text-align:center;font-size:11px;color:var(--muted);margin:10px 0 0}
+    .completion-later{display:block;width:100%;margin:13px auto 0;border:0;background:transparent;color:var(--muted);font-size:12px;min-height:42px}
     @media(min-width:600px){.container{padding-left:24px;padding-right:24px}.actions{grid-template-columns:1fr 1fr}.actions .btn-wide{grid-column:1/-1}}
   </style>
 </head>
@@ -221,6 +241,26 @@
       </div>
     </div>
   </div>
+  <div id="completion" class="detail" role="dialog" aria-modal="true" aria-labelledby="completionTitle" aria-describedby="completionMessage" hidden>
+    <section class="detail-sheet completion-sheet">
+      <div class="completion-top"><button id="completionClose" class="completion-close" type="button" aria-label="閉じる">✕</button></div>
+      <div class="completion-done"><span class="completion-mark" aria-hidden="true">✓</span><h2 id="completionTitle">記録できました</h2><p id="completionMessage"></p></div>
+      <section class="completion-offers" aria-label="日本酒と酒器を探す">
+        <p class="completion-kicker">つぎの楽しみ</p>
+        <h3>次の一杯と、<br>お気に入りの酒器を。</h3>
+        <div class="completion-links">
+          <a id="sakeSearchLink" class="completion-link" href="https://www.amazon.co.jp/s?k=%E6%97%A5%E6%9C%AC%E9%85%92" target="_blank" rel="noopener noreferrer">
+            <span class="completion-icon" aria-hidden="true">🍶</span><span class="completion-link-copy"><strong>この日本酒を探す</strong><small id="sakeSearchHint">入力した銘柄名でAmazonを検索</small></span><span class="completion-arrow" aria-hidden="true">›</span>
+          </a>
+          <a class="completion-link" href="https://www.amazon.co.jp/s?k=%E6%97%A5%E6%9C%AC%E9%85%92%20%E9%85%92%E5%99%A8%20%E3%81%90%E3%81%84%E5%91%91%E3%81%BF" target="_blank" rel="noopener noreferrer">
+            <span class="completion-icon" aria-hidden="true">🥢</span><span class="completion-link-copy"><strong>この一杯を楽しむ酒器を探す</strong><small>日本酒に合う酒器をAmazonで検索</small></span><span class="completion-arrow" aria-hidden="true">›</span>
+          </a>
+        </div>
+        <p class="completion-context">自分用にも、大切な人への贈り物にも。<br>リンクを開くとAmazon.co.jpで検索します。</p>
+      </section>
+      <button id="completionLater" class="completion-later" type="button">今回は見送る</button>
+    </section>
+  </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script>
   (()=>{
@@ -254,6 +294,20 @@
     form.date.value=todayLocal();
     form.pref.value=defaultPref();
     function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3400)}
+    function amazonSearchUrl(query){const u=new URL('https://www.amazon.co.jp/s');u.searchParams.set('k',query);return u.href}
+    function showCompletion(data,action,shareResult){
+      $('completionMessage').textContent=`「${data.brand}」を県別一覧に記録しました。${action==='record'?'':shareResult==='cancel'?'共有はキャンセルされましたが、記録は残っています。':shareResult==='error'?'共有はできませんでしたが、記録は残っています。':'カードの操作が終わりました。'}`;
+      const sakeUrl=amazonSearchUrl(`${data.brand} ${data.pref} 日本酒`);
+      $('sakeSearchLink').href=sakeUrl;
+      $('sakeSearchLink').setAttribute('aria-label',`この日本酒「${data.brand}」をAmazonで探す（新しいタブで開きます）`);
+      $('completion').hidden=false;
+      document.body.style.overflow='hidden';
+      $('completionClose').focus();
+    }
+    function closeCompletion(){
+      $('completion').hidden=true;
+      document.body.style.overflow='';
+    }
     function readRecords(){try{const raw=localStorage.getItem(STORE_KEY);if(!raw)return [];const parsed=JSON.parse(raw);return Array.isArray(parsed)?parsed.filter(r=>r&&typeof r.id==='string'&&PREFECTURES.includes(r.pref)):[]}catch(e){toast('保存データを読み込めませんでした。');return []}}
 
     /* ===== 写真保存用 IndexedDB ===== */
@@ -602,6 +656,7 @@
           else if(action==='share'&&shareResult==='shared')msg='記録しました。共有画面から送信先を選んでください。';
           if(!photoOk)msg+=' ※写真の保存に失敗したため、編集しても写真は戻りません。';
           toast(msg);
+          showCompletion(data,action,shareResult);
         }
       }catch(e){
         if(e&&e.name==='QuotaExceededError')toast('端末の保存容量がいっぱいです。古い記録を削除してください。');
@@ -945,6 +1000,10 @@
     $('detailClose').addEventListener('click',closeDetail);
     $('detail').addEventListener('click',e=>{if(e.target===$('detail'))closeDetail()});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('detail').hidden)closeDetail()});
+    $('completionClose').addEventListener('click',closeCompletion);
+    $('completionLater').addEventListener('click',closeCompletion);
+    $('completion').addEventListener('click',e=>{if(e.target===$('completion'))closeCompletion()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('completion').hidden)closeCompletion()});
     $('detailEdit').addEventListener('click',()=>{const id=detailId;closeDetail();if(id)startEdit(id)});
     $('detailShare').addEventListener('click',async()=>{
       if(!detailFile)return;

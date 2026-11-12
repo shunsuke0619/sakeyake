@@ -1,5 +1,5 @@
 /* さけやけのアプリ画面を端末に保存し、通信がないときに表示します。 */
-const CACHE_NAME = 'sakeyake-shell-v2';
+const CACHE_NAME = 'sakeyake-shell-v3';
 const BASE_URL = self.registration.scope;
 const APP_FILES = [
   new URL('./', BASE_URL).href,
