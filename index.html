@@ -478,6 +478,7 @@
     function drawWrapped(text,x,y,maxWidth,lineHeight,maxLines,font,color){ctx.font=font;ctx.fillStyle=color;const chars=Array.from(String(text||''));let line='',lines=[];for(const ch of chars){const next=line+ch;if(ctx.measureText(next).width>maxWidth&&line){lines.push(line);line=ch;if(lines.length===maxLines)break}else line=next}if(lines.length<maxLines&&line)lines.push(line);const overflow=lines.join('').length<chars.length;if(overflow&&lines.length){let last=lines.length-1;while(lines[last]&&ctx.measureText(lines[last]+'…').width>maxWidth)lines[last]=lines[last].slice(0,-1);lines[last]+='…'}lines.slice(0,maxLines).forEach((v,i)=>ctx.fillText(v,x,y+i*lineHeight));return lines.length}
     function imageCover(img,x,y,w,h){const scale=Math.max(w/img.width,h/img.height),sw=w/scale,sh=h/scale,sx=(img.width-sw)/2,sy=(img.height-sh)/2;ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h)}
 
+    function countWrapped(text,maxWidth,maxLines,font){ctx.font=font;let line='',n=0;for(const ch of Array.from(String(text||''))){const next=line+ch;if(ctx.measureText(next).width>maxWidth&&line){n++;line=ch;if(n===maxLines)break}else line=next}if(n<maxLines&&line)n++;return n}
     function renderCard(c,s,ph,sub){
       const prev=ctx;ctx=c;
       try{drawCardBody(s,ph,sub)}finally{ctx=prev}
@@ -489,8 +490,19 @@
 
       ctx.textAlign='center';ctx.fillStyle=t.accent;ctx.font='600 22px sans-serif';ctx.fillText('SAKE PHOTO LOG',w/2,94);ctx.fillStyle=t.ink;ctx.font='500 35px "Yu Mincho",serif';ctx.fillText('さけやけ',w/2,140);
 
-      const ix=85,iy=180,iw=730,ih=540;ctx.fillStyle='#fffdf8';ctx.fillRect(ix-8,iy-8,iw+16,ih+16);
-      if(photo){imageCover(photo,ix,iy,iw,ih)}else{ctx.fillStyle='#f7f2e8';ctx.fillRect(ix,iy,iw,ih);ctx.textAlign='center';ctx.fillStyle='#b3a997';ctx.font='70px serif';ctx.fillText('✿',w/2,iy+240);ctx.font='24px sans-serif';ctx.fillText('写真を選ぶと、ここに表示されます',w/2,iy+300)}
+      /* 文字部分の高さを先に計算し、写真の高さで下の余白を調整する（メモが短いほど写真が少し大きくなる） */
+      const memo=s.memo||'',tagList=Array.isArray(s.tags)?s.tags:[];
+      const hasEval=s.rating>0||!!s.taste;
+      const memoLines=memo?countWrapped(memo,700,3,'23px sans-serif'):0;
+      let lastLine=98,nextLine=138;
+      if(hasEval){lastLine=138;nextLine=174}
+      if(tagList.length>0){lastLine=nextLine;nextLine+=42}else{nextLine+=10}
+      if(memoLines>0)lastLine=nextLine+36*(memoLines-1);
+      const ix=85,iy=180,iw=730;
+      const ih=Math.max(540,Math.min(700,1040-(lastLine+12)-iy));
+      const pb=iy+ih;
+      ctx.fillStyle='#fffdf8';ctx.fillRect(ix-8,iy-8,iw+16,ih+16);
+      if(photo){imageCover(photo,ix,iy,iw,ih)}else{ctx.fillStyle='#f7f2e8';ctx.fillRect(ix,iy,iw,ih);ctx.textAlign='center';ctx.fillStyle='#b3a997';ctx.font='70px serif';ctx.fillText('✿',w/2,iy+ih/2-30);ctx.font='24px sans-serif';ctx.fillText('写真を選ぶと、ここに表示されます',w/2,iy+ih/2+30)}
 
       if(subPhoto){
         const sw=170,sh=200,sx=ix+iw-sw-18,sy=iy+ih-sh-18;
@@ -503,19 +515,18 @@
 
       ctx.textAlign='center';
       const brand=(s.brand||'今日の一杯')+(s.fav?' ♥':'');
-      ctx.fillStyle=t.ink;ctx.font='600 42px "Yu Gothic",sans-serif';ctx.fillText(fitText(brand,770,'600 42px "Yu Gothic",sans-serif'),w/2,775);
+      ctx.fillStyle=t.ink;ctx.font='600 42px "Yu Gothic",sans-serif';ctx.fillText(fitText(brand,770,'600 42px "Yu Gothic",sans-serif'),w/2,pb+55);
 
       const place=s.place||'';
       const subLine=`${s.pref||'都道府県'} ・ ${s.date||todayLocal()}`+(place?` ・ ${place}`:'');
-      ctx.fillStyle=t.accent;ctx.font='600 21px sans-serif';ctx.fillText(fitText(subLine,780,'600 21px sans-serif'),w/2,818);
+      ctx.fillStyle=t.accent;ctx.font='600 21px sans-serif';ctx.fillText(fitText(subLine,780,'600 21px sans-serif'),w/2,pb+98);
 
-      let cursorY=858;
+      let cursorY=pb+138;
       let evalText='';
       if(s.rating>0) evalText+='★'.repeat(s.rating)+' ';
       if(s.taste) evalText+=`[ ${s.taste} ]`;
       if(evalText){ctx.fillStyle=t.ink;ctx.font='600 20px sans-serif';ctx.fillText(evalText,w/2,cursorY);cursorY+=36}
 
-      const tagList=Array.isArray(s.tags)?s.tags:[];
       if(tagList.length>0){
         ctx.fillStyle=t.ink+'aa';ctx.font='18px sans-serif';
         const tagString=tagList.map(tag=>`#${tag}`).join('  ');
@@ -523,7 +534,6 @@
         cursorY+=42;
       }else{cursorY+=10}
 
-      const memo=s.memo||'';
       if(memo){ctx.textAlign='center';drawWrapped(memo,w/2,cursorY,700,36,3,'23px sans-serif',t.ink)}
 
       ctx.strokeStyle=t.ink+'45';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(340,1105);ctx.lineTo(560,1105);ctx.stroke();ctx.fillStyle=t.ink+'bb';ctx.font='20px sans-serif';ctx.textAlign='center';ctx.fillText('おいしい記憶を、またひとつ。',w/2,1145);
