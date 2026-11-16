@@ -99,6 +99,13 @@
     .completion-arrow{font-size:20px;color:var(--accent);flex:none}
     .completion-context{text-align:center;font-size:11px;color:var(--muted);margin:10px 0 0}
     .completion-later{display:block;width:100%;margin:13px auto 0;border:0;background:transparent;color:var(--muted);font-size:12px;min-height:42px}
+    .social-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;grid-column:1/-1}.social-actions[hidden]{display:none}
+    .social-btn{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;padding-left:8px;padding-right:8px;font-size:13px}
+    .social-icon{font-size:19px;line-height:1;font-weight:700}
+    .social-x{background:#202020;color:#fff}
+    .social-instagram{background:#f0e8df;color:#302d27;border:1px solid #ded2c3}
+    .social-help{grid-column:1/-1;margin:0;font-size:10px;color:var(--muted);line-height:1.55}
+    @media(max-width:380px){.social-actions{grid-template-columns:1fr}.social-help{grid-column:1}}
     @media(min-width:600px){.container{padding-left:24px;padding-right:24px}.actions{grid-template-columns:1fr 1fr}.actions .btn-wide{grid-column:1/-1}}
   </style>
 </head>
@@ -181,9 +188,14 @@
           <button id="saveBtn" class="btn btn-primary btn-wide" type="button">記録する</button>
           <button id="savePhotoBtn" class="btn btn-secondary btn-wide" type="button">記録して写真に保存</button>
           <button id="shareBtn" class="btn btn-outline btn-wide" type="button">記録してシェア</button>
+          <div id="socialActions" class="social-actions">
+            <button id="xShareBtn" class="btn social-btn social-x" type="button" aria-label="記録してXの投稿画面を開く"><span class="social-icon" aria-hidden="true">𝕏</span><span>記録してXに投稿</span></button>
+            <button id="instagramShareBtn" class="btn social-btn social-instagram" type="button" aria-label="記録してInstagramの共有画面を開く"><span class="social-icon" aria-hidden="true">◎</span><span>記録してInstagram</span></button>
+            <p class="social-help">Xは投稿文を自動入力しますが、画像は自動添付できません。カード画像を添付する場合は、先に「記録して写真に保存」をご利用ください。Instagramは共有シートからアプリを選びます。</p>
+          </div>
           <button id="resetBtn" class="btn btn-ghost btn-wide" type="button">入力内容をリセット</button>
         </div>
-        <p id="hintBox" class="hint-box">「記録する」は一覧に保存して完了です。「記録して写真に保存」「記録してシェア」は、記録したあと共有画面が開きます。写真に保存する場合は、共有画面で「画像を保存」を選んでください。入力途中の内容は自動で残ります。</p>
+        <p id="hintBox" class="hint-box">「記録する」は一覧に保存して完了です。「記録して写真に保存」「記録してシェア」は、記録したあと共有画面が開きます。Xは銘柄名・感想・ハッシュタグを入力した投稿画面を開きます（画像は手動添付）。Instagramは画像共有に対応した端末では共有シートを開き、非対応の場合はカード画像をダウンロードします。ダウンロード画像は必要に応じて写真アプリに保存してください。入力途中の内容は自動で残ります。</p>
       </div>
       <footer><span id="offlineStatus" aria-live="polite">オフライン利用の準備状況を確認しています。</span><br>思い出は、この端末のブラウザ内に保存されます。<br><a class="about-link" href="./about.html">使い方・データの保存について</a><br><a class="about-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdroZa9dQBZNLS7l5r59MYgvFNI-0kac1ptqOX0SpoCQT4vSA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">ご意見・お問い合わせ</a></footer>
     </section>
@@ -610,6 +622,65 @@
       return 'download';
     }
 
+    function shareCaption(data){
+      const d=data||currentState();
+      const lines=[`「${d.brand||'今日の一杯'}」`,[d.pref,d.date].filter(Boolean).join(' ・ ')];
+      if(d.place)lines.push(`📍 ${d.place}`);
+      const taste=[d.rating?`★${d.rating}`:'',d.taste||''].filter(Boolean).join(' / ');
+      if(taste)lines.push(taste);
+      if(d.memo)lines.push(`💬 ${d.memo}`);
+      const tags=Array.isArray(d.tags)?d.tags.map(t=>`#${String(t).replace(/[\s　]+/g,'')}`).filter(Boolean):[];
+      lines.push(Array.from(new Set(['#さけやけ','#日本酒',...tags])).join(' '));
+      return lines.filter(Boolean).join('\n');
+    }
+    function xWeightedLength(text){
+      return Array.from(String(text||'')).reduce((n,ch)=>n+(ch.codePointAt(0)>0x10FF?2:1),0);
+    }
+    function makeXPostText(data){
+      const d=data||currentState();
+      const title=`「${d.brand||'今日の一杯'}」`;
+      const dateLine=[d.pref,d.date].filter(Boolean).join(' ・ ');
+      const detailLine=[d.place?`📍 ${d.place}`:'',d.rating?`★${d.rating}`:'',d.taste||''].filter(Boolean).join(' / ');
+      const tagLine=Array.from(new Set(['#さけやけ','#日本酒',...(Array.isArray(d.tags)?d.tags.map(t=>`#${String(t).replace(/[\s　]+/g,'')}`):[])])).join(' ');
+      let fixed=[title,dateLine,detailLine,tagLine].filter(Boolean).join('\n');
+      if(xWeightedLength(fixed)>250&&detailLine&&d.place){
+        fixed=[title,dateLine,[d.rating?`★${d.rating}`:'',d.taste||''].filter(Boolean).join(' / '),tagLine].filter(Boolean).join('\n');
+      }
+      const budget=Math.max(0,270-xWeightedLength(fixed)-(d.memo?4:0));
+      let memo=String(d.memo||'');
+      if(xWeightedLength(memo)>budget){
+        let out='',used=0;
+        for(const ch of Array.from(memo)){const w=ch.codePointAt(0)>0x10FF?2:1;if(used+w>Math.max(0,budget-2))break;out+=ch;used+=w}
+        memo=out+(out?'…':'');
+      }
+      return [fixed,memo?`💬 ${memo}`:''].filter(Boolean).join('\n');
+    }
+    function openXPost(data){
+      const text=makeXPostText(data);
+      const url=`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+      /* saveRecord()のクリック処理内で同期的に呼び出し、Safariのポップアップ制限を避ける */
+      window.open(url,'_blank','noopener,noreferrer');
+    }
+    function downloadCardFile(file){
+      const url=URL.createObjectURL(file),a=document.createElement('a');
+      a.href=url;a.download=file.name;a.style.display='none';
+      document.body.append(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),10000);
+    }
+    async function shareInstagramCard(data){
+      /* canvasからFileを同期生成し、iOS Safariのユーザー操作中に共有APIを呼び出す */
+      const name=`sakeyake-${form.date.value||todayLocal()}.jpg`;
+      const file=dataUrlToFile(form.canvas.toDataURL('image/jpeg',.9),name);
+      if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+        try{
+          await navigator.share({files:[file],title:'さけやけ｜日本酒の思い出',text:shareCaption(data)});
+          return 'shared';
+        }catch(e){if(e&&e.name==='AbortError')return 'cancel';throw e}
+      }
+      downloadCardFile(file);
+      return 'download';
+    }
+
     /* ===== 入力欄の見た目を状態に合わせる部品 ===== */
     function setTheme(name){theme=THEMES[name]?name:'beige';document.querySelectorAll('.theme').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.theme===theme)))}
     function setRating(n){currentRating=n;document.querySelectorAll('.star-btn').forEach(b=>b.classList.toggle('active',Number(b.dataset.val)<=currentRating))}
@@ -623,6 +694,7 @@
       $('saveBtn').textContent=editing?UPDATE_LABEL:SAVE_LABEL;
       $('savePhotoBtn').hidden=editing;
       $('shareBtn').hidden=editing;
+      $('socialActions').hidden=editing;
       if(editing)$('editBannerText').textContent=`✎ 「${form.brand.value.trim()||'無題'}」を編集中`;
     }
 
@@ -688,7 +760,11 @@
       try{
         let shareResult='none';
         if(!isUpdate&&action!=='record'){
-          try{shareResult=await shareCard()}catch(e){shareResult='error'}
+          try{
+            if(action==='x'){openXPost(data);shareResult='shared'}
+            else if(action==='instagram'){shareResult=await shareInstagramCard(data)}
+            else{shareResult=await shareCard()}
+          }catch(e){shareResult='error'}
         }
         let keepOldThumb=false;
         if(isUpdate&&!photo&&old&&old.thumb){data.thumb=old.thumb;keepOldThumb=true}
@@ -711,6 +787,9 @@
           else if(action!=='record'&&shareResult==='error')msg='記録しましたが、カードを共有できませんでした。県別一覧からカードを開いて再度お試しください。';
           else if(action==='photo'&&shareResult==='shared')msg='記録しました。共有画面で「画像を保存」を選ぶと写真アプリに保存できます。';
           else if(action==='share'&&shareResult==='shared')msg='記録しました。共有画面から送信先を選んでください。';
+          else if(action==='x'&&shareResult==='shared')msg='記録しました。Xの投稿画面を開きました。内容を確認して投稿してください。画像は必要に応じて手動で添付してください。';
+          else if(action==='instagram'&&shareResult==='shared')msg='記録しました。共有シートからInstagramを選んでください。キャプションが引き継がれない場合は入力してください。';
+          else if(action==='instagram'&&shareResult==='download')msg='記録しました。カード画像をダウンロードしました。iPhoneでは画像を開き、共有メニューから「画像を保存」してからInstagramで選んでください。';
           if(!photoOk)msg+=' ※写真の保存に失敗したため、編集しても写真は戻りません。';
           toast(msg);
           if(shouldShowOffer(data,next.length))showCompletion(data,action,shareResult);
@@ -1049,6 +1128,8 @@
     $('saveBtn').addEventListener('click',()=>saveRecord('record'));
     $('savePhotoBtn').addEventListener('click',()=>saveRecord('photo'));
     $('shareBtn').addEventListener('click',()=>saveRecord('share'));
+    $('xShareBtn').addEventListener('click',()=>saveRecord('x'));
+    $('instagramShareBtn').addEventListener('click',()=>saveRecord('instagram'));
 
     $('resetBtn').addEventListener('click',()=>{resetForm();window.scrollTo({top:0,behavior:'smooth'});toast('入力内容をリセットしました。')});
     $('editCancelBtn').addEventListener('click',()=>{resetForm();window.scrollTo({top:0,behavior:'smooth'});toast('編集をやめました。')});
