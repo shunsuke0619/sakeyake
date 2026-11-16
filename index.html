@@ -107,10 +107,23 @@
     .social-help{grid-column:1/-1;margin:0;font-size:10px;color:var(--muted);line-height:1.55}
     @media(max-width:380px){.social-actions{grid-template-columns:1fr}.social-help{grid-column:1}}
     @media(min-width:600px){.container{padding-left:24px;padding-right:24px}.actions{grid-template-columns:1fr 1fr}.actions .btn-wide{grid-column:1/-1}}
+      .topbar{padding-right:76px}
+    .help-trigger{position:fixed;top:calc(env(safe-area-inset-top) + 18px);right:max(16px,calc((100vw - 720px)/2 + 16px));z-index:15;display:grid;place-items:center;width:46px;height:46px;min-width:46px;min-height:46px;border:1px solid #cfc4b3;border-radius:50%;background:#fffdf8;color:var(--accent-dark);font-size:23px;font-weight:700;line-height:1;box-shadow:0 3px 12px #302d2720;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+    .help-trigger:active{transform:scale(.96)}
+    .help-modal{position:fixed;inset:0;z-index:25;display:flex;align-items:center;justify-content:center;padding:calc(12px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom));background:rgba(30,26,20,.72)}
+    .help-modal[hidden]{display:none}
+    .help-sheet{width:100%;max-width:520px;max-height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:var(--card);border-radius:20px;padding:18px;box-shadow:0 20px 50px #0006}
+    .help-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .help-head h2{font-family:"Yu Mincho",YuMincho,serif;font-size:20px;font-weight:500;margin:0}
+    .help-close{flex:none;width:44px;height:44px;border:0;border-radius:50%;background:#eee8dd;color:var(--ink);font-size:20px;line-height:1}
+    .help-section{padding:12px 0;border-top:1px solid var(--line)}
+    .help-section h3{font-size:14px;margin:0 0 5px;color:var(--accent-dark)}
+    .help-section p{font-size:13px;line-height:1.7;margin:0;color:#514e47}
+    .help-section:last-child{padding-bottom:2px}
   </style>
 </head>
 <body>
-  <header class="topbar"><div class="brand"><div class="brand-mark" aria-hidden="true">酒</div><div><h1>さけやけ</h1><small>SAKE PHOTO LOG</small></div></div><span class="eyebrow">一杯の、いい記憶。</span></header>
+  <header class="topbar"><div class="brand"><div class="brand-mark" aria-hidden="true">酒</div><div><h1>さけやけ</h1><small>SAKE PHOTO LOG</small></div></div><button id="helpTrigger" class="help-trigger" type="button" aria-label="使い方ヘルプを開く" aria-haspopup="dialog" aria-controls="helpModal" aria-expanded="false">？</button></header>
   <main class="container">
     <div id="nudge" class="nudge" hidden><span id="nudgeText" class="nudge-text"></span><button id="nudgeAct" type="button" class="nudge-act"></button><button id="nudgeX" type="button" class="nudge-x" aria-label="閉じる">✕</button></div>
 
@@ -262,6 +275,15 @@
     </section>
   </main>
   <nav class="bottom-nav" aria-label="メインナビゲーション"><div class="nav-inner"><button class="nav-btn" type="button" data-screen="create" aria-current="page"><span class="nav-icon" aria-hidden="true">✎</span>カードをつくる</button><button class="nav-btn" type="button" data-screen="archive" aria-current="false"><span class="nav-icon" aria-hidden="true">⌂</span>県別一覧 <span id="navCount">(0)</span></button></div></nav>
+  <div id="helpModal" class="help-modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden>
+    <section class="help-sheet">
+      <div class="help-head"><h2 id="helpTitle">さけやけの使い方</h2><button id="helpClose" class="help-close" type="button" aria-label="ヘルプを閉じる">×</button></div>
+      <div class="help-section"><h3>① カードをつくる</h3><p>ボトルや酒器の写真を選び、銘柄と都道府県を入力します。この2項目が必須です。星評価やひとことメモも残せます。</p></div>
+      <div class="help-section"><h3>② 記録・写真保存・シェア</h3><p>「記録する」は記録を保存します。「記録して写真に保存」はカード画像を端末に保存・共有します。「記録してシェア」やSNSボタンは記録後に共有画面を開きます。入力内容は編集中に端末内へ自動保存されます。</p></div>
+      <div class="help-section"><h3>③ 県別一覧で振り返る</h3><p>下の「県別一覧」から記録を見返せます。カードをタップすると拡大表示でき、編集や画像の保存も行えます。</p></div>
+      <div class="help-section"><h3>④ データの保存とバックアップ</h3><p>記録はこの端末のブラウザー内に保存されます。機種変更や備えのため、県別一覧の下部にある「バックアップ・データの引っ越し」から書き出し、新しい端末で読み込んでください。</p></div>
+    </section>
+  </div>
   <div id="detail" class="detail" role="dialog" aria-modal="true" aria-label="カードの詳細" hidden>
     <div class="detail-sheet">
       <div class="detail-top"><span id="detailTitle" class="detail-title"></span><button id="detailClose" type="button" class="detail-close" aria-label="閉じる">✕</button></div>
@@ -1080,6 +1102,26 @@
       }
     }
 
+    const helpModal=$('helpModal');
+    let helpReturnFocus=null;
+    function openHelp(){
+      helpReturnFocus=document.activeElement;
+      helpModal.hidden=false;
+      $('helpTrigger').setAttribute('aria-expanded','true');
+      document.body.style.overflow='hidden';
+      $('helpClose').focus();
+    }
+    function closeHelp(){
+      if(helpModal.hidden)return;
+      helpModal.hidden=true;
+      $('helpTrigger').setAttribute('aria-expanded','false');
+      document.body.style.overflow=(!$('detail').hidden||!$('completion').hidden)?'hidden':'';
+      if(helpReturnFocus&&typeof helpReturnFocus.focus==='function')helpReturnFocus.focus();
+    }
+    $('helpTrigger').addEventListener('click',openHelp);
+    $('helpClose').addEventListener('click',closeHelp);
+    helpModal.addEventListener('click',e=>{if(e.target===helpModal)closeHelp()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!helpModal.hidden)closeHelp()});
     /* ===== イベント ===== */
     document.querySelectorAll('.theme').forEach(b=>b.addEventListener('click',()=>{setTheme(b.dataset.theme);drawCard()}));
     document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>setScreen(b.dataset.screen)));
