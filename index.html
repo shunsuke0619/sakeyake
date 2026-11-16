@@ -99,6 +99,13 @@
     .completion-arrow{font-size:20px;color:var(--accent);flex:none}
     .completion-context{text-align:center;font-size:11px;color:var(--muted);margin:10px 0 0}
     .completion-later{display:block;width:100%;margin:13px auto 0;border:0;background:transparent;color:var(--muted);font-size:12px;min-height:42px}
+    .actions{gap:11px}
+    .actions .main-action{min-height:58px;font-size:16px;letter-spacing:.02em;box-shadow:0 4px 12px #a34f3f2b}
+    .action-group{display:grid;gap:9px;padding:13px;background:#faf7f1;border:1px solid var(--line);border-radius:15px}
+    .action-group[hidden]{display:none}
+    .action-group-heading h4{font-size:13px;margin:0;color:var(--ink)}
+    .action-group-heading p{font-size:11px;color:var(--muted);margin:2px 0 0}
+    .action-group .btn{width:100%;min-height:52px}
     .social-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;grid-column:1/-1}.social-actions[hidden]{display:none}
     .social-btn{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;padding-left:8px;padding-right:8px;font-size:13px}
     .social-icon{font-size:19px;line-height:1;font-weight:700}
@@ -198,14 +205,20 @@
         <div class="field"><span class="field-label">カードの色</span><div class="themes" role="group" aria-label="カードの背景色"><button class="theme" type="button" data-theme="beige" aria-pressed="true" style="--swatch:#eadcc4">ベージュ</button><button class="theme" type="button" data-theme="green" aria-pressed="false" style="--swatch:#d5ddcf">くすみグリーン</button><button class="theme" type="button" data-theme="indigo" aria-pressed="false" style="--swatch:#34445c">藍</button><button class="theme" type="button" data-theme="sakura" aria-pressed="false" style="--swatch:#efd5d6">さくら</button></div></div>
         <div class="preview-wrap"><img id="cardImage" class="card-image" alt="生成された日本酒の思い出カード" draggable="false"></div>
         <div class="actions">
-          <button id="saveBtn" class="btn btn-primary btn-wide" type="button">記録する</button>
-          <button id="savePhotoBtn" class="btn btn-secondary btn-wide" type="button">記録して写真に保存</button>
-          <button id="shareBtn" class="btn btn-outline btn-wide" type="button">記録してシェア</button>
-          <div id="socialActions" class="social-actions">
-            <button id="xShareBtn" class="btn social-btn social-x" type="button" aria-label="記録してXの投稿画面を開く"><span class="social-icon" aria-hidden="true">𝕏</span><span>記録してXに投稿</span></button>
-            <button id="instagramShareBtn" class="btn social-btn social-instagram" type="button" aria-label="記録してInstagramの共有画面を開く"><span class="social-icon" aria-hidden="true">◎</span><span>記録してInstagram</span></button>
-            <p class="social-help">Xは投稿文を自動入力しますが、画像は自動添付できません。カード画像を添付する場合は、先に「記録して写真に保存」をご利用ください。Instagramは共有シートからアプリを選びます。</p>
-          </div>
+          <button id="saveBtn" class="btn btn-primary btn-wide main-action" type="button">記録する</button>
+          <section id="saveOptions" class="action-group" aria-labelledby="saveOptionsTitle">
+            <div class="action-group-heading"><h4 id="saveOptionsTitle">写真として保存</h4><p>カード画像を端末に保存します</p></div>
+            <button id="savePhotoBtn" class="btn btn-secondary" type="button">記録して写真に保存</button>
+          </section>
+          <section id="shareOptions" class="action-group" aria-labelledby="shareOptionsTitle">
+            <div class="action-group-heading"><h4 id="shareOptionsTitle">シェアする</h4><p>共有シートまたはSNSを選べます</p></div>
+            <button id="shareBtn" class="btn btn-outline" type="button">記録して共有シートを開く</button>
+            <div id="socialActions" class="social-actions">
+              <button id="xShareBtn" class="btn social-btn social-x" type="button" aria-label="記録してXの投稿画面を開く"><span class="social-icon" aria-hidden="true">𝕏</span><span>記録してXに投稿</span></button>
+              <button id="instagramShareBtn" class="btn social-btn social-instagram" type="button" aria-label="記録してInstagramの共有画面を開く"><span class="social-icon" aria-hidden="true">◎</span><span>記録してInstagram</span></button>
+              <p class="social-help">Xは投稿文を自動入力しますが、画像は自動添付できません。カード画像を添付する場合は、先に「記録して写真に保存」をご利用ください。Instagramは共有シートからアプリを選びます。</p>
+            </div>
+          </section>
           <button id="resetBtn" class="btn btn-ghost btn-wide" type="button">入力内容をリセット</button>
         </div>
         <p id="hintBox" class="hint-box">「記録する」は一覧に保存して完了です。「記録して写真に保存」「記録してシェア」は、記録したあと共有画面が開きます。Xは銘柄名・感想・ハッシュタグを入力した投稿画面を開きます（画像は手動添付）。Instagramは画像共有に対応した端末では共有シートを開き、非対応の場合はカード画像をダウンロードします。ダウンロード画像は必要に応じて写真アプリに保存してください。入力途中の内容は自動で残ります。</p>
@@ -717,6 +730,8 @@
       $('savePhotoBtn').hidden=editing;
       $('shareBtn').hidden=editing;
       $('socialActions').hidden=editing;
+      $('saveOptions').hidden=editing;
+      $('shareOptions').hidden=editing;
       if(editing)$('editBannerText').textContent=`✎ 「${form.brand.value.trim()||'無題'}」を編集中`;
     }
 
