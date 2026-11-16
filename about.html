@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f7f3eb">
-  <meta name="description" content="さけやけの使い方、日本酒の記録を残すヒント、端末内の保存とバックアップについて。">
+  <meta name="description" content="見た目はお洒落、中身は泥酔。それでいい。それが、さけやけ。日本酒の一杯と、その夜の記憶を残すフォトログ。">
   <meta name="robots" content="index,follow">
   <title>使い方・データの保存について｜さけやけ</title>
   <link rel="icon" type="image/jpeg" href="icon.jpg?v=2">
@@ -12,7 +12,12 @@
   <link rel="manifest" href="manifest.json">
   <style>
     :root{color-scheme:light;--ink:#302d27;--muted:#777267;--paper:#f7f3eb;--card:#fffdf8;--line:#e9e2d6;--accent:#a34f3f;--accent-dark:#823d32;--sage:#75816b}
-    *{box-sizing:border-box}html{min-height:100%;background:var(--paper)}body{margin:0;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.75;-webkit-text-size-adjust:100%}a{color:var(--accent-dark);text-underline-offset:3px}.topbar{padding:calc(16px + env(safe-area-inset-top)) 18px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);background:#fffdf8}.brand{font-family:"Yu Mincho",YuMincho,serif;font-size:20px;letter-spacing:.12em;text-decoration:none;color:var(--ink)}.back{font-size:13px;text-decoration:none}.container{max-width:760px;margin:auto;padding:22px 16px calc(36px + env(safe-area-inset-bottom))}.hero{padding:8px 3px 19px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--sage);margin:0 0 6px}.hero h1{font-family:"Yu Mincho",YuMincho,serif;font-weight:500;font-size:26px;line-height:1.45;margin:0 0 8px}.hero p{font-size:14px;color:#5c564c;margin:0;max-width:620px}.app-link{display:inline-flex;align-items:center;justify-content:center;margin-top:16px;min-height:46px;padding:9px 17px;border-radius:12px;background:var(--accent);color:#fff;text-decoration:none;font-size:13px;font-weight:650}.section{padding:19px 0;border-top:1px solid var(--line)}.section h2{font-family:"Yu Mincho",YuMincho,serif;font-size:20px;font-weight:500;margin:0 0 9px}.section h3{font-size:14px;margin:15px 0 4px}.section p{font-size:13px;margin:0 0 9px;color:#514e47}.steps{list-style:none;padding:0;margin:12px 0 0;counter-reset:step}.steps li{position:relative;padding:0 0 13px 38px;font-size:13px;color:#514e47;counter-increment:step}.steps li::before{content:counter(step);position:absolute;left:0;top:0;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:#eee5d7;color:var(--accent-dark);font-size:12px;font-weight:700}.note{padding:12px 14px;border-left:3px solid #b5a28a;background:#f1ece3;border-radius:0 10px 10px 0;font-size:12px;color:#5c564c;margin-top:10px}.data-list{padding-left:20px;margin:8px 0}.data-list li{font-size:13px;color:#514e47;padding:3px 0}.sample{background:#fffdf8;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;color:#514e47;font-size:13px}.sample strong{display:block;color:var(--accent-dark);font-size:11px;letter-spacing:.06em;margin-bottom:3px}.footer{border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:11px}.footer p{margin:4px 0}
+    *{box-sizing:border-box}html{min-height:100%;background:var(--paper)}body{margin:0;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.75;-webkit-text-size-adjust:100%}a{color:var(--accent-dark);text-underline-offset:3px}.topbar{padding:calc(16px + env(safe-area-inset-top)) 18px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);background:#fffdf8}.brand{font-family:"Yu Mincho",YuMincho,serif;font-size:20px;letter-spacing:.12em;text-decoration:none;color:var(--ink)}.back{font-size:13px;text-decoration:none}.container{max-width:760px;margin:auto;padding:22px 16px calc(36px + env(safe-area-inset-bottom))}.hero{padding:8px 3px 19px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--sage);margin:0 0 6px}.hero h1{font-family:"Yu Mincho",YuMincho,serif;font-weight:500;font-size:26px;line-height:1.45;margin:0 0 8px}.hero p{font-size:14px;color:#5c564c;margin:0;max-width:620px}
+    .manifesto{padding:16px 16px 13px;background:#fffdf8;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px #493b250b}
+    .manifesto p{font-size:13px;line-height:1.85;color:#514e47;margin:0 0 13px;overflow-wrap:anywhere}
+    .manifesto p:last-child{margin-bottom:0}
+    .manifesto .manifesto-lead{font-family:"Yu Mincho",YuMincho,serif;font-size:19px;line-height:1.7;color:var(--accent-dark);font-weight:600}
+    .steps li strong{color:var(--accent-dark)}.app-link{display:inline-flex;align-items:center;justify-content:center;margin-top:16px;min-height:46px;padding:9px 17px;border-radius:12px;background:var(--accent);color:#fff;text-decoration:none;font-size:13px;font-weight:650}.section{padding:19px 0;border-top:1px solid var(--line)}.section h2{font-family:"Yu Mincho",YuMincho,serif;font-size:20px;font-weight:500;margin:0 0 9px}.section h3{font-size:14px;margin:15px 0 4px}.section p{font-size:13px;margin:0 0 9px;color:#514e47}.steps{list-style:none;padding:0;margin:12px 0 0;counter-reset:step}.steps li{position:relative;padding:0 0 13px 38px;font-size:13px;color:#514e47;counter-increment:step}.steps li::before{content:counter(step);position:absolute;left:0;top:0;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:#eee5d7;color:var(--accent-dark);font-size:12px;font-weight:700}.note{padding:12px 14px;border-left:3px solid #b5a28a;background:#f1ece3;border-radius:0 10px 10px 0;font-size:12px;color:#5c564c;margin-top:10px}.data-list{padding-left:20px;margin:8px 0}.data-list li{font-size:13px;color:#514e47;padding:3px 0}.sample{background:#fffdf8;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;color:#514e47;font-size:13px}.sample strong{display:block;color:var(--accent-dark);font-size:11px;letter-spacing:.06em;margin-bottom:3px}.footer{border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:11px}.footer p{margin:4px 0}
     @media(min-width:600px){.container{padding-left:25px;padding-right:25px}.hero h1{font-size:30px}}
   </style>
 </head>
@@ -21,29 +26,24 @@
   <main class="container">
     <section class="hero">
       <p class="eyebrow">SAKE PHOTO LOG</p>
-      <h1>一杯の記憶を、<br>次に味わう楽しみに。</h1>
-      <p>さけやけは、日本酒を飲んだときの写真や感想を思い出カードにして、都道府県ごとに残せる無料のフォトログです。</p>
+      <h1>さけやけ って？</h1>
+      <div class="manifesto">
+        <p class="manifesto-lead">見た目はお洒落、中身は泥酔。<br>それでいい。それが、さけやけ。</p>
+        <p>楽しくてつい飲みすぎて、気づいたら記憶の解像度がゼロ。<br>楽しかったのは覚えてるのに、何を飲んだかだけ覚えてない。<br>「……で、昨日飲んだの何だっけ？」ってなる夜、あるよね。</p>
+        <p>星いくつとか、誰かの評価とか、知らん。<br>面倒な登録も、綺麗な感想文もいらない。</p>
+        <p>酔っ払った帰り道やベッドの中でも、サクッと写真を撮って数秒で残せる。<br>「美味しかった夜の記憶を、明日の自分にこっそり引き継ぐためのおバカで愛おしい手帳」です。</p>
+      </div>
       <a class="app-link" href="./">さけやけを開く</a>
     </section>
 
-    <section class="section">
-      <h2>使い方</h2>
+    <section class="section howto">
+      <h2>使い方はこれだけ</h2>
       <ol class="steps">
-        <li>ボトルや酒器の写真を選び、カードの色を決めます。ラベルなどのサブ写真も追加できます。</li>
-        <li>銘柄、都道府県、飲んだ日、お店を入力します。星、お気に入り、飲み口、特徴タグ、ひとことメモは、覚えている範囲で選べます。</li>
-        <li>カードを確認し、保存方法を選びます。「記録する」は県別一覧への保存、「記録して写真に保存」は写真アプリに保存するための共有画面、「記録してシェア」はSNSなどの送信先を選ぶ共有画面を開きます。</li>
-        <li>県別一覧では、記録を検索したり、飲み口・お気に入り・星評価で絞り込んだりできます。カードをタップすると大きく表示でき、編集や画像共有もできます。この拡大画面からも、日本酒と酒器のAmazon検索リンクを使えます。</li>
+        <li><strong>パシャリと選ぶ：</strong>今夜の一杯をスマホで選ぶ（料理の写真はテキトウでOK）</li>
+        <li><strong>ポチポチ選ぶ：</strong>酔った頭でもできる。考えるな、タップしろ。</li>
+        <li><strong>あとにやける：</strong>自分だけのカード完成。二日酔いの朝に「あ、これ美味かったわ」って思い出す。</li>
       </ol>
-      <div class="note">iPhoneでは、共有画面で「画像を保存」を選ぶと写真アプリに保存できます。表示される項目は、端末や共有先の設定によって異なります。</div>
-    </section>
-
-    <section class="section">
-      <h2>日本酒の感想を気軽に残すヒント</h2>
-      <p>専門用語を使わなくても、「どんな香りだったか」「口に含んだときどう感じたか」「飲み終わりに何が残ったか」を一言ずつ書くと、あとで思い出しやすくなります。</p>
-      <div class="sample"><strong>香り</strong>りんごのようにさわやか。グラスに注ぐとふわっと香る。</div>
-      <div class="sample"><strong>口あたり</strong>軽やかで、ほどよい酸味。冷やして飲むのが好み。</div>
-      <div class="sample"><strong>一緒に楽しんだもの</strong>焼き魚とよく合った。旅先の小さなお店で飲んだ。</div>
-      <p>味わいは飲む温度や料理、その日の気分でも印象が変わります。正解を探すより、自分の言葉で残しておくのが「さけやけ」の楽しみ方です。</p>
+      <div class="note">※データはあなたのスマホの中にだけ保存されます。他人の目を気にせず、自分のためだけに、こっそり綺麗に残してね。</div>
     </section>
 
     <section class="section">
@@ -67,7 +67,7 @@
       <h2>プライバシーについて</h2>
       <p>さけやけはアカウントを作らずに使えます。銘柄、飲んだ場所、メモ、写真はこの端末内に保存され、アプリから自動で外部に送信されません。</p>
       <p>利用者が共有ボタンを選んだ場合は、選択した共有先へカード画像が渡ります。バックアップを書き出した場合は、利用者が選んだ保存先にファイルが作られます。</p>
-      <p>記録後の案内画面や、県別一覧でカードをタップしたときの拡大画面から「この日本酒を探す」を選ぶと、入力した銘柄名と都道府県を検索語にしてAmazon.co.jpを開きます。検索語はAmazonへのリンクに含まれます。酒器のリンクを選んだ場合は、日本酒用の酒器を検索します。</p>
+      <p>記録後の「この日本酒を探す」を選ぶと、入力した銘柄名と都道府県を検索語にしてAmazon.co.jpを開きます。検索語はAmazonへのリンクに含まれます。酒器のリンクを選んだ場合は、日本酒用の酒器を検索します。</p>
       <p>お問い合わせフォームを送信した場合は、フォームに入力した内容がGoogle Formsに送信され、フォームの管理者が回答を確認します。酒の記録や写真がフォームへ自動で送られることはありません。</p>
       <p>このアプリはGitHub Pagesで公開される静的なWebアプリです。現在アプリ内にあるAmazonリンクは通常の検索リンクで、紹介料は発生しません。紹介リンクを使う場合は、広告であることが分かる表示も追加します。</p>
     </section>
