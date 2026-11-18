@@ -808,9 +808,17 @@
         return;
       }
 
-      for(const pref of PREFECTURES){
-        const list=records.filter(r=>r.pref===pref);
-        if(!list.length)continue;
+      const prefGroups=PREFECTURES.map(pref=>({pref,list:records.filter(r=>r.pref===pref)})).filter(group=>group.list.length);
+      prefGroups.sort((a,b)=>{
+        const topA=a.list[0],topB=b.list[0];
+        if(sortSelect.value==='rating'){
+          const ratingOrder=(Number(topB.rating)||0)-(Number(topA.rating)||0);
+          if(ratingOrder)return ratingOrder;
+        }
+        return (topB.date||'').localeCompare(topA.date||'');
+      });
+
+      for(const {pref,list} of prefGroups){
         const section=document.createElement('section');
         section.className='pref-block';
         const head=document.createElement('div');
