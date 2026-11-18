@@ -840,8 +840,8 @@
 
           const details=document.createElement('div');
           details.append(safeText('div',r.brand,'entry-title'));
-          const recallLine=(r.memo||'').trim()||r.date||'';
-          if(recallLine)details.append(safeText('div',recallLine,'entry-recall'));
+          if(r.date)details.append(safeText('div',r.date,'entry-date'));
+          if(r.memo)details.append(safeText('div',r.memo,'entry-recall'))
 
           const actions=document.createElement('div');
           actions.className='entry-actions';
